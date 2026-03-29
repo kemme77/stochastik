@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1774806514.47872 "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF23CS1/dhbw_stochastic_intro.tex" "dhbw_stochastic_intro.pdf" "dhbw_stochastic_intro" 1774806516.37309 0
-  "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF23CS1/dhbw_stochastic_intro.tex" 1774806514.24784 9229 84bb39bfc3cb21d16e3b3db3c4dd4004 ""
+["pdflatex"] 1774816866.61746 "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF23CS1/dhbw_stochastic_intro.tex" "dhbw_stochastic_intro.pdf" "dhbw_stochastic_intro" 1774816868.56274 0
+  "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF23CS1/dhbw_stochastic_intro.tex" 1774816866.40786 10106 d555dbe21910dcc33ea2238ccfc1285e ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -240,11 +240,11 @@
   "/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1769844643 80050 7c2634423af1dc0fd56c1bdfd08446f8 ""
   "/usr/local/texlive/2025basic/texmf-var/web2c/pdftex/pdflatex.fmt" 1766840500 2663827 ae25494166c4aa93e1144e59aa9c8fbf ""
   "/usr/local/texlive/2025basic/texmf.cnf" 1741448314 628 81d1ada0f601fb1ffa62f1323192d946 ""
-  "dhbw_stochastic_intro.aux" 1774806516.3019 2496 4523eb6e5bd813815247b99136e2ddf8 "pdflatex"
-  "dhbw_stochastic_intro.nav" 1774806516.30275 1667 223530e0d280496bcaab89de82b2e7ab "pdflatex"
-  "dhbw_stochastic_intro.out" 1774806515.10435 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "dhbw_stochastic_intro.tex" 1774806514.24784 9229 84bb39bfc3cb21d16e3b3db3c4dd4004 ""
-  "dhbw_stochastic_intro.vrb" 1774806516.20984 625 693145009cb784b51417ade25e0f690e "pdflatex"
+  "dhbw_stochastic_intro.aux" 1774816868.49245 2625 f8e0a9ea7952996c072cc1d7157f803e "pdflatex"
+  "dhbw_stochastic_intro.nav" 1774816868.49327 1760 80a68e95556c790f6368970db289fcf5 "pdflatex"
+  "dhbw_stochastic_intro.out" 1774816867.24532 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "dhbw_stochastic_intro.tex" 1774816866.40786 10106 d555dbe21910dcc33ea2238ccfc1285e ""
+  "dhbw_stochastic_intro.vrb" 1774816868.35111 625 693145009cb784b51417ade25e0f690e "pdflatex"
   "img/Domino.jpg" 1774687746.42838 31994 0a34c0bd2516dbb9aa1763a36eef5f02 ""
   "img/Monty_closed_1.png" 1774687746.43295 113430 dc29fe241f1014f42a69728f11e6cc88 ""
   "img/Monty_open.png" 1774687746.43338 162342 012e326711298291ff527db10c1b5299 ""
