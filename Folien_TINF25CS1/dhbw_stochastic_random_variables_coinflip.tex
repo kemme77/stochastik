@@ -17,8 +17,7 @@
 \begin{document}
 
 \title[Stochastik]
-{Ein anschaulicher Einstieg in die Grundbegriffe der Stochastik \\
-am Beispiel des \(n\)-fachen Münzwurfs}
+{Wahrscheinlichkeitstheorie und Statistik (Stochastik)}
 \author[Dr. Johannes Riesterer]
 {Dr. rer. nat. Johannes Riesterer}
 \date{}
@@ -157,16 +156,6 @@ Elementarereignisse sind die einzelnen Punkte von \(\Omega\), Ereignisse sind Me
 \end{block}
 \end{frame}
 
-\begin{frame}{Wie spricht man über Ereignisse?}
-\begin{block}{Grundoperationen}
-Für zwei Ereignisse \(A\) und \(B\) gilt:
-\begin{itemize}
-    \item \(A\cup B\): \text{„A oder B tritt ein“.}
-    \item \(A\cap B\): \text{„A und B treten beide ein“.}
-    \item \(A^{\mathsf c}=\Omega\setminus A\): \text{„A tritt nicht ein“.}
-\end{itemize}
-\end{block}
-\end{frame}
 
 \begin{frame}{Beispiele zur Sprache der Ereignisse}
 \begin{block}{Beispiel}
@@ -267,6 +256,25 @@ soll wieder ein erlaubtes Ereignis sein.
 \end{block}
 \end{frame}
 
+\begin{frame}{Der Schnitt folgt aus den anderen Axiomen}
+\begin{block}{Behauptung}
+Wenn \(\mathcal A\) unter Komplement und Vereinigung stabil ist, dann ist auch der Schnitt automatisch enthalten.
+\end{block}
+
+\begin{block}{Beweis mit De Morgan}
+Für beliebige \(A, B \in \mathcal A\) gilt:
+\[
+A \cap B = (A^{\mathsf c} \cup B^{\mathsf c})^{\mathsf c}
+\]
+Da \(\mathcal A\) unter Komplement stabil ist: \(A^{\mathsf c}, B^{\mathsf c} \in \mathcal A\).
+Da \(\mathcal A\) unter Vereinigung stabil ist: \(A^{\mathsf c} \cup B^{\mathsf c} \in \mathcal A\).
+Da \(\mathcal A\) wieder unter Komplement stabil ist: \((A^{\mathsf c} \cup B^{\mathsf c})^{\mathsf c} \in \mathcal A\).
+Also: \(A \cap B \in \mathcal A\). \(\square\)
+\end{block}
+\end{frame}
+
+
+
 \begin{frame}{Im Münzwurf-Beispiel ist alles besonders einfach}
 \begin{block}{Einfachste Wahl}
 Da \(\Omega\) endlich ist, betrachten wir einfach alle Teilmengen von \(\Omega\):
@@ -284,6 +292,7 @@ Dann ist automatisch:
 \end{itemize}
 \end{block}
 \end{frame}
+
 
 \begin{frame}{Wie viele Möglichkeiten gibt es überhaupt?}
 \begin{block}{Grundfrage}

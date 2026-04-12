@@ -119,6 +119,39 @@ mit:
 \end{block}
 \end{frame}
 
+\begin{frame}{Beispiel: Zählmaß auf endlichen Mengen}
+\begin{block}{Definition}
+Für eine endliche Menge \(\Omega=\{\omega_1,\ldots,\omega_n\}\) mit Potenzmenge \(\mathcal A=\mathcal P(\Omega)\) und Wahrscheinlichkeiten \(p_1,\ldots,p_n > 0\) mit \(\sum_{i=1}^n p_i = 1\) ist das \emph{diskrete Wahrscheinlichkeitsmaß} durch
+\[
+\mathbb P(A) = \sum_{\omega \in A} p_\omega
+\]
+definiert.
+\end{block}
+
+\begin{block}{Spezialfall: Gleichverteilung}
+Falls \(p_i = \frac{1}{n}\) für alle \(i\), spricht man von der \emph{Gleichverteilung} oder \emph{diskreten Uniformverteilung}:
+\[
+\mathbb P(A) = \frac{|A|}{n} \qquad \text{(Laplace-Wahrscheinlichkeit)}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
+\begin{block}{Definition}
+Für ein Intervall \([a,b] \subseteq \mathbb R\) mit \(a < b\) ist die \emph{Gleichverteilung auf \([a,b]\)} (oder \emph{stetige Uniformverteilung}) das Wahrscheinlichkeitsmaß auf \((\mathbb R, \mathcal B(\mathbb R))\) mit
+\[
+\mathbb P([c,d]) = \frac{d-c}{b-a}
+\quad \text{für alle } a \le c \le d \le b.
+\]
+\end{block}
+
+\begin{block}{Intuition}
+Die Wahrscheinlichkeit ist proportional zu Länge des Intervalls. Jeder Punkt im Intervall \([a,b]\) hat die gleiche Wahrscheinlichkeitsdichte \(\frac{1}{b-a}\).
+\end{block}
+\end{frame}
+
+
+
 \begin{frame}{Zufallsvariable}
 \begin{block}{Definition}
 Seien \((\Omega,\mathcal A,\mathbb P)\) ein Wahrscheinlichkeitsraum und \((E,\mathcal E)\) ein Messraum.

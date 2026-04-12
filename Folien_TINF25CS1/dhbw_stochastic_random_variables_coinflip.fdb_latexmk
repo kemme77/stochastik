@@ -1,5 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1775999286.58381 "dhbw_stochastic_random_variables_coinflip.tex" "dhbw_stochastic_random_variables_coinflip.pdf" "dhbw_stochastic_random_variables_coinflip" 1775999289.09741 0
+["pdflatex"] 1776019460.61455 "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables_coinflip.tex" "dhbw_stochastic_random_variables_coinflip.pdf" "dhbw_stochastic_random_variables_coinflip" 1776019463.95034 0
+  "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables_coinflip.tex" 1776019460.40413 17779 67f4125126c68c261f72f09ae2874a35 ""
   "/Users/johannesriesterer/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi0800.600pk" 1775993150.32721 19376 e5f4f8b8f45bfb6552a77ff5cd9d7594 ""
   "/Users/johannesriesterer/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi1000.600pk" 1769961023.6898 24520 e4b07a34f2fa21ea4cb3d12c9a4625a3 ""
   "/Users/johannesriesterer/Library/texlive/2025basic/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsi1095.600pk" 1769961024.07563 26844 7b7167728de2a36b5e6c858c057e78b1 ""
@@ -48,6 +49,7 @@
   "/usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb" 1248133631 24393 3b7eb51a67a0a62aec5849271bdb9c2e ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
+  "/usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/texlive/2025basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2025basic/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -215,10 +217,10 @@
   "/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1769844643 80050 7c2634423af1dc0fd56c1bdfd08446f8 ""
   "/usr/local/texlive/2025basic/texmf-var/web2c/pdftex/pdflatex.fmt" 1766840500 2663827 ae25494166c4aa93e1144e59aa9c8fbf ""
   "/usr/local/texlive/2025basic/texmf.cnf" 1741448314 628 81d1ada0f601fb1ffa62f1323192d946 ""
-  "dhbw_stochastic_random_variables_coinflip.aux" 1775999289.0021 5592 f69eb3f080395d939dbe6cc95940e4d8 "pdflatex"
-  "dhbw_stochastic_random_variables_coinflip.nav" 1775999289.00322 3899 fef2a199258e9e89b3fab237594fbc6c "pdflatex"
-  "dhbw_stochastic_random_variables_coinflip.out" 1775999287.17189 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "dhbw_stochastic_random_variables_coinflip.tex" 1775999282.51414 17458 567fa5623c300c5c3b16aeeee4f4c81b ""
+  "dhbw_stochastic_random_variables_coinflip.aux" 1776019463.82896 5592 f69eb3f080395d939dbe6cc95940e4d8 "pdflatex"
+  "dhbw_stochastic_random_variables_coinflip.nav" 1776019463.83037 3899 fef2a199258e9e89b3fab237594fbc6c "pdflatex"
+  "dhbw_stochastic_random_variables_coinflip.out" 1776019461.5363 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "dhbw_stochastic_random_variables_coinflip.tex" 1776019460.40413 17779 67f4125126c68c261f72f09ae2874a35 ""
   (generated)
   "dhbw_stochastic_random_variables_coinflip.aux"
   "dhbw_stochastic_random_variables_coinflip.log"
