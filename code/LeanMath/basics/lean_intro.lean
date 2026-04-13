@@ -139,6 +139,10 @@ example {α : Type*} (A B : Set α) : (A ∪ B)ᶜ = Aᶜ ∩ Bᶜ := by
     | inl hxA => exact hx.1 hxA
     | inr hxB => exact hx.2 hxB
 
+example {α : Type*} (A B : Set α) : (A ∪ B)ᶜ = Aᶜ ∩ Bᶜ := by
+  ext x
+  simp
+
 example {α : Type*} (A B : Set α) : (A ∩ B)ᶜ = Aᶜ ∪ Bᶜ := by
   ext x
   constructor

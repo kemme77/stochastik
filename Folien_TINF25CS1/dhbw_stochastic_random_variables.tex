@@ -60,13 +60,49 @@ Aus den Erzeugern in \(\mathcal G\) werden durch Komplementbildung und abzählba
 \end{block}
 \end{frame}
 
+
+\begin{frame}{Existenz und Eindeutigkeit der erzeugten \(\sigma\)-Algebra}
+\begin{block}{Satz}
+Sei \(\mathcal G\subseteq \mathcal P(\Omega)\) ein Mengensystem.
+Dann gibt es genau eine kleinste \(\sigma\)-Algebra auf \(\Omega\), die \(\mathcal G\) enthält.
+\end{block}
+
+\begin{block}{Beweisidee}
+Betrachte alle \(\sigma\)-Algebren auf \(\Omega\), die \(\mathcal G\) enthalten:
+\[
+\mathfrak F
+=
+\{\mathcal A\subseteq\mathcal P(\Omega):
+\mathcal A \text{ ist \(\sigma\)-Algebra und }
+\mathcal G\subseteq\mathcal A\}.
+\]
+Diese Familie ist nicht leer, denn \(\mathcal P(\Omega)\in\mathfrak F\).
+
+Dann setze
+\[
+\sigma(\mathcal G):=\bigcap_{\mathcal A\in\mathfrak F}\mathcal A.
+\]
+Ein Durchschnitt von \(\sigma\)-Algebren ist wieder eine \(\sigma\)-Algebra.
+Außerdem enthält \(\sigma(\mathcal G)\) das Mengensystem \(\mathcal G\).
+
+Ist \(\mathcal B\) irgendeine \(\sigma\)-Algebra mit \(\mathcal G\subseteq\mathcal B\),
+so gilt \(\mathcal B\in\mathfrak F\), also
+\[
+\sigma(\mathcal G)\subseteq\mathcal B.
+\]
+Damit ist \(\sigma(\mathcal G)\) die kleinste solche \(\sigma\)-Algebra.
+
+Die Eindeutigkeit folgt sofort aus der Minimalität.
+\end{block}
+\end{frame}
+
 \begin{frame}{Borelsche \(\sigma\)-Algebra}
 \begin{block}{Definition}
 Die borelsche \(\sigma\)-Algebra auf \(\mathbb R\) ist
 \[
 \mathcal B(\mathbb R)=\sigma(\mathcal O),
 \]
-wobei \(\mathcal O\) die offenen Mengen in \(\mathbb R\) bezeichnet.
+wobei \(\mathcal O\) die offenen Intervalle (offenen Mengen) in \(\mathbb R\) bezeichnet.
 \end{block}
 
 \begin{block}{Wichtige Erzeuger}
