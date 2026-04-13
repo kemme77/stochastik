@@ -1,0 +1,765 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue
+}
+
+\setbeamertemplate{footline}[frame number]
+
+\begin{document}
+
+\title[Stochastik]
+{Wahrscheinlichkeitstheorie und Statistik (Stochastik)}
+\author[Dr. Johannes Riesterer]
+{Dr. rer. nat. Johannes Riesterer}
+\date{}
+\subject{Stochastik}
+
+\frame{\titlepage}
+
+\begin{frame}{Das Experiment}
+\begin{block}{Ausgangssituation}
+Wir werfen eine faire Münze \(n\)-mal.
+Jeder einzelne Wurf hat zwei mögliche Ausgänge:
+\[
+K=\text{Kopf}, \qquad Z=\text{Zahl}.
+\]
+\end{block}
+
+\begin{block}{Frage}
+Wie kann man dieses Experiment mathematisch so beschreiben, dass man
+später Wahrscheinlichkeiten und beobachtbare Größen systematisch untersuchen kann?
+\end{block}
+\end{frame}
+
+\begin{frame}{Alle möglichen Abläufe}
+\begin{block}{Vollständige Beschreibung}
+Ein vollständiger Ablauf des Experiments ist eine Folge der Länge \(n\), zum Beispiel
+\[
+(K,Z,K,K,Z,\dots).
+\]
+\end{block}
+
+\begin{block}{Menge aller Möglichkeiten}
+Die Menge aller möglichen vollständigen Abläufe ist
+\[
+\Omega=\{K,Z\}^n.
+\]
+\end{block}
+
+\begin{block}{Anzahl}
+Da jeder der \(n\) Würfe genau zwei Möglichkeiten hat, gibt es insgesamt
+\[
+|\Omega|=2^n
+\]
+mögliche vollständige Abläufe.
+\end{block}
+\end{frame}
+
+\begin{frame}{Elementarereignisse}
+\begin{block}{Definition}
+Ein \emph{Elementarereignis} ist genau ein einzelner vollständiger Ablauf des Experiments,
+also ein einzelnes Element
+\[
+\omega\in\Omega.
+\]
+\end{block}
+
+\begin{block}{Beispiel}
+Für \(n=5\) ist
+\[
+\omega=(K,Z,K,K,Z)
+\]
+ein Elementarereignis.
+\end{block}
+
+\begin{block}{Bedeutung}
+Ein Elementarereignis beschreibt den gesamten konkreten Ausgang des Experiments.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel: \(n=3\)}
+\begin{block}{Ergebnisraum}
+Für \(n=3\) ist
+\[
+\Omega=\{K,Z\}^3.
+\]
+Die Elementarereignisse sind:
+\[
+(K,K,K),\ (K,K,Z),\ (K,Z,K),\ (K,Z,Z),
+\]
+\[
+(Z,K,K),\ (Z,K,Z),\ (Z,Z,K),\ (Z,Z,Z).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Welche Aussagen über das Experiment interessieren uns?}
+\begin{block}{Definition}
+Ein \emph{Ereignis} ist eine Menge von Elementarereignissen, also eine Teilmenge von \(\Omega\):
+\[
+A\subseteq\Omega.
+\]
+\end{block}
+
+\begin{block}{Bedeutung}
+Ein Ereignis tritt ein, wenn das tatsächlich eingetretene Elementarereignis \(\omega\)
+in der Menge \(A\) liegt.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiele für Ereignisse}
+\begin{block}{Erster Wurf ist Kopf}
+\[
+A=\{\omega\in\Omega : \text{im ersten Wurf fällt Kopf}\}.
+\]
+\end{block}
+
+\begin{block}{Genau zwei Köpfe}
+\[
+B=\{\omega\in\Omega : \text{genau zwei Köpfe auftreten}\}.
+\]
+\end{block}
+
+\begin{block}{Mindestens ein Kopf}
+\[
+C=\{\omega\in\Omega : \text{mindestens einmal Kopf fällt}\}.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Elementarereignis oder Ereignis?}
+\begin{block}{Elementarereignis}
+\[
+(K,Z,K)
+\]
+ist ein einzelner vollständiger Ablauf, also ein Elementarereignis.
+\end{block}
+
+\begin{block}{Ereignis}
+\[
+\{(K,K,Z),(K,Z,K),(Z,K,K)\}
+\]
+ist eine Menge mehrerer vollständiger Abläufe, also ein Ereignis.
+\end{block}
+
+\begin{block}{Merksatz}
+Elementarereignisse sind die einzelnen Punkte von \(\Omega\), Ereignisse sind Mengen solcher Punkte.
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Beispiele zur Sprache der Ereignisse}
+\begin{block}{Beispiel}
+Sei \(A=\{\text{im ersten Wurf fällt Kopf}\}\) und
+\(B=\{\text{im zweiten Wurf fällt Kopf}\}\).
+\end{block}
+
+\begin{block}{Interpretation}
+\begin{itemize}
+    \item \(A\cup B\): \text{„im ersten oder im zweiten Wurf fällt Kopf“.}
+    \item \(A\cap B\): \text{„im ersten und im zweiten Wurf fällt Kopf“.}
+    \item \(A^{\mathsf c}\): \text{„im ersten Wurf fällt nicht Kopf“, also Zahl.}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Welche Mengen von Ereignissen wollen wir zulassen?}
+\begin{block}{Idee}
+Wir möchten mit einer Sammlung von Ereignissen arbeiten, die unter natürlichen Operationen stabil bleibt.
+\end{block}
+
+\begin{block}{Wichtig}
+Wenn ein Ereignis betrachtet werden darf, dann sollen auch verwandte Ereignisse wieder betrachtet werden dürfen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Das sichere Ereignis soll dabei sein}
+\begin{block}{Sicheres Ereignis}
+Das Ereignis
+\[
+\Omega
+\]
+bedeutet: irgendein möglicher Ablauf tritt ein.
+\end{block}
+
+\begin{block}{Warum wichtig?}
+Dieses Ereignis soll immer zugelassen sein, denn es tritt sicher ein.
+\end{block}
+\end{frame}
+
+\begin{frame}{Das Gegenteil eines Ereignisses soll wieder erlaubt sein}
+\begin{block}{Komplement}
+Zu einem Ereignis \(A\subseteq\Omega\) gehört das Gegenereignis
+\[
+A^{\mathsf c}=\Omega\setminus A.
+\]
+\end{block}
+
+\begin{block}{Bedeutung}
+Wenn \(A\) bedeutet:
+\[
+\text{„im ersten Wurf fällt Kopf“},
+\]
+dann bedeutet \(A^{\mathsf c}\):
+\[
+\text{„im ersten Wurf fällt Zahl“.}
+\]
+\end{block}
+
+\begin{block}{Wunsch}
+Ist \(A\) ein erlaubtes Ereignis, dann soll auch \(A^{\mathsf c}\) ein erlaubtes Ereignis sein.
+\end{block}
+\end{frame}
+
+\begin{frame}{Auch Vereinigungen von Ereignissen sollen wieder erlaubt sein}
+\begin{block}{Vereinigung}
+Sind \(A\) und \(B\) Ereignisse, dann bedeutet \(A\cup B\):
+\[
+\text{„\(A\) tritt ein oder \(B\) tritt ein“.}
+\]
+\end{block}
+
+\begin{block}{Beispiel}
+\(A=\{\text{erster Wurf ist Kopf}\}\),
+\(B=\{\text{zweiter Wurf ist Kopf}\}\). Dann ist \(A\cup B\):
+\[
+\text{„im ersten oder im zweiten Wurf fällt Kopf“.}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Auch unendlich viele Vereinigungen sollen erlaubt sein}
+\begin{block}{Idee}
+In der Theorie möchte man nicht nur zwei oder drei Ereignisse zusammenfassen,
+sondern auch Folgen von Ereignissen
+\[
+A_1,A_2,A_3,\dots
+\]
+gleichzeitig betrachten können.
+\end{block}
+
+\begin{block}{Daher}
+Auch
+\[
+\bigcup_{n\in\mathbb N} A_n
+\]
+soll wieder ein erlaubtes Ereignis sein.
+\end{block}
+\end{frame}
+
+\begin{frame}{Der Schnitt folgt aus den anderen Axiomen}
+\begin{block}{Behauptung}
+Wenn \(\mathcal A\) unter Komplement und Vereinigung stabil ist, dann ist auch der Schnitt automatisch enthalten.
+\end{block}
+
+\begin{block}{Beweis mit De Morgan}
+Für beliebige \(A, B \in \mathcal A\) gilt:
+\[
+A \cap B = (A^{\mathsf c} \cup B^{\mathsf c})^{\mathsf c}
+\]
+Da \(\mathcal A\) unter Komplement stabil ist: \(A^{\mathsf c}, B^{\mathsf c} \in \mathcal A\).
+Da \(\mathcal A\) unter Vereinigung stabil ist: \(A^{\mathsf c} \cup B^{\mathsf c} \in \mathcal A\).
+Da \(\mathcal A\) wieder unter Komplement stabil ist: \((A^{\mathsf c} \cup B^{\mathsf c})^{\mathsf c} \in \mathcal A\).
+Also: \(A \cap B \in \mathcal A\). \(\square\)
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Im Münzwurf-Beispiel ist alles besonders einfach}
+\begin{block}{Einfachste Wahl}
+Da \(\Omega\) endlich ist, betrachten wir einfach alle Teilmengen von \(\Omega\):
+\[
+\mathcal P(\Omega).
+\]
+\end{block}
+
+\begin{block}{Vorteil}
+Dann ist automatisch:
+\begin{itemize}
+    \item das sichere Ereignis dabei,
+    \item das Gegenereignis eines Ereignisses wieder erlaubt,
+    \item die Vereinigung von Ereignissen wieder erlaubt.
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Wie viele Möglichkeiten gibt es überhaupt?}
+\begin{block}{Grundfrage}
+Bevor wir Wahrscheinlichkeiten berechnen, müssen wir oft zählen, wie viele Möglichkeiten es gibt.
+\end{block}
+
+\begin{block}{Wichtig}
+Dabei muss man unterscheiden:
+\begin{itemize}
+    \item spielt die Reihenfolge eine Rolle?
+    \item darf sich etwas wiederholen?
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Zählen mit Reihenfolge}
+\begin{block}{Mit Wiederholung}
+Werden \(k\) Plätze nacheinander aus \(n\) Möglichkeiten besetzt und dürfen sich Einträge wiederholen, dann gibt es
+\[
+n^k
+\]
+Möglichkeiten.
+\end{block}
+
+\begin{block}{Ohne Wiederholung}
+Werden \(k\) Plätze nacheinander aus \(n\) Möglichkeiten besetzt und darf nichts doppelt vorkommen, dann gibt es
+\[
+n(n-1)\cdots(n-k+1)=\frac{n!}{(n-k)!}
+\]
+Möglichkeiten.
+\end{block}
+\end{frame}
+
+\begin{frame}{Zählen ohne Reihenfolge}
+\begin{block}{Ohne Wiederholung}
+Wählt man \(k\) Elemente aus \(n\) aus und die Reihenfolge spielt keine Rolle, dann gibt es
+\[
+\binom{n}{k}=\frac{n!}{k!(n-k)!}
+\]
+Möglichkeiten.
+\end{block}
+
+\begin{block}{Mit Wiederholung}
+Wählt man \(k\) Elemente aus \(n\) aus, die Reihenfolge spielt keine Rolle und Wiederholung ist erlaubt, dann gibt es
+\[
+\binom{n+k-1}{k}
+\]
+Möglichkeiten.
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum brauchen wir diese Formeln hier?}
+\begin{block}{Für den Münzwurf}
+Ein vollständiger Ablauf von \(n\) Würfen ist eine Folge der Länge \(n\) mit zwei Möglichkeiten pro Platz.
+\end{block}
+
+\begin{block}{Daher}
+Die Anzahl aller vollständigen Abläufe ist
+\[
+2^n.
+\]
+Das ist genau der Fall:
+\[
+\text{Reihenfolge wichtig, Wiederholung erlaubt.}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Wie viele Abläufe mit genau \(k\) Köpfen gibt es?}
+\begin{block}{Idee}
+Wir müssen nur entscheiden, an welchen \(k\) Stellen Kopf steht.
+\end{block}
+
+\begin{block}{Daher}
+Die Anzahl der Abläufe mit genau \(k\) Köpfen ist
+\[
+\binom{n}{k}.
+\]
+\end{block}
+
+\begin{block}{Warum?}
+Wir wählen \(k\) Plätze aus \(n\) aus, an denen Kopf steht:
+\[
+\text{Reihenfolge unwichtig, keine Wiederholung.}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Wie berechnet man Wahrscheinlichkeiten?}
+\begin{block}{Laplace-Idee}
+Da die Münze fair ist, sind alle Elementarereignisse \(\omega\in\Omega\) gleich wahrscheinlich.
+\end{block}
+
+\begin{block}{Daher}
+Für ein Ereignis \(A\subseteq\Omega\) ist die Wahrscheinlichkeit
+\[
+\mathbb P(A)=\frac{|A|}{|\Omega|}.
+\]
+\end{block}
+
+\begin{block}{Hier}
+Weil \(|\Omega|=2^n\), gilt also
+\[
+\mathbb P(A)=\frac{|A|}{2^n}.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel einer Wahrscheinlichkeit}
+\begin{block}{Frage}
+Wie groß ist die Wahrscheinlichkeit, dass im ersten Wurf Kopf fällt?
+\end{block}
+
+\begin{block}{Antwort}
+Genau die Hälfte aller Elementarereignisse beginnt mit \(K\), also
+\[
+\mathbb P(\text{erster Wurf ist Kopf})=\frac{2^{n-1}}{2^n}=\frac12.
+\]
+\end{block}
+
+\begin{block}{Anschaulich}
+Der erste Wurf ist fair, unabhängig davon, was später passiert.
+\end{block}
+\end{frame}
+
+\begin{frame}{Welche Eigenschaften soll die Wahrscheinlichkeitszuordnung haben?}
+\begin{block}{Erwartung}
+Eine Wahrscheinlichkeitszuordnung soll jedem erlaubten Ereignis eine Zahl zwischen \(0\) und \(1\) zuordnen.
+\end{block}
+
+\begin{block}{Wichtige Eigenschaften}
+\begin{itemize}
+    \item Das sichere Ereignis soll Wahrscheinlichkeit \(1\) haben.
+    \item Unmögliche Ereignisse sollen Wahrscheinlichkeit \(0\) haben.
+    \item Wenn zwei Ereignisse sich ausschließen, addieren sich ihre Wahrscheinlichkeiten.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Eine Zahl zu jedem Ablauf}
+\begin{block}{Neue Idee}
+Oft möchte man aus einem vollständigen Ablauf nur eine bestimmte Zahl herauslesen.
+\end{block}
+
+\begin{block}{Beispiel}
+Man kann jedem Ablauf die Zahl
+\[
+0 \text{ oder } 1
+\]
+zuordnen, je nachdem, ob im ersten Wurf Zahl oder Kopf gefallen ist.
+\end{block}
+
+\begin{block}{Allgemein}
+Eine solche Zuordnung nimmt einen vollständigen Ablauf \(\omega\)
+und liefert daraus eine Zahl.
+\end{block}
+\end{frame}
+
+\begin{frame}{Die \(i\)-te Kopf-Anzeige}
+\begin{block}{Definition durch Anschauung}
+Für den \(i\)-ten Wurf ordnen wir jedem Ablauf \(\omega\) die Zahl
+\[
+1
+\]
+zu, wenn im \(i\)-ten Wurf Kopf gefallen ist, und die Zahl
+\[
+0
+\]
+wenn dort Zahl gefallen ist.
+\end{block}
+
+\begin{block}{Schreibweise}
+Diese Zuordnung nennen wir \(X_i\):
+\[
+X_i(\omega)=
+\begin{cases}
+1,& \text{falls im \(i\)-ten Wurf Kopf fällt},\\
+0,& \text{falls im \(i\)-ten Wurf Zahl fällt}.
+\end{cases}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel für \(X_i\)}
+\begin{block}{Beispiel}
+Sei \(n=4\) und
+\[
+\omega=(K,Z,K,Z).
+\]
+Dann gilt:
+\[
+X_1(\omega)=1,\qquad X_2(\omega)=0,\qquad X_3(\omega)=1,\qquad X_4(\omega)=0.
+\]
+\end{block}
+
+\begin{block}{Bedeutung}
+\(X_i\) schaut nur auf den \(i\)-ten Wurf und ignoriert den Rest.
+\end{block}
+\end{frame}
+
+\begin{frame}{Ein vollständiges Beispiel für \(n=2\)}
+\[
+\begin{array}{c|c|c|c}
+\omega & X_1(\omega) & X_2(\omega) & S_2(\omega)=X_1(\omega)+X_2(\omega)\\
+\hline
+(K,K) & 1 & 1 & 2\\
+(K,Z) & 1 & 0 & 1\\
+(Z,K) & 0 & 1 & 1\\
+(Z,Z) & 0 & 0 & 0
+\end{array}
+\]
+\end{frame}
+
+\begin{frame}{Was sieht man an der Tabelle?}
+\begin{block}{Einzelne Anzeigen}
+\(X_1\) liest nur den ersten Wurf, \(X_2\) nur den zweiten Wurf.
+\end{block}
+
+\begin{block}{Summe}
+Die Größe
+\[
+S_2=X_1+X_2
+\]
+zählt die Anzahl der Köpfe.
+\end{block}
+
+\begin{block}{Verteilung}
+Aus der Tabelle kann man direkt ablesen:
+\[
+\mathbb P(X_1=1)=\frac12,\qquad \mathbb P(X_2=1)=\frac12,
+\]
+\[
+\mathbb P(S_2=0)=\frac14,\qquad
+\mathbb P(S_2=1)=\frac12,\qquad
+\mathbb P(S_2=2)=\frac14.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Aus einzelnen Anzeigen wird eine neue Größe}
+\begin{block}{Idee}
+Aus den einzelnen Anzeigen \(X_1,\dots,X_n\) kann man eine neue Größe bilden:
+\[
+S_n=X_1+\dots+X_n.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Für jeden Ablauf \(\omega\) ist \(S_n(\omega)\) genau die Gesamtzahl der Köpfe.
+\end{block}
+
+\begin{block}{Mögliche Werte}
+\[
+0,1,2,\dots,n.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel für die Anzahl der Köpfe}
+\begin{block}{Beispiel}
+Für
+\[
+\omega=(K,Z,K,K,Z)
+\]
+gilt:
+\[
+X_1(\omega)=1,\quad X_2(\omega)=0,\quad X_3(\omega)=1,\quad X_4(\omega)=1,\quad X_5(\omega)=0.
+\]
+Also
+\[
+S_5(\omega)=3.
+\]
+\end{block}
+
+\begin{block}{Anschaulich}
+Die Summe zählt einfach, wie oft Kopf aufgetreten ist.
+\end{block}
+\end{frame}
+
+\begin{frame}{Wie oft tritt ein bestimmter Wert auf?}
+\begin{block}{Frage}
+Wie oft nimmt die Zuordnung \(X_i\) den Wert \(1\) an?
+\end{block}
+
+\begin{block}{Antwort}
+Genau in der Hälfte aller Elementarereignisse.
+Also gilt:
+\[
+\mathbb P(X_i=1)=\frac12,\qquad \mathbb P(X_i=0)=\frac12.
+\]
+\end{block}
+
+\begin{block}{Bedeutung}
+Wir betrachten also nicht mehr nur Abläufe selbst, sondern die Verteilung
+der durch \(X_i\) erzeugten Zahlen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Wie ist es bei der Kopfzahl \(S_n\)?}
+\begin{block}{Frage}
+Wie oft tritt der Wert \(k\) auf?
+\end{block}
+
+\begin{block}{Antwort}
+Genau dann, wenn in dem Ablauf genau \(k\) Köpfe vorkommen.
+Davon gibt es
+\[
+\binom{n}{k}
+\]
+verschiedene Elementarereignisse.
+\end{block}
+
+\begin{block}{Folgerung}
+Also gilt:
+\[
+\mathbb P(S_n=k)=\frac{\binom{n}{k}}{2^n}.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Zwei solche Zuordnungen gleichzeitig}
+\begin{block}{Neue Idee}
+Man kann zwei der Zuordnungen gleichzeitig betrachten, zum Beispiel \(X_i\) und \(X_j\).
+\end{block}
+
+\begin{block}{Dann interessiert}
+Nicht nur:
+\[
+X_i(\omega),
+\]
+sondern das Paar
+\[
+(X_i(\omega),X_j(\omega)).
+\]
+\end{block}
+
+\begin{block}{Mögliche Werte}
+\[
+(0,0),\ (0,1),\ (1,0),\ (1,1).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel für zwei Würfe gleichzeitig}
+\begin{block}{Beispiel}
+Sei \(i=1\), \(j=3\) und
+\[
+\omega=(K,Z,Z,K).
+\]
+Dann gilt
+\[
+X_1(\omega)=1,\qquad X_3(\omega)=0,
+\]
+also
+\[
+(X_1(\omega),X_3(\omega))=(1,0).
+\]
+\end{block}
+
+\begin{block}{Bedeutung}
+Wir betrachten also zwei Beobachtungsgrößen gleichzeitig.
+\end{block}
+\end{frame}
+
+\begin{frame}{Kombinationen von Werten}
+\begin{block}{Welche Paare sind möglich?}
+Für zwei Würfe gibt es genau vier mögliche Paare:
+\[
+(0,0),\ (0,1),\ (1,0),\ (1,1).
+\]
+\end{block}
+
+\begin{block}{Bei fairer Münze}
+Jedes dieser vier Paare tritt gleich häufig auf.
+Also gilt:
+\[
+\mathbb P(X_i=0,X_j=0)=\frac14,
+\]
+\[
+\mathbb P(X_i=0,X_j=1)=\frac14,
+\]
+\[
+\mathbb P(X_i=1,X_j=0)=\frac14,
+\]
+\[
+\mathbb P(X_i=1,X_j=1)=\frac14.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Getrennte Bedingungen an zwei Komponenten}
+\begin{block}{Beispiel}
+Man kann sagen:
+\[
+\text{„Die erste Größe soll \(1\) sein, die zweite darf \(0\) oder \(1\) sein.“}
+\]
+\end{block}
+
+\begin{block}{Dann erhält man die Menge}
+\[
+\{(1,0),(1,1)\}.
+\]
+\end{block}
+
+\begin{block}{Idee}
+Solche Mengen beschreiben Bedingungen an die erste und zweite Komponente getrennt.
+Später werden genau solche Mengen besonders wichtig.
+\end{block}
+\end{frame}
+
+\begin{frame}{Unabhängigkeit anschaulich}
+\begin{block}{Frage}
+Beeinflusst das Ergebnis des \(i\)-ten Wurfs das Ergebnis des \(j\)-ten Wurfs?
+\end{block}
+
+\begin{block}{Beim fairen Münzwurf}
+Nein. Ob im \(i\)-ten Wurf Kopf oder Zahl fällt, ändert nichts an den Möglichkeiten
+des \(j\)-ten Wurfs.
+\end{block}
+
+\begin{block}{Daher}
+Die Wahrscheinlichkeit für ein gemeinsames Paar zerfällt in das Produkt:
+\[
+\frac14=\frac12\cdot\frac12.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Ein Beispiel für Unabhängigkeit}
+\begin{block}{Beispiel}
+Die Wahrscheinlichkeit dafür, dass sowohl im \(i\)-ten als auch im \(j\)-ten Wurf Kopf fällt, ist
+\[
+\mathbb P(X_i=1,\ X_j=1)=\frac14.
+\]
+\end{block}
+
+\begin{block}{Einzelwahrscheinlichkeiten}
+Gleichzeitig gilt
+\[
+\mathbb P(X_i=1)=\frac12,\qquad \mathbb P(X_j=1)=\frac12.
+\]
+\end{block}
+
+\begin{block}{Vergleich}
+Also
+\[
+\mathbb P(X_i=1,\ X_j=1)=\mathbb P(X_i=1)\cdot\mathbb P(X_j=1).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Was haben wir bis jetzt aufgebaut?}
+\begin{block}{Vom Experiment aus}
+Aus dem \(n\)-fachen Münzwurf haben wir bisher ganz konkret gewonnen:
+\begin{itemize}
+    \item eine Menge aller Elementarereignisse,
+    \item Ereignisse als Mengen von Elementarereignissen,
+    \item Regeln dafür, welche Ereignisse zusammen wieder betrachtet werden dürfen,
+    \item eine Regel zur Berechnung von Wahrscheinlichkeiten,
+    \item Zuordnungen, die aus Elementarereignissen Zahlen machen,
+    \item die Untersuchung, wie oft bestimmte Werte auftreten,
+    \item die gemeinsame Betrachtung mehrerer solcher Zuordnungen,
+    \item die Idee der Unabhängigkeit.
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\end{document}

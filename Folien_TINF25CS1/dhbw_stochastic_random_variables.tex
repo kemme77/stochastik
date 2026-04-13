@@ -1,0 +1,569 @@
+\documentclass{beamer}
+\usetheme{Warsaw}
+
+\usepackage[utf8]{inputenc}
+\usepackage{fancybox}
+\usepackage{multimedia}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue
+}
+\usepackage[all]{xy}
+
+\setbeamertemplate{footline}[frame number]
+
+\begin{document}
+
+\title[Stochastik]
+{Wahrscheinlichkeitstheorie und Statistik (Stochastik)
+\\
+\includegraphics[scale=0.5]{img/craps}
+}
+\subtitle{}
+\author[Dr. Johannes Riesterer]
+{Dr. rer. nat. Johannes Riesterer}
+
+\date[KPT 2004]{}
+\subject{Stochastik}
+
+\frame{\titlepage}
+
+\begin{frame}{\(\sigma\)-Algebra}
+\begin{block}{Definition}
+Eine Menge \(\mathcal A \subseteq \mathcal P(\Omega)\) hei\ss{}t \(\sigma\)-Algebra auf \(\Omega\), wenn gilt:
+\begin{enumerate}
+    \item \(\Omega \in \mathcal A\),
+    \item aus \(A \in \mathcal A\) folgt \(A^{\mathsf c} \in \mathcal A\),
+    \item aus \(A_1,A_2,\dots \in \mathcal A\) folgt
+    \[
+    \bigcup_{n\in\mathbb N} A_n \in \mathcal A.
+    \]
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Erzeugte \(\sigma\)-Algebra}
+\begin{block}{Definition}
+Für ein Mengensystem \(\mathcal G \subseteq \mathcal P(\Omega)\) bezeichnet
+\[
+\sigma(\mathcal G)
+\]
+die kleinste \(\sigma\)-Algebra auf \(\Omega\), die \(\mathcal G\) enthält.
+\end{block}
+
+\begin{block}{Idee}
+Aus den Erzeugern in \(\mathcal G\) werden durch Komplementbildung und abzählbare Vereinigungen alle messbaren Mengen erzeugt.
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Existenz und Eindeutigkeit der erzeugten \(\sigma\)-Algebra}
+\begin{block}{Satz}
+Sei \(\mathcal G\subseteq \mathcal P(\Omega)\) ein Mengensystem.
+Dann gibt es genau eine kleinste \(\sigma\)-Algebra auf \(\Omega\), die \(\mathcal G\) enthält.
+\end{block}
+
+\begin{block}{Beweisidee}
+Betrachte alle \(\sigma\)-Algebren auf \(\Omega\), die \(\mathcal G\) enthalten:
+\[
+\mathfrak F
+=
+\{\mathcal A\subseteq\mathcal P(\Omega):
+\mathcal A \text{ ist \(\sigma\)-Algebra und }
+\mathcal G\subseteq\mathcal A\}.
+\]
+Diese Familie ist nicht leer, denn \(\mathcal P(\Omega)\in\mathfrak F\).
+
+Dann setze
+\[
+\sigma(\mathcal G):=\bigcap_{\mathcal A\in\mathfrak F}\mathcal A.
+\]
+Ein Durchschnitt von \(\sigma\)-Algebren ist wieder eine \(\sigma\)-Algebra.
+Außerdem enthält \(\sigma(\mathcal G)\) das Mengensystem \(\mathcal G\).
+
+Ist \(\mathcal B\) irgendeine \(\sigma\)-Algebra mit \(\mathcal G\subseteq\mathcal B\),
+so gilt \(\mathcal B\in\mathfrak F\), also
+\[
+\sigma(\mathcal G)\subseteq\mathcal B.
+\]
+Damit ist \(\sigma(\mathcal G)\) die kleinste solche \(\sigma\)-Algebra.
+
+Die Eindeutigkeit folgt sofort aus der Minimalität.
+\end{block}
+\end{frame}
+
+\begin{frame}{Borelsche \(\sigma\)-Algebra}
+\begin{block}{Definition}
+Die borelsche \(\sigma\)-Algebra auf \(\mathbb R\) ist
+\[
+\mathcal B(\mathbb R)=\sigma(\mathcal O),
+\]
+wobei \(\mathcal O\) die offenen Intervalle (offenen Mengen) in \(\mathbb R\) bezeichnet.
+\end{block}
+
+\begin{block}{Wichtige Erzeuger}
+Äquivalent gilt
+\[
+\mathcal B(\mathbb R)=\sigma\bigl(\{(-\infty,a] : a\in\mathbb R\}\bigr).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Messbarkeit reellwertiger Zufallsvariablen}
+\begin{block}{Definition}
+Eine Abbildung
+\[
+X\colon \Omega \to \mathbb R
+\]
+hei\ss{}t messbar, wenn für alle \(B\in\mathcal B(\mathbb R)\) gilt:
+\[
+X^{-1}(B)\in\mathcal A.
+\]
+\end{block}
+
+\begin{block}{Praktisches Kriterium}
+Oft genügt es zu zeigen:
+\[
+\{\omega\in\Omega : X(\omega)\le a\}\in\mathcal A
+\qquad
+\text{für alle } a\in\mathbb R.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Wahrscheinlichkeitsmaß}
+\begin{block}{Definition}
+Ein Wahrscheinlichkeitsmaß auf einem Messraum \((\Omega,\mathcal A)\) ist eine Abbildung
+\[
+\mathbb P\colon \mathcal A \to [0,\infty]
+\]
+mit:
+\begin{enumerate}
+    \item \(\mathbb P(\Omega)=1\),
+    \item \(\mathbb P(A)\ge 0\) für alle \(A\in\mathcal A\),
+    \item für paarweise disjunkte \(A_1,A_2,\dots \in \mathcal A\) gilt
+    \[
+    \mathbb P\!\left(\bigcup_{n\in\mathbb N} A_n\right)
+    =
+    \sum_{n\in\mathbb N}\mathbb P(A_n).
+    \]
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel: Zählmaß auf endlichen Mengen}
+\begin{block}{Definition}
+Für eine endliche Menge \(\Omega=\{\omega_1,\ldots,\omega_n\}\) mit Potenzmenge \(\mathcal A=\mathcal P(\Omega)\) und Wahrscheinlichkeiten \(p_1,\ldots,p_n > 0\) mit \(\sum_{i=1}^n p_i = 1\) ist das \emph{diskrete Wahrscheinlichkeitsmaß} durch
+\[
+\mathbb P(A) = \sum_{\omega \in A} p_\omega
+\]
+definiert.
+\end{block}
+
+\begin{block}{Spezialfall: Gleichverteilung}
+Falls \(p_i = \frac{1}{n}\) für alle \(i\), spricht man von der \emph{Gleichverteilung} oder \emph{diskreten Uniformverteilung}:
+\[
+\mathbb P(A) = \frac{|A|}{n} \qquad \text{(Laplace-Wahrscheinlichkeit)}
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
+\begin{block}{Definition}
+Für ein Intervall \([a,b] \subseteq \mathbb R\) mit \(a < b\) ist die \emph{Gleichverteilung auf \([a,b]\)} (oder \emph{stetige Uniformverteilung}) das Wahrscheinlichkeitsmaß auf \((\mathbb R, \mathcal B(\mathbb R))\) mit
+\[
+\mathbb P([c,d]) = \frac{d-c}{b-a}
+\quad \text{für alle } a \le c \le d \le b.
+\]
+\end{block}
+
+\begin{block}{Intuition}
+Die Wahrscheinlichkeit ist proportional zu Länge des Intervalls. Jeder Punkt im Intervall \([a,b]\) hat die gleiche Wahrscheinlichkeitsdichte \(\frac{1}{b-a}\).
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Zufallsvariable}
+\begin{block}{Definition}
+Seien \((\Omega,\mathcal A,\mathbb P)\) ein Wahrscheinlichkeitsraum und \((E,\mathcal E)\) ein Messraum.
+Eine Abbildung
+\[
+X\colon \Omega \to E
+\]
+hei\ss{}t Zufallsvariable, wenn
+\[
+X^{-1}(B)\in\mathcal A
+\qquad
+\text{für alle } B\in\mathcal E.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Induzierte Verteilung}
+\begin{block}{Definition}
+Ist
+\[
+X\colon (\Omega,\mathcal A,\mathbb P)\to(E,\mathcal E)
+\]
+eine Zufallsvariable, so ist die induzierte Verteilung von \(X\) das Maß \(\mathbb P_X\) auf \((E,\mathcal E)\) mit
+\[
+\mathbb P_X(B)=\mathbb P(X\in B)=\mathbb P\bigl(X^{-1}(B)\bigr),
+\qquad B\in\mathcal E.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Messbare Rechtecke}
+\begin{block}{Definition}
+Für Teilmengen \(A\subseteq E\) und \(B\subseteq F\) hei\ss{}t
+\[
+A\times B:=\{(x,y)\in E\times F : x\in A,\ y\in B\}
+\]
+ein Rechteck im Produktraum \(E\times F\).
+\end{block}
+
+\begin{block}{Warum der Name?}
+Falls \(E=F=\mathbb R\) und \(A,B\) Intervalle sind, dann ist \(A\times B\subseteq \mathbb R^2\)
+genau ein gewöhnliches Rechteck in der Ebene.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel für ein Rechteck in \(\mathbb R^2\)}
+\begin{block}{Beispiel}
+Sei
+\[
+A=[0,1],\qquad B=[2,4].
+\]
+Dann ist
+\[
+A\times B=[0,1]\times[2,4]
+\]
+die Menge aller Punkte \((x,y)\in\mathbb R^2\) mit
+\[
+0\le x\le 1,\qquad 2\le y\le 4.
+\]
+\end{block}
+
+\begin{block}{Bezug zur Stochastik}
+Für Zufallsvariablen
+\[
+X\colon \Omega\to E,\qquad Y\colon \Omega\to F
+\]
+gilt
+\[
+(X,Y)\in A\times B
+\iff
+X\in A \text{ und } Y\in B.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Produkt-\(\sigma\)-Algebra}
+\begin{block}{Definition}
+Für Messräume \((E,\mathcal E)\) und \((F,\mathcal F)\) ist die Produkt-\(\sigma\)-Algebra
+\[
+\mathcal E\otimes\mathcal F
+=
+\sigma\bigl(\{A\times B : A\in\mathcal E,\; B\in\mathcal F\}\bigr).
+\]
+\end{block}
+
+\begin{block}{Idee}
+Sie ist die natürliche \(\sigma\)-Algebra auf dem Produktraum \(E\times F\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Gemeinsame Verteilung}
+\begin{block}{Definition}
+Sind
+\[
+X\colon \Omega\to E,
+\qquad
+Y\colon \Omega\to F
+\]
+Zufallsvariablen, so ist
+\[
+(X,Y)\colon \Omega\to E\times F,
+\qquad
+\omega\mapsto (X(\omega),Y(\omega)),
+\]
+eine Zufallsvariable auf \((E\times F,\mathcal E\otimes\mathcal F)\).
+\end{block}
+
+\begin{block}{Gemeinsame Verteilung}
+Die induzierte Verteilung von \((X,Y)\) hei\ss{}t gemeinsame Verteilung:
+\[
+\mathbb P_{(X,Y)}(C)=\mathbb P\bigl((X,Y)\in C\bigr),
+\qquad
+C\in\mathcal E\otimes\mathcal F.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Produktmaß}
+\begin{block}{Leitidee}
+Sind \(\mu\) ein Maß auf \((E,\mathcal E)\) und \(\nu\) ein Maß auf \((F,\mathcal F)\), so soll das Produktmaß
+\[
+\mu\otimes\nu
+\]
+ein Maß auf \((E\times F,\mathcal E\otimes\mathcal F)\) sein, das auf Rechtecken durch
+\[
+(\mu\otimes\nu)(A\times B)=\mu(A)\nu(B)
+\]
+gegeben ist.
+\end{block}
+\end{frame}
+
+\begin{frame}{Idee des Produktmaßes}
+\begin{block}{Ausgangspunkt}
+Auf Rechtecken \(A\times B\) ist die Formel
+\[
+(\mu\otimes\nu)(A\times B)=\mu(A)\nu(B)
+\]
+naheliegend.
+\end{block}
+
+\begin{block}{Intuition}
+Die Größe eines Rechtecks im Produktraum soll sich aus den Größen
+seiner beiden Komponenten zusammensetzen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist die Existenz nicht ganz trivial?}
+\begin{block}{Problem}
+Die Produkt-\(\sigma\)-Algebra \(\mathcal E\otimes\mathcal F\) enthält viel mehr Mengen
+als nur Rechtecke.
+\end{block}
+
+\begin{block}{Frage}
+Lässt sich die Vorschrift auf Rechtecken so fortsetzen, dass auf allen
+messbaren Mengen ein echtes Maß entsteht?
+\end{block}
+
+\begin{block}{Antwort}
+Ja. Das ist der Existenzsatz für das Produktmaß.
+\end{block}
+\end{frame}
+
+\begin{frame}{Leitidee des Existenzbeweises}
+\begin{block}{Schritt 1}
+Man definiert die Werte zunächst auf einer einfachen Mengenklasse, etwa auf Rechtecken.
+\end{block}
+
+\begin{block}{Schritt 2}
+Man zeigt, dass diese Vorschrift additiv und widerspruchsfrei ist.
+\end{block}
+
+\begin{block}{Schritt 3}
+Mit einem Fortsetzungssatz der Maßtheorie erhält man daraus ein eindeutiges Maß
+auf der ganzen Produkt-\(\sigma\)-Algebra.
+\end{block}
+\end{frame}
+
+\begin{frame}{Fortsetzungssatz: intuitive Idee}
+\begin{block}{Ausgangspunkt}
+Oft kennt man die Werte eines gesuchten Maßes zunächst nur auf einer einfachen Klasse
+von Mengen.
+\end{block}
+
+\begin{block}{Ziel}
+Man möchte daraus ein Maß auf der von diesen Mengen erzeugten \(\sigma\)-Algebra erhalten.
+\end{block}
+
+\begin{block}{Idee}
+Wenn die Vorschrift auf der einfachen Klasse konsistent ist, dann lässt sie sich
+auf alle später messbaren Mengen fortsetzen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist der Fortsetzungssatz technisch?}
+\begin{block}{Schwierigkeit}
+Auf der erzeugten \(\sigma\)-Algebra gibt es viele Mengen, die nicht mehr die einfache Form
+der Ausgangsmengen haben.
+\end{block}
+
+\begin{block}{Problem}
+Man muss zeigen, dass die ursprünglich vorgegebenen Werte dort weiterhin sinnvoll
+und widerspruchsfrei definiert werden können.
+\end{block}
+
+\begin{block}{Bemerkung}
+Die Grundidee ist einfach, der vollständige Beweis ist jedoch ein nichttrivialer
+Satz der Maßtheorie.
+\end{block}
+\end{frame}
+
+\begin{frame}{Existenz des Produktmaßes}
+\begin{block}{Satz}
+Seien \((E,\mathcal E)\) und \((F,\mathcal F)\) Messräume sowie
+\[
+\mu \text{ ein Maß auf } (E,\mathcal E),\qquad
+\nu \text{ ein Maß auf } (F,\mathcal F).
+\]
+Dann gibt es genau ein Maß
+\[
+\mu\otimes \nu
+\]
+auf \((E\times F,\mathcal E\otimes\mathcal F)\), so dass für alle
+\(A\in\mathcal E\), \(B\in\mathcal F\) gilt:
+\[
+(\mu\otimes\nu)(A\times B)=\mu(A)\nu(B).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist das Produktmaß eindeutig bestimmt?}
+\begin{block}{Idee}
+Die Produkt-\(\sigma\)-Algebra \(\mathcal E\otimes\mathcal F\) wird von den Rechtecken
+\[
+A\times B,\qquad A\in\mathcal E,\ B\in\mathcal F,
+\]
+erzeugt.
+\end{block}
+
+\begin{block}{Folgerung}
+Wenn zwei Maße auf \((E\times F,\mathcal E\otimes\mathcal F)\) auf allen solchen Rechtecken
+übereinstimmen, dann stimmen sie auf der ganzen Produkt-\(\sigma\)-Algebra überein.
+\end{block}
+
+\begin{block}{Bemerkung}
+Die Existenz ist tiefer als die Eindeutigkeit und beruht auf einem Fortsetzungssatz.
+\end{block}
+\end{frame}
+
+\begin{frame}{Stochastische Unabhängigkeit}
+\begin{block}{Definition}
+Zwei Zufallsvariablen
+\[
+X\colon \Omega\to E,
+\qquad
+Y\colon \Omega\to F
+\]
+hei\ss{}en stochastisch unabhängig, wenn für alle \(A\in\mathcal E\) und \(B\in\mathcal F\) gilt:
+\[
+\mathbb P(X\in A,\;Y\in B)=\mathbb P(X\in A)\,\mathbb P(Y\in B).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Charakterisierung der Unabhängigkeit}
+\begin{block}{Satz}
+Für Zufallsvariablen
+\[
+X\colon \Omega\to E,\qquad Y\colon \Omega\to F
+\]
+sind äquivalent:
+\begin{enumerate}
+    \item \(X\) und \(Y\) sind stochastisch unabhängig,
+    \item
+    \[
+    \mathbb P_{(X,Y)}=\mathbb P_X\otimes\mathbb P_Y.
+    \]
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist diese Charakterisierung plausibel?}
+\begin{block}{Schlüsselbeobachtung}
+Für alle \(A\in\mathcal E\), \(B\in\mathcal F\) gilt
+\[
+(X,Y)\in A\times B
+\iff
+X\in A \text{ und } Y\in B.
+\]
+\end{block}
+
+\begin{block}{Daher}
+\[
+\mathbb P_{(X,Y)}(A\times B)
+=
+\mathbb P(X\in A,\;Y\in B).
+\]
+Auf Rechtecken beschreibt die gemeinsame Verteilung also genau die
+gemeinsamen Auftretenswahrscheinlichkeiten von \(X\) und \(Y\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee: Unabhängigkeit \(\Rightarrow\) Produktmaß}
+\begin{block}{Annahme}
+Es gelte für alle \(A\in\mathcal E\), \(B\in\mathcal F\):
+\[
+\mathbb P(X\in A,\;Y\in B)=\mathbb P(X\in A)\,\mathbb P(Y\in B).
+\]
+\end{block}
+
+\begin{block}{Dann auf Rechtecken}
+Für jedes messbare Rechteck \(A\times B\) gilt:
+\[
+\mathbb P_{(X,Y)}(A\times B)
+=
+\mathbb P(X\in A,\;Y\in B)
+=
+\mathbb P_X(A)\,\mathbb P_Y(B).
+\]
+Andererseits ist
+\[
+(\mathbb P_X\otimes\mathbb P_Y)(A\times B)=\mathbb P_X(A)\,\mathbb P_Y(B).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Schluss von \(1\Rightarrow 2\)}
+\begin{block}{Schluss}
+Die gemeinsame Verteilung \(\mathbb P_{(X,Y)}\) und das Produktmaß
+\(\mathbb P_X\otimes\mathbb P_Y\) stimmen auf allen Rechtecken überein.
+\end{block}
+
+\begin{block}{Da Rechtecke erzeugen}
+Weil die Rechtecke die Produkt-\(\sigma\)-Algebra erzeugen, folgt
+\[
+\mathbb P_{(X,Y)}=\mathbb P_X\otimes\mathbb P_Y.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee: Produktmaß \(\Rightarrow\) Unabhängigkeit}
+\begin{block}{Annahme}
+Es gelte
+\[
+\mathbb P_{(X,Y)}=\mathbb P_X\otimes\mathbb P_Y.
+\]
+\end{block}
+
+\begin{block}{Dann auf Rechtecken}
+Für alle \(A\in\mathcal E\), \(B\in\mathcal F\) gilt:
+\[
+\mathbb P(X\in A,\;Y\in B)
+=
+\mathbb P_{(X,Y)}(A\times B).
+\]
+Mit der Annahme folgt
+\[
+\mathbb P_{(X,Y)}(A\times B)
+=
+(\mathbb P_X\otimes\mathbb P_Y)(A\times B)
+=
+\mathbb P_X(A)\,\mathbb P_Y(B).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Schluss von \(2\Rightarrow 1\)}
+\begin{block}{Folgerung}
+Also gilt für alle \(A\in\mathcal E\), \(B\in\mathcal F\):
+\[
+\mathbb P(X\in A,\;Y\in B)=\mathbb P(X\in A)\,\mathbb P(Y\in B).
+\]
+\end{block}
+
+\begin{block}{Schluss}
+Damit sind \(X\) und \(Y\) stochastisch unabhängig.
+\end{block}
+\end{frame}
+
+\end{document}
