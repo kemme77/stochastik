@@ -21,6 +21,31 @@ example : 5 = 5 := by
 example : 2 + 3 = 5 := by
   rfl  -- Beweise, dass 5 gleich 5 ist
 
+example {A : Prop} : (¬ A = A) → False := by
+  intro ha
+  exact ha rfl
+
+example {A : Prop} : A = A → True := by
+  intro h
+  trivial
+
+example {A : Prop} : True → (A = A) := by
+  intro h
+  rfl
+
+example {A : Prop} : A → True := by
+  intro h
+  exact True.intro
+
+example {α : Type} (h : IsEmpty α) (x : α) : False := by
+  exact h.elim x
+
+example {α : Type} (h1 : Nonempty α) (h2 : ¬ Nonempty α) : False := by
+  exact h2 h1
+
+example {A : Prop} : (¬ A) = (A → False) := by
+  rfl  -- Beweise, dass die Negation von A gleich der Aussage "A impliziert False" ist
+
 
 -- Beispiel für `exact` mit natürlichen Zahlen
 example (a b : ℕ) (h : a = b) : b = a := by
@@ -41,9 +66,9 @@ example (a b c : ℕ) (h : a = b) (h2 : b = c) : a = c := by
 example (n : ℕ) : n = 0 ∨ n ≠ 0 := by
   cases n with
   | zero => left; rfl  -- Fall `n = 0`
-  | succ k => right; intro h; contradiction  -- Fall `n = succ k` (n ist der Nachfolger von k)
-
-
+  | succ k => right;
+                  intro h;
+                  contradiction  -- Fall `n = succ k` (n ist der Nachfolger von k)
 
 -- Beispiel für `intro` mit natürlichen Zahlen
 example (a b : ℕ) : a = b → b = a := by
