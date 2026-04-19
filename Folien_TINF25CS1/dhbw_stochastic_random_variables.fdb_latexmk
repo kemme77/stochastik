@@ -1,5 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1776618892.90452 "dhbw_stochastic_random_variables.tex" "dhbw_stochastic_random_variables.pdf" "dhbw_stochastic_random_variables" 1776618896.09646 0
+["pdflatex"] 1776632178.71285 "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables.tex" "dhbw_stochastic_random_variables.pdf" "dhbw_stochastic_random_variables" 1776632183.08302 0
+  "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables.tex" 1776632178.46561 31005 2ca8aaec0d56aca9de7d7cd7fbb29dbc ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/euler/eufm10.tfm" 1246382020 1040 b84415f97d114011685943ade933dc71 ""
@@ -247,11 +248,13 @@
   "/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1769844643 80050 7c2634423af1dc0fd56c1bdfd08446f8 ""
   "/usr/local/texlive/2025basic/texmf-var/web2c/pdftex/pdflatex.fmt" 1766840500 2663827 ae25494166c4aa93e1144e59aa9c8fbf ""
   "/usr/local/texlive/2025basic/texmf.cnf" 1741448314 628 81d1ada0f601fb1ffa62f1323192d946 ""
-  "dhbw_stochastic_random_variables.aux" 1776618895.99193 8817 50eef1e7051fc8677bad171f8410f062 "pdflatex"
-  "dhbw_stochastic_random_variables.nav" 1776618895.99337 6224 8eae6ebec2ce912c164e82932b6357b7 "pdflatex"
-  "dhbw_stochastic_random_variables.out" 1776618893.49955 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "dhbw_stochastic_random_variables.tex" 1776618822.11031 29267 1c1e401f3b2c99bb7699eb7f5f45cdc3 ""
+  "dhbw_stochastic_random_variables.aux" 1776632182.95629 9333 f8b232ee5c8ff685f5abc6b60996f0f1 "pdflatex"
+  "dhbw_stochastic_random_variables.nav" 1776632182.95831 6596 2282aa29a95633be8c0e00bc6aaf2ca0 "pdflatex"
+  "dhbw_stochastic_random_variables.out" 1776632179.77494 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "dhbw_stochastic_random_variables.tex" 1776632178.46561 31005 2ca8aaec0d56aca9de7d7cd7fbb29dbc ""
+  "img/RiemannVsLebesgue.png" 1774687746.44635 24678 4407747dff5d2193b6b74e50521389db ""
   "img/craps.png" 1774687746.428 13839 914501b67b77f2372f92caa6dba1b1c1 ""
+  "img/lebesgue_counting.png" 1776630876.73947 22497 9d8382b0db9b8fe47e9aaece2fa8a0cf ""
   (generated)
   "dhbw_stochastic_random_variables.aux"
   "dhbw_stochastic_random_variables.log"

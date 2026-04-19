@@ -40,6 +40,28 @@ example {A : Prop} : A → True := by
 example {α : Type} (h : IsEmpty α) (x : α) : False := by
   exact h.elim x
 
+
+
+example (P : Prop) : P = True ∨ P = False := by
+  classical
+  by_cases h : P
+  · left
+    exact propext ⟨fun _ => trivial, fun _ => h⟩
+  · right
+    exact propext ⟨fun hp => False.elim (h hp), fun hf => False.elim hf⟩
+
+-- A ↔ True ist im Wesentlichen dasselbe wie ein Beweis von A.
+example {A : Prop} : (A ↔ True) ↔ A := by
+  constructor
+  · intro h
+    exact h.mpr trivial
+  · intro h
+    constructor
+    · intro _
+      trivial
+    · intro _
+      exact h
+
 example {α : Type} (h1 : Nonempty α) (h2 : ¬ Nonempty α) : False := by
   exact h2 h1
 

@@ -504,6 +504,85 @@ Die Menge aller solchen Approximationen ist durch \(f\) und \(\mu\) eindeutig be
 \end{block}
 \end{frame}
 
+\begin{frame}{Monotone Approximation des Integrals}
+\begin{block}{Satz}
+Sei
+\[
+f\colon \Omega\to[0,\infty]
+\]
+messbar und \((\varphi_n)_{n\in\mathbb N}\) eine Folge nichtnegativer messbarer Funktionen mit
+\[
+\varphi_n(\omega)\le \varphi_{n+1}(\omega)
+\qquad\text{für alle } \omega\in\Omega
+\]
+und
+\[
+\varphi_n(\omega)\uparrow f(\omega)
+\qquad\text{für alle } \omega\in\Omega.
+\]
+Dann gilt
+\[
+\int_\Omega f\,d\mu
+=
+\lim_{n\to\infty}\int_\Omega \varphi_n\,d\mu.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum darf man so das Integral berechnen?}
+\begin{block}{Idee}
+Wächst eine Folge \((\varphi_n)\) punktweise von unten gegen \(f\), dann wachsen auch die Integrale
+\[
+\int_\Omega \varphi_n\,d\mu
+\]
+monoton an.
+\end{block}
+
+\begin{block}{Satz von der monotonen Konvergenz}
+Der Grenzwert dieser Integrale ist genau das Integral der Grenzfunktion:
+\[
+\lim_{n\to\infty}\int_\Omega \varphi_n\,d\mu
+=
+\int_\Omega f\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Nutzen}
+Damit kann man \(\int f\,d\mu\) in der Praxis durch eine geeignete Folge
+\(\varphi_n\uparrow f\) berechnen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Eindeutigkeit des Werts bei Approximationen}
+\begin{block}{Satz}
+Seien \((\varphi_n)\) und \((\psi_n)\) zwei Folgen nichtnegativer messbarer Funktionen mit
+\[
+\varphi_n\uparrow f
+\qquad\text{und}\qquad
+\psi_n\uparrow f.
+\]
+Dann gilt
+\[
+\lim_{n\to\infty}\int_\Omega \varphi_n\,d\mu
+=
+\lim_{n\to\infty}\int_\Omega \psi_n\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Begründung}
+Beide Grenzwerte sind nach dem Satz von der monotonen Konvergenz gleich
+\[
+\int_\Omega f\,d\mu.
+\]
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\includegraphics[scale=0.15]{img/lebesgue_counting.png}
+\includegraphics[scale=0.15]{img/RiemannVsLebesgue.png}
+\end{frame}
+
 \begin{frame}{Reellwertige Funktionen}
 \begin{block}{Zerlegung}
 Für eine reellwertige Funktion \(f\) setzt man
