@@ -27,7 +27,7 @@
 \author[Dr. Johannes Riesterer]
 {Dr. rer. nat. Johannes Riesterer}
 
-\date[KPT 2004]{}
+\date{}
 \subject{Stochastik}
 
 \frame{\titlepage}
@@ -95,9 +95,65 @@ Die Eindeutigkeit folgt aus der Minimalität.
 \end{block}
 \end{frame}
 
-\begin{frame}{Borelsche \(\sigma\)-Algebra}
+\begin{frame}{Topologischer Raum}
 \begin{block}{Definition}
-Die borelsche \(\sigma\)-Algebra auf \(\mathbb R\) ist
+Ein topologischer Raum ist ein Paar \((X,\tau)\), wobei \(X\) eine Menge ist und
+\(\tau\subseteq\mathcal P(X)\) die folgenden Eigenschaften erfüllt:
+\begin{enumerate}
+    \item \(\varnothing\in\tau\) und \(X\in\tau\),
+    \item für beliebig viele \(U_i\in\tau\) gilt \(\bigcup_{i\in I} U_i\in\tau\),
+    \item für endlich viele \(U_1,\dots,U_n\in\tau\) gilt \(U_1\cap\cdots\cap U_n\in\tau\).
+\end{enumerate}
+Die Elemente von \(\tau\) hei\ss{}en offene Mengen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Standardtopologie auf \(\mathbb R^n\)}
+\begin{block}{Definition}
+Für \(x\in\mathbb R^n\) und \(\varepsilon>0\) ist die offene Kugel
+\[
+B_\varepsilon(x):=\{y\in\mathbb R^n : \|y-x\|<\varepsilon\}.
+\]
+Eine Menge \(U\subseteq\mathbb R^n\) hei\ss{}t offen, wenn es zu jedem \(x\in U\) ein \(\varepsilon>0\) gibt mit \(B_\varepsilon(x)\subseteq U\).
+\end{block}
+
+\begin{block}{Standardtopologie}
+Die Menge aller offenen Mengen in \(\mathbb R^n\) bildet eine Topologie, die Standardtopologie auf \(\mathbb R^n\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Borelsche \(\sigma\)-Algebra auf topologischen Räumen}
+\begin{block}{Allgemeine Definition}
+Sei \(X\) ein topologischer Raum mit Topologie \(\tau\).
+Dann hei\ss{}t
+\[
+\mathcal B(X):=\sigma(\tau)
+\]
+die borelsche \(\sigma\)-Algebra auf \(X\).
+\end{block}
+
+\begin{block}{Bedeutung}
+Die borelsche \(\sigma\)-Algebra ist die kleinste \(\sigma\)-Algebra, die alle offenen Mengen enthält.
+\end{block}
+\end{frame}
+
+\begin{frame}{Borelsche \(\sigma\)-Algebra: Beispiele}
+\begin{block}{Beispiele}
+Für \(X=\mathbb R\) mit der üblichen Topologie erhält man
+\[
+\mathcal B(\mathbb R)=\sigma(\mathcal O),
+\]
+wobei \(\mathcal O\) die Menge der offenen Mengen in \(\mathbb R\) ist.
+Allgemein ebenso
+\[
+\mathcal B(\mathbb R^n)=\sigma(\text{offene Mengen in }\mathbb R^n).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Borelsche \(\sigma\)-Algebra auf \(\mathbb R\)}
+\begin{block}{Spezialfall}
+Für den topologischen Raum \(\mathbb R\) mit der üblichen Topologie ist
 \[
 \mathcal B(\mathbb R)=\sigma(\mathcal O),
 \]
@@ -109,6 +165,84 @@ wobei \(\mathcal O\) die offenen Mengen in \(\mathbb R\) bezeichnet.
 \[
 \mathcal B(\mathbb R)=\sigma\bigl(\{(-\infty,a] : a\in\mathbb R\}\bigr).
 \]
+\end{block}
+\end{frame}
+
+\begin{frame}{Messbarkeit über Erzeuger prüfen}
+\begin{block}{Satz}
+Seien \((\Omega,\mathcal A)\) und \((E,\mathcal E)\) Messräume und sei
+\[
+\mathcal E=\sigma(\mathcal G)
+\]
+für ein Mengensystem \(\mathcal G\subseteq\mathcal P(E)\).
+Dann gilt für eine Abbildung
+\[
+X\colon \Omega\to E:
+\]
+\(X\) ist genau dann \(\mathcal A/\mathcal E\)-messbar, wenn für alle \(G\in\mathcal G\) gilt:
+\[
+X^{-1}(G)\in\mathcal A.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Wenn die Ziel-\(\sigma\)-Algebra von einem Erzeugersystem erzeugt wird, dann reicht es, die Urbilder der Erzeuger zu prüfen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweis: Messbarkeit über Erzeuger (1/3)}
+\begin{block}{Hinrichtung}
+Die Richtung
+\[
+X \text{ messbar } \Rightarrow X^{-1}(G)\in\mathcal A
+\quad\text{für alle }G\in\mathcal G
+\]
+ist klar, denn \(\mathcal G\subseteq\mathcal E\).
+\end{block}
+
+\begin{block}{Rückrichtung: Ansatz}
+Für die Umkehrung setze
+\[
+\mathcal D:=\{B\subseteq E : X^{-1}(B)\in\mathcal A\}.
+\]
+Behauptung: \(\mathcal D\) ist eine \(\sigma\)-Algebra auf \(E\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweis: Messbarkeit über Erzeuger (2/3)}
+\begin{block}{\(\mathcal D\) ist eine \(\sigma\)-Algebra}
+\begin{enumerate}
+    \item \(X^{-1}(E)=\Omega\in\mathcal A\), also \(E\in\mathcal D\),
+    \item aus \(B\in\mathcal D\) folgt
+    \[
+    X^{-1}(B^{\mathsf c})=(X^{-1}(B))^{\mathsf c}\in\mathcal A,
+    \]
+    also \(B^{\mathsf c}\in\mathcal D\),
+    \item für \(B_1,B_2,\dots\in\mathcal D\) gilt
+    \[
+    X^{-1}\!\left(\bigcup_{n\in\mathbb N} B_n\right)
+    =
+    \bigcup_{n\in\mathbb N} X^{-1}(B_n)\in\mathcal A,
+    \]
+    also \(\bigcup_{n\in\mathbb N} B_n\in\mathcal D\).
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweis: Messbarkeit über Erzeuger (3/3)}
+\begin{block}{Schlussfolgerung}
+Nach Voraussetzung gilt \(X^{-1}(G)\in\mathcal A\) für alle \(G\in\mathcal G\), also
+\[
+\mathcal G\subseteq\mathcal D.
+\]
+Da \(\mathcal D\) eine \(\sigma\)-Algebra ist, die \(\mathcal G\) enthält, folgt
+\[
+\sigma(\mathcal G)\subseteq\mathcal D.
+\]
+Wegen \(\mathcal E=\sigma(\mathcal G)\) gilt also \(\mathcal E\subseteq\mathcal D\).
+
+Damit ist für jedes \(B\in\mathcal E\): \(X^{-1}(B)\in\mathcal A\).
+Also ist \(X\) messbar.
 \end{block}
 \end{frame}
 
@@ -156,7 +290,7 @@ mit:
 
 \begin{frame}{Wahrscheinlichkeitsmaß}
 \begin{block}{Definition}
-Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit der zusätzlichen Eigenschaft
+Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit
 \[
 \mathbb P(\Omega)=1.
 \]
@@ -188,19 +322,16 @@ Falls \(p_i=\frac1n\) für alle \(i\), dann gilt
 \begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
 \begin{block}{Definition}
 Für \([a,b]\subseteq\mathbb R\) mit \(a<b\) ist die Gleichverteilung auf \([a,b]\)
-das Wahrscheinlichkeitsmaß mit
+das Wahrscheinlichkeitsmaß mit Dichte
 \[
-\mathbb P([c,d])=\frac{d-c}{b-a}
-\qquad
-\text{für } a\le c\le d\le b.
+p(x)=\frac1{b-a}\mathbf 1_{[a,b]}(x).
 \]
 \end{block}
 
-\begin{block}{Intuition}
-Die Wahrscheinlichkeit ist proportional zur Länge.
-Die Dichte ist konstant gleich
+\begin{block}{Folgerung}
+Für messbare \(A\subseteq\mathbb R\) gilt
 \[
-\frac1{b-a}.
+\mathbb P(A)=\int_A p(x)\,dx.
 \]
 \end{block}
 \end{frame}
@@ -249,8 +380,29 @@ definieren.
 \end{block}
 
 \begin{block}{Lebesgue-Idee}
-Nicht das Definitionsgebiet wird zerlegt,
-sondern die Funktion wird durch einfache Stufenfunktionen approximiert.
+Nicht das Definitionsgebiet wird zerlegt, sondern die Funktion wird durch einfache Stufenfunktionen approximiert.
+\end{block}
+\end{frame}
+
+\begin{frame}{Einfache Funktion}
+\begin{block}{Definition}
+Eine messbare Funktion
+\[
+\varphi\colon \Omega\to\mathbb R
+\]
+hei\ss{}t einfach, wenn sie nur endlich viele Werte annimmt.
+\end{block}
+
+\begin{block}{Darstellung}
+Dann gilt
+\[
+\varphi=\sum_{i=1}^n a_i\,\mathbf 1_{A_i},
+\qquad A_i\in\mathcal A.
+\]
+\end{block}
+
+\begin{block}{Bemerkung}
+Nichtnegative einfache Funktionen sind der Spezialfall \(a_i\ge 0\).
 \end{block}
 \end{frame}
 
@@ -294,8 +446,7 @@ Dann kann man weder Stufenfunktionen sinnvoll aufbauen noch ihre Größen messen
 \end{block}
 
 \begin{block}{Merksatz}
-Messbarkeit ist genau die Voraussetzung dafür, dass die Niveaumengen von \(f\)
-vom Maß erfasst werden.
+Messbarkeit ist genau die Voraussetzung dafür, dass die Niveaumengen von \(f\) vom Maß erfasst werden.
 \end{block}
 \end{frame}
 
@@ -326,8 +477,7 @@ Man zerlegt den Raum in die Schnitte
 \[
 C_{ij}=A_i\cap B_j.
 \]
-Auf jedem \(C_{ij}\) haben beide Darstellungen denselben konstanten Wert,
-also liefern sie dieselbe Summe.
+Auf jedem \(C_{ij}\) haben beide Darstellungen denselben konstanten Wert, also liefern sie dieselbe Summe.
 \end{block}
 \end{frame}
 
@@ -350,8 +500,7 @@ Dann definiert man
 \end{block}
 
 \begin{block}{Warum ist das eindeutig?}
-Die Menge aller solchen Approximationen ist durch \(f\) und \(\mu\) eindeutig bestimmt.
-Also ist auch ihr Supremum eindeutig bestimmt.
+Die Menge aller solchen Approximationen ist durch \(f\) und \(\mu\) eindeutig bestimmt. Also ist auch ihr Supremum eindeutig bestimmt.
 \end{block}
 \end{frame}
 
@@ -391,12 +540,11 @@ Eine reellwertige messbare Funktion \(f\) hei\ss{}t integrierbar, wenn
 \end{block}
 
 \begin{block}{Folge}
-Dann sind \(\int f^+\,d\mu\) und \(\int f^-\,d\mu\) endlich,
-und damit ist \(\int f\,d\mu\) wohldefiniert und eindeutig.
+Dann sind \(\int f^+\,d\mu\) und \(\int f^-\,d\mu\) endlich, und damit ist \(\int f\,d\mu\) wohldefiniert und eindeutig.
 \end{block}
 
 \begin{block}{Bezug zu Lean}
-In mathlib schreibt man daf\"ur \texttt{Integrable f $\mu$}.
+In mathlib schreibt man dafür \texttt{Integrable f $\mu$}.
 \end{block}
 \end{frame}
 
@@ -436,6 +584,410 @@ Ist \(\mu=\mathbb P\), dann ist
 \mathbb E[f]=\int_\Omega f\,d\mathbb P
 \]
 der Erwartungswert.
+\end{block}
+\end{frame}
+
+\begin{frame}{Bildmaß}
+\begin{block}{Definition}
+Seien \((X,\mathcal A,\mu)\) und \((Y,\mathcal B)\) Messräume und
+\[
+T\colon X\to Y
+\]
+eine messbare Abbildung.
+Dann definiert man das Bildmaß \(T_\#\mu\) auf \((Y,\mathcal B)\) durch
+\[
+T_\#\mu(B):=\mu(T^{-1}(B)),
+\qquad B\in\mathcal B.
+\]
+\end{block}
+
+\begin{block}{Spezialfall}
+Ist
+\[
+X\colon (\Omega,\mathcal F,\mathbb P)\to(E,\mathcal E)
+\]
+eine Zufallsvariable, dann ist ihre Verteilung gerade das Bildmaß
+\[
+\mathbb P_X=X_\#\mathbb P.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Transformationssatz für allgemeine Maße}
+\begin{block}{Satz}
+Seien \((X,\mathcal A,\mu)\), \((Y,\mathcal B)\) Messräume,
+\[
+T\colon X\to Y
+\]
+messbar und \(T_\#\mu\) das zugehörige Bildmaß.
+Dann gilt für jede messbare Funktion
+\[
+f\colon Y\to\mathbb R
+\]
+mit \(f\ge 0\) oder \(f\in L^1(T_\#\mu)\):
+\[
+\int_Y f(y)\,d(T_\#\mu)(y)
+=
+\int_X f(T(x))\,d\mu(x).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zum Transformationssatz I}
+\begin{block}{Schritt 1: Indikatorfunktionen}
+Sei \(f=\mathbf 1_B\) mit \(B\in\mathcal B\). Dann ist
+\[
+\int_Y \mathbf 1_B(y)\,d(T_\#\mu)(y)=T_\#\mu(B).
+\]
+Nach Definition des Bildmaßes gilt
+\[
+T_\#\mu(B)=\mu(T^{-1}(B)).
+\]
+Andererseits ist
+\[
+\mathbf 1_B(T(x))=
+\mathbf 1_{T^{-1}(B)}(x),
+\]
+also
+\[
+\int_X \mathbf 1_B(T(x))\,d\mu(x)
+=
+\int_X \mathbf 1_{T^{-1}(B)}(x)\,d\mu(x)
+=
+\mu(T^{-1}(B)).
+\]
+Damit ist die Behauptung für Indikatorfunktionen gezeigt.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zum Transformationssatz II}
+\begin{block}{Schritt 2: Einfache Funktionen}
+Sei nun
+\[
+f=\sum_{i=1}^n a_i\,\mathbf 1_{B_i}
+\]
+eine nichtnegative einfache Funktion auf \(Y\).
+Dann folgt mit Linearität:
+\[
+\int_Y f\,d(T_\#\mu)
+=
+\sum_{i=1}^n a_i \int_Y \mathbf 1_{B_i}\,d(T_\#\mu).
+\]
+Für jeden Summanden gilt bereits der Indikatorfall, also
+\[
+\int_Y \mathbf 1_{B_i}\,d(T_\#\mu)
+=
+\int_X \mathbf 1_{B_i}(T(x))\,d\mu(x).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zum Transformationssatz II (Forts.)}
+\begin{block}{Schritt 2 (Forts.)}
+Somit
+\[
+\int_Y f\,d(T_\#\mu)
+=
+\int_X \sum_{i=1}^n a_i\,\mathbf 1_{B_i}(T(x))\,d\mu(x)
+=
+\int_X f(T(x))\,d\mu(x).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zum Transformationssatz III}
+\begin{block}{Schritt 3: Nichtnegative messbare Funktionen}
+Sei \(f\colon Y\to[0,\infty]\) messbar.
+Wähle eine wachsende Folge einfacher Funktionen \(f_n\) mit
+\[
+f_n\uparrow f.
+\]
+Dann gilt auch
+\[
+f_n\circ T \uparrow f\circ T.
+\]
+Mit dem Satz von der monotonen Konvergenz folgt
+\begin{align*}
+\int_Y f\,d(T_\#\mu)
+&=
+\lim_{n\to\infty}\int_Y f_n\,d(T_\#\mu)\\
+&=
+\lim_{n\to\infty}\int_X f_n(T(x))\,d\mu(x)\\
+&=
+\int_X f(T(x))\,d\mu(x).
+\end{align*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zum Transformationssatz IV}
+\begin{block}{Schritt 4: Allgemeine integrierbare Funktionen}
+Ist \(f\in L^1(T_\#\mu)\), so zerlegt man
+\[
+f=f^+-f^-.
+\]
+Die Aussage gilt bereits für die nichtnegativen Funktionen \(f^+\) und \(f^-\). Also
+\[
+\int_Y f^+\,d(T_\#\mu)
+=
+\int_X f^+(T(x))\,d\mu(x),
+\]
+\[
+\int_Y f^-\,d(T_\#\mu)
+=
+\int_X f^-(T(x))\,d\mu(x).
+\]
+Durch Subtraktion erhält man
+\[
+\int_Y f\,d(T_\#\mu)
+=
+\int_X f(T(x))\,d\mu(x).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Dichte eines Maßes}
+\begin{block}{Definition}
+Sei \(\mu\) ein Maß auf \((\mathbb R^n,\mathcal B(\mathbb R^n))\).
+Eine messbare Funktion
+\[
+p\colon \mathbb R^n\to[0,\infty]
+\]
+heißt Dichte von \(\mu\) bezüglich des Lebesgue-Maßes \(\lambda^n\), wenn für alle messbaren Mengen \(A\subseteq\mathbb R^n\) gilt
+\[
+\mu(A)=\int_A p(x)\,d\lambda^n(x).
+\]
+\end{block}
+
+\begin{block}{Schreibweise}
+Dann schreibt man auch
+\[
+d\mu(x)=p(x)\,d\lambda^n(x)
+\qquad\text{oder kurz}\qquad
+d\mu(x)=p(x)\,dx.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Integration mit Dichte}
+\begin{block}{Satz}
+Hat \(\mu\) die Dichte \(p\), dann gilt für jede messbare Funktion
+\[
+f\colon \mathbb R^n\to\mathbb R
+\]
+mit \(f\ge 0\) oder \(f\in L^1(\mu)\):
+\[
+\int_{\mathbb R^n} f(x)\,d\mu(x)
+=
+\int_{\mathbb R^n} f(x)\,p(x)\,dx.
+\]
+\end{block}
+
+\begin{block}{Begründung}
+Dies ist direkt die Definition des Integrals bezüglich \(\mu\), geschrieben mit Hilfe der Dichte \(p\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Dichtetransformation in \(\mathbb R^n\)}
+\begin{block}{Satz}
+Sei \(T\colon U\to V\) eine \(C^1\)-Diffeomorphie zwischen offenen Mengen
+\(U,V\subseteq\mathbb R^n\).
+Sei \(\mu\) ein Maß auf \(U\) mit Dichte \(p\), also
+\[
+d\mu(x)=p(x)\,dx.
+\]
+Dann besitzt das Bildmaß \(T_\#\mu\) auf \(V\) die Dichte
+\[
+q(y)=p(T^{-1}(y))
+\frac{1}{|\det DT(T^{-1}(y))|}.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Transformationsformel in \(\mathbb R^n\)}
+\begin{block}{Folgerung}
+Für jede messbare Funktion \(f\colon V\to\mathbb R\) mit \(f\ge 0\) oder \(f\in L^1(T_\#\mu)\) gilt
+\[
+\int_V f(y)\,q(y)\,dy
+=
+\int_U f(T(x))\,p(x)\,dx,
+\]
+wobei
+\[
+q(y)=p(T^{-1}(y))
+\frac{1}{|\det DT(T^{-1}(y))|}.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Die Jacobi-Determinante beschreibt die lokale Verzerrung von Volumina unter \(T\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zur Dichtetransformation I}
+\begin{block}{Ausgangspunkt}
+Nach dem allgemeinen Transformationssatz gilt für messbares \(f\):
+\[
+\int_V f(y)\,d(T_\#\mu)(y)
+=
+\int_U f(T(x))\,d\mu(x).
+\]
+Da \(\mu\) die Dichte \(p\) besitzt, folgt
+\[
+\int_V f(y)\,d(T_\#\mu)(y)
+=
+\int_U f(T(x))\,p(x)\,dx.
+\]
+\end{block}
+
+\begin{block}{Ziel}
+Wir möchten die linke Seite wieder als Integral gegen eine Dichte \(q\) auf \(V\) schreiben.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zur Dichtetransformation II}
+\begin{block}{Lokale lineare Approximation}
+In einem kleinen Gebiet um \(x\) wird \(T\) näherungsweise durch die lineare Abbildung
+\[
+DT(x)
+\]
+beschrieben.
+Eine lineare Abbildung \(A\) skaliert Volumina mit dem Faktor
+\[
+|\det A|.
+\]
+Daher wird ein kleines Volumenelement \(dx\) unter \(T\) näherungsweise zu
+\[
+dy \approx |\det DT(x)|\,dx.
+\]
+Also formal
+\[
+dx \approx \frac{1}{|\det DT(x)|}\,dy.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze zur Dichtetransformation III}
+\begin{block}{Einsetzen von \(x=T^{-1}(y)\)}
+Setzt man \(x=T^{-1}(y)\), dann erhält man heuristisch
+\[
+p(x)\,dx
+=
+p(T^{-1}(y))
+\frac{1}{|\det DT(T^{-1}(y))|}\,dy.
+\]
+Daher ist die Dichte des Bildmaßes
+\[
+q(y)=p(T^{-1}(y))
+\frac{1}{|\det DT(T^{-1}(y))|}.
+\]
+\end{block}
+
+\begin{block}{Bemerkung}
+Ein strenger Beweis benötigt den mehrdimensionalen Transformationssatz aus der Analysis.
+\end{block}
+\end{frame}
+
+\begin{frame}{Substitutionssatz in \(\mathbb R^n\)}
+\begin{block}{Spezialfall Lebesgue-Maß}
+Wählt man \(p\equiv 1\), also \(\mu=\lambda^n\), dann folgt
+\[
+\int_V f(y)\,dy
+=
+\int_U f(T(x))\,|\det DT(x)|\,dx.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Dies ist die klassische Substitutionsformel in \(\mathbb R^n\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Spezialfall in einer Dimension}
+\begin{block}{Satz}
+Ist \(T\colon [a,b]\to[T(a),T(b)]\) streng monoton und \(C^1\), dann gilt
+\[
+\int_{T(a)}^{T(b)} f(y)\,dy
+=
+\int_a^b f(T(x))\,|T'(x)|\,dx.
+\]
+\end{block}
+
+\begin{block}{Monoton wachsender Fall}
+Ist \(T\) streng wachsend, dann
+\[
+\int_{T(a)}^{T(b)} f(y)\,dy
+=
+\int_a^b f(T(x))\,T'(x)\,dx.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisskizze in Dimension 1}
+\begin{block}{Schritt 1: Intervalle}
+Zunächst für \(f=\mathbf 1_{(u,v]}\).
+Wegen der Monotonie ist
+\[
+T^{-1}((u,v])
+\]
+wieder ein Intervall.
+\end{block}
+
+\begin{block}{Schritt 2: Hauptsatz}
+Dann folgt
+\[
+v-u=\int_{T^{-1}(u)}^{T^{-1}(v)} T'(x)\,dx.
+\]
+Damit gilt die Behauptung für Intervall-Indikatoren.
+\end{block}
+
+\begin{block}{Schritt 3}
+Mit Linearität folgt der Satz für Treppenfunktionen, danach per Approximation für allgemeine Funktionen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel in einer Dimension}
+\begin{block}{Beispiel}
+Berechne
+\[
+\int_0^1 2x\cos(x^2)\,dx.
+\]
+Mit
+\[
+T(x)=x^2,\qquad T'(x)=2x
+\]
+erhält man
+\[
+\int_0^1 2x\cos(x^2)\,dx
+=
+\int_0^1 \cos(y)\,dy
+=
+\sin(1).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel für Dichtetransformation}
+\begin{block}{Beispiel}
+Sei \(X\sim U([0,1])\), also mit Dichte
+\[
+p(x)=\mathbf 1_{[0,1]}(x),
+\]
+und \(Y=X^2\).
+Dann ist die Dichte von \(Y\) auf \((0,1]\):
+\[
+q(y)=p(\sqrt y)\frac{1}{2\sqrt y}
+=
+\frac{1}{2\sqrt y}.
+\]
+\end{block}
+
+\begin{block}{Kontrolle}
+Für messbares \(f\) gilt
+\[
+\int_0^1 f(y)\,\frac{1}{2\sqrt y}\,dy
+=
+\int_0^1 f(x^2)\,dx.
+\]
 \end{block}
 \end{frame}
 
@@ -603,8 +1155,7 @@ Da \(\nu(S_x)=\int_F \mathbf 1_S(x,y)\,d\nu(y)\), folgt die Behauptung.
 \end{block}
 
 \begin{block}{Schritt 2: Einfache Funktionen}
-Mit Linearität folgt der Satz für endliche Summen von Indikatorfunktionen,
-also für einfache Funktionen.
+Mit Linearität folgt der Satz für endliche Summen von Indikatorfunktionen, also für einfache Funktionen.
 \end{block}
 \end{frame}
 
@@ -624,8 +1175,7 @@ Durch Subtraktion folgt der Satz für \(f\).
 \end{block}
 
 \begin{block}{Bemerkung}
-Für nichtnegative Funktionen spricht man oft vom Satz von Tonelli,
-für integrierbare Funktionen vom Satz von Fubini.
+Für nichtnegative Funktionen spricht man oft vom Satz von Tonelli, für integrierbare Funktionen vom Satz von Fubini.
 \end{block}
 \end{frame}
 
