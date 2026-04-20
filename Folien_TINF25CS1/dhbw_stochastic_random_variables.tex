@@ -319,23 +319,6 @@ Falls \(p_i=\frac1n\) für alle \(i\), dann gilt
 \end{block}
 \end{frame}
 
-\begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
-\begin{block}{Definition}
-Für \([a,b]\subseteq\mathbb R\) mit \(a<b\) ist die Gleichverteilung auf \([a,b]\)
-das Wahrscheinlichkeitsmaß mit Dichte
-\[
-p(x)=\frac1{b-a}\mathbf 1_{[a,b]}(x).
-\]
-\end{block}
-
-\begin{block}{Folgerung}
-Für messbare \(A\subseteq\mathbb R\) gilt
-\[
-\mathbb P(A)=\int_A p(x)\,dx.
-\]
-\end{block}
-\end{frame}
-
 \begin{frame}{Zufallsvariable}
 \begin{block}{Definition}
 Seien \((\Omega,\mathcal A,\mathbb P)\) ein Wahrscheinlichkeitsraum und \((E,\mathcal E)\) ein Messraum.
@@ -362,6 +345,32 @@ eine Zufallsvariable, so ist die induzierte Verteilung von \(X\) das Maß \(\mat
 \[
 \mathbb P_X(B)=\mathbb P(X\in B)=\mathbb P\bigl(X^{-1}(B)\bigr),
 \qquad B\in\mathcal E.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Bildmaß}
+\begin{block}{Definition}
+Seien \((X,\mathcal A,\mu)\) und \((Y,\mathcal B)\) Messräume und
+\[
+T\colon X\to Y
+\]
+eine messbare Abbildung.
+Dann definiert man das Bildmaß \(T_\#\mu\) auf \((Y,\mathcal B)\) durch
+\[
+T_\#\mu(B):=\mu(T^{-1}(B)),
+\qquad B\in\mathcal B.
+\]
+\end{block}
+
+\begin{block}{Spezialfall}
+Ist
+\[
+X\colon (\Omega,\mathcal F,\mathbb P)\to(E,\mathcal E)
+\]
+eine Zufallsvariable, dann ist ihre Verteilung gerade das Bildmaß
+\[
+\mathbb P_X=X_\#\mathbb P.
 \]
 \end{block}
 \end{frame}
@@ -553,6 +562,8 @@ Damit kann man \(\int f\,d\mu\) in der Praxis durch eine geeignete Folge
 \end{block}
 \end{frame}
 
+
+
 \begin{frame}{Eindeutigkeit des Werts bei Approximationen}
 \begin{block}{Satz}
 Seien \((\varphi_n)\) und \((\psi_n)\) zwei Folgen nichtnegativer messbarer Funktionen mit
@@ -577,10 +588,10 @@ Beide Grenzwerte sind nach dem Satz von der monotonen Konvergenz gleich
 \end{block}
 \end{frame}
 
-
 \begin{frame}
 \includegraphics[scale=0.15]{img/lebesgue_counting.png}
 \includegraphics[scale=0.15]{img/RiemannVsLebesgue.png}
+
 \end{frame}
 
 \begin{frame}{Reellwertige Funktionen}
@@ -666,28 +677,334 @@ der Erwartungswert.
 \end{block}
 \end{frame}
 
-\begin{frame}{Bildmaß}
+\begin{frame}{Messbare Rechtecke}
 \begin{block}{Definition}
-Seien \((X,\mathcal A,\mu)\) und \((Y,\mathcal B)\) Messräume und
+Für Teilmengen \(A\subseteq E\) und \(B\subseteq F\) hei\ss{}t
 \[
-T\colon X\to Y
+A\times B:=\{(x,y)\in E\times F : x\in A,\ y\in B\}
 \]
-eine messbare Abbildung.
-Dann definiert man das Bildmaß \(T_\#\mu\) auf \((Y,\mathcal B)\) durch
+ein Rechteck im Produktraum \(E\times F\).
+\end{block}
+
+\begin{block}{Beispiel}
+Falls \(E=F=\mathbb R\) und \(A,B\) Intervalle sind, dann ist \(A\times B\subseteq\mathbb R^2\)
+ein gewöhnliches Rechteck.
+\end{block}
+\end{frame}
+
+\begin{frame}{Produkt-\(\sigma\)-Algebra}
+\begin{block}{Definition}
+Für Messräume \((E,\mathcal E)\) und \((F,\mathcal F)\) ist die Produkt-\(\sigma\)-Algebra
 \[
-T_\#\mu(B):=\mu(T^{-1}(B)),
-\qquad B\in\mathcal B.
+\mathcal E\otimes\mathcal F
+=
+\sigma\bigl(\{A\times B : A\in\mathcal E,\; B\in\mathcal F\}\bigr).
 \]
 \end{block}
 
-\begin{block}{Spezialfall}
-Ist
+\begin{block}{Idee}
+Sie ist die natürliche \(\sigma\)-Algebra auf dem Produktraum \(E\times F\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Gemeinsame Verteilung}
+\begin{block}{Definition}
+Sind
 \[
-X\colon (\Omega,\mathcal F,\mathbb P)\to(E,\mathcal E)
+X\colon \Omega\to E,
+\qquad
+Y\colon \Omega\to F
 \]
-eine Zufallsvariable, dann ist ihre Verteilung gerade das Bildmaß
+Zufallsvariablen, so ist
 \[
-\mathbb P_X=X_\#\mathbb P.
+(X,Y)\colon \Omega\to E\times F,
+\qquad
+\omega\mapsto (X(\omega),Y(\omega)),
+\]
+eine Zufallsvariable auf \((E\times F,\mathcal E\otimes\mathcal F)\).
+\end{block}
+
+\begin{block}{Gemeinsame Verteilung}
+Die induzierte Verteilung von \((X,Y)\) hei\ss{}t gemeinsame Verteilung:
+\[
+\mathbb P_{(X,Y)}(C)=\mathbb P\bigl((X,Y)\in C\bigr),
+\qquad
+C\in\mathcal E\otimes\mathcal F.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Produktmaß}
+\begin{block}{Satz}
+Seien \(\mu\) ein Maß auf \((E,\mathcal E)\) und \(\nu\) ein Maß auf \((F,\mathcal F)\).
+Dann gibt es genau ein Maß
+\[
+\mu\otimes\nu
+\]
+auf \((E\times F,\mathcal E\otimes\mathcal F)\) mit
+\[
+(\mu\otimes\nu)(A\times B)=\mu(A)\nu(B)
+\]
+für alle \(A\in\mathcal E\), \(B\in\mathcal F\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Produktmaß über Schnitte}
+\begin{block}{Schnittfunktion}
+Für eine messbare Menge \(S\subseteq E\times F\) und \(x\in E\) setze
+\[
+S_x:=\{y\in F:(x,y)\in S\}.
+\]
+\end{block}
+
+\begin{block}{Idee}
+Dann kann man das Produktmaß durch
+\[
+(\mu\otimes\nu)(S)
+=
+\int_E \nu(S_x)\,d\mu(x)
+\]
+beschreiben.
+\end{block}
+
+\begin{block}{Interpretation}
+Man misst für jedes \(x\) den vertikalen Schnitt und integriert diese Größen über \(x\).
+\end{block}
+\end{frame}
+
+\begin{frame}
+\includegraphics[scale=0.09]{img/sphere_slicing.jpg}
+
+\end{frame}
+
+\begin{frame}{Produktmaß auf Rechtecken}
+\begin{block}{Spezialfall}
+Für \(S=A\times B\) gilt
+\[
+S_x=
+\begin{cases}
+B,& x\in A,\\
+\varnothing,& x\notin A.
+\end{cases}
+\]
+Also
+\[
+\nu(S_x)=
+\begin{cases}
+\nu(B),& x\in A,\\
+0,& x\notin A.
+\end{cases}
+\]
+\end{block}
+
+\begin{block}{Folgerung}
+Daher
+\[
+(\mu\otimes\nu)(A\times B)
+=
+\int_E \nu(S_x)\,d\mu(x)
+=
+\nu(B)\mu(A).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Lebesgue-Maß auf \(\mathbb R\)}
+\begin{block}{Satz/Definition}
+Es gibt genau ein Maß \(\lambda\) auf \((\mathbb R,\mathcal B(\mathbb R))\) mit
+\[
+\lambda((a,b])=b-a
+\qquad\text{für alle } a<b.
+\]
+Dieses Maß hei\ss{}t Lebesgue-Maß auf \(\mathbb R\).
+\end{block}
+
+\begin{block}{Interpretation}
+\(\lambda\) misst die Länge von Intervallen und allgemeiner von borelschen Mengen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiele für das Lebesgue-Maß auf \(\mathbb R\)}
+\begin{block}{Intervalle}
+Für Intervalle gilt insbesondere
+\[
+\lambda([a,b])=b-a,
+\qquad
+\lambda((a,b))=b-a.
+\]
+\end{block}
+
+\begin{block}{Einpunktmengen}
+Außerdem gilt
+\[
+\lambda(\{x\})=0
+\qquad\text{für alle } x\in\mathbb R.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Lebesgue-Maß auf \(\mathbb R^n\)}
+\begin{block}{Definition}
+Hat man das Lebesgue-Maß \(\lambda\) auf \(\mathbb R\) bereits konstruiert, so definiert man das Lebesgue-Maß auf \(\mathbb R^n\) als \(n\)-faches Produktmaß
+\[
+\lambda^n=\lambda\otimes\cdots\otimes\lambda.
+\]
+\end{block}
+
+\begin{block}{Idee}
+Das \(1\)-dimensionale Lebesgue-Maß misst Längen.
+Das Produktmaß liefert daraus in höheren Dimensionen Flächen und Volumina.
+\end{block}
+\end{frame}
+
+\begin{frame}{Volumenmaß auf Quadern}
+\begin{block}{Spezialfall}
+Für einen Quader
+\[
+[a_1,b_1]\times\cdots\times[a_n,b_n]\subseteq\mathbb R^n
+\]
+gilt
+\[
+\lambda^n\bigl([a_1,b_1]\times\cdots\times[a_n,b_n]\bigr)
+=
+\prod_{i=1}^n (b_i-a_i).
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+In Dimension \(1\) ist das Länge, in Dimension \(2\) Fläche, in Dimension \(3\) Volumen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Satz von Fubini}
+\begin{block}{Satz}
+Seien \((E,\mathcal E,\mu)\) und \((F,\mathcal F,\nu)\) Maßräume und
+\[
+f\colon E\times F\to\mathbb R
+\]
+messbar und integrierbar. Dann gilt:
+\[
+\int_{E\times F} f(x,y)\,d(\mu\otimes\nu)(x,y)
+=
+\int_E\left(\int_F f(x,y)\,d\nu(y)\right)d\mu(x).
+\]
+Ebenso gilt
+\[
+\int_{E\times F} f(x,y)\,d(\mu\otimes\nu)(x,y)
+=
+\int_F\left(\int_E f(x,y)\,d\mu(x)\right)d\nu(y).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee zu Fubini}
+\begin{block}{Schritt 1: Indikatorfunktionen}
+Für \(f=\mathbf 1_S\) mit messbarem \(S\subseteq E\times F\) gilt
+\[
+\int_{E\times F}\mathbf 1_S\,d(\mu\otimes\nu)
+=
+(\mu\otimes\nu)(S),
+\]
+und nach der Definition des Produktmaßes
+\[
+(\mu\otimes\nu)(S)=\int_E \nu(S_x)\,d\mu(x).
+\]
+Da \(\nu(S_x)=\int_F \mathbf 1_S(x,y)\,d\nu(y)\), folgt die Behauptung.
+\end{block}
+
+\begin{block}{Schritt 2: Einfache Funktionen}
+Mit Linearität folgt der Satz für endliche Summen von Indikatorfunktionen, also für einfache Funktionen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee zu Fubini: Grenzübergang}
+\begin{block}{Schritt 3: Nichtnegative messbare Funktionen}
+Man approximiert \(f\ge 0\) von unten durch einfache Funktionen.
+Dann erhält man die Aussage mit dem Satz von der monotonen Konvergenz.
+\end{block}
+
+\begin{block}{Schritt 4: Allgemeine integrierbare Funktionen}
+Für integrierbare \(f\) schreibt man
+\[
+f=f^+-f^-.
+\]
+Die Aussage für \(f^+\) und \(f^-\) ist bereits bekannt.
+Durch Subtraktion folgt der Satz für \(f\).
+\end{block}
+
+\begin{block}{Bemerkung}
+Für nichtnegative Funktionen spricht man oft vom Satz von Tonelli, für integrierbare Funktionen vom Satz von Fubini.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
+\begin{block}{Definition}
+Für \([a,b]\subseteq\mathbb R\) mit \(a<b\) ist die Gleichverteilung auf \([a,b]\)
+das Wahrscheinlichkeitsmaß mit Dichte
+\[
+p(x)=\frac1{b-a}\mathbf 1_{[a,b]}(x).
+\]
+\end{block}
+
+\begin{block}{Folgerung}
+Für messbare \(A\subseteq\mathbb R\) gilt
+\[
+\mathbb P(A)=\int_A p(x)\,d\lambda(x).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Dichte eines Maßes}
+\begin{block}{Definition}
+Sei \(\mu\) ein Maß auf \((\mathbb R^n,\mathcal B(\mathbb R^n))\).
+Eine messbare Funktion
+\[
+p\colon \mathbb R^n\to[0,\infty]
+\]
+heißt Dichte von \(\mu\) bezüglich des Lebesgue-Maßes \(\lambda^n\), wenn für alle messbaren Mengen \(A\subseteq\mathbb R^n\) gilt
+\[
+\mu(A)=\int_A p(x)\,d\lambda^n(x).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Schreibweise für Dichten}
+\begin{block}{Kurzschreibweise}
+Hat \(\mu\) die Dichte \(p\) bezüglich \(\lambda^n\), so schreibt man auch
+\[
+d\mu(x)=p(x)\,d\lambda^n(x).
+\]
+In \(\mathbb R^n\) schreibt man häufig kurz
+\[
+d\mu(x)=p(x)\,dx.
+\]
+\end{block}
+
+\begin{block}{Bedeutung von \(dx\)}
+Das Symbol \(dx\) steht hier also für Integration bezüglich des Lebesgue-Maßes.
+\end{block}
+\end{frame}
+
+\begin{frame}{Integration mit Dichte}
+\begin{block}{Satz}
+Hat \(\mu\) die Dichte \(p\), dann gilt für jede messbare Funktion
+\[
+f\colon \mathbb R^n\to\mathbb R
+\]
+mit \(f\ge 0\) oder \(f\in L^1(\mu)\):
+\[
+\int_{\mathbb R^n} f(x)\,d\mu(x)
+=
+\int_{\mathbb R^n} f(x)\,p(x)\,d\lambda^n(x).
+\]
+\end{block}
+
+\begin{block}{Kurzform}
+Mit der Schreibweise \(dx=d\lambda^n(x)\) auch:
+\[
+\int_{\mathbb R^n} f(x)\,d\mu(x)
+=
+\int_{\mathbb R^n} f(x)\,p(x)\,dx.
 \]
 \end{block}
 \end{frame}
@@ -824,55 +1141,13 @@ Durch Subtraktion erhält man
 \end{block}
 \end{frame}
 
-\begin{frame}{Dichte eines Maßes}
-\begin{block}{Definition}
-Sei \(\mu\) ein Maß auf \((\mathbb R^n,\mathcal B(\mathbb R^n))\).
-Eine messbare Funktion
-\[
-p\colon \mathbb R^n\to[0,\infty]
-\]
-heißt Dichte von \(\mu\) bezüglich des Lebesgue-Maßes \(\lambda^n\), wenn für alle messbaren Mengen \(A\subseteq\mathbb R^n\) gilt
-\[
-\mu(A)=\int_A p(x)\,d\lambda^n(x).
-\]
-\end{block}
-
-\begin{block}{Schreibweise}
-Dann schreibt man auch
-\[
-d\mu(x)=p(x)\,d\lambda^n(x)
-\qquad\text{oder kurz}\qquad
-d\mu(x)=p(x)\,dx.
-\]
-\end{block}
-\end{frame}
-
-\begin{frame}{Integration mit Dichte}
-\begin{block}{Satz}
-Hat \(\mu\) die Dichte \(p\), dann gilt für jede messbare Funktion
-\[
-f\colon \mathbb R^n\to\mathbb R
-\]
-mit \(f\ge 0\) oder \(f\in L^1(\mu)\):
-\[
-\int_{\mathbb R^n} f(x)\,d\mu(x)
-=
-\int_{\mathbb R^n} f(x)\,p(x)\,dx.
-\]
-\end{block}
-
-\begin{block}{Begründung}
-Dies ist direkt die Definition des Integrals bezüglich \(\mu\), geschrieben mit Hilfe der Dichte \(p\).
-\end{block}
-\end{frame}
-
 \begin{frame}{Dichtetransformation in \(\mathbb R^n\)}
 \begin{block}{Satz}
 Sei \(T\colon U\to V\) eine \(C^1\)-Diffeomorphie zwischen offenen Mengen
 \(U,V\subseteq\mathbb R^n\).
 Sei \(\mu\) ein Maß auf \(U\) mit Dichte \(p\), also
 \[
-d\mu(x)=p(x)\,dx.
+d\mu(x)=p(x)\,d\lambda^n(x).
 \]
 Dann besitzt das Bildmaß \(T_\#\mu\) auf \(V\) die Dichte
 \[
@@ -886,9 +1161,9 @@ q(y)=p(T^{-1}(y))
 \begin{block}{Folgerung}
 Für jede messbare Funktion \(f\colon V\to\mathbb R\) mit \(f\ge 0\) oder \(f\in L^1(T_\#\mu)\) gilt
 \[
-\int_V f(y)\,q(y)\,dy
+\int_V f(y)\,q(y)\,d\lambda^n(y)
 =
-\int_U f(T(x))\,p(x)\,dx,
+\int_U f(T(x))\,p(x)\,d\lambda^n(x),
 \]
 wobei
 \[
@@ -897,8 +1172,13 @@ q(y)=p(T^{-1}(y))
 \]
 \end{block}
 
-\begin{block}{Interpretation}
-Die Jacobi-Determinante beschreibt die lokale Verzerrung von Volumina unter \(T\).
+\begin{block}{Kurzform}
+Mit \(d\lambda^n(x)=dx\) und \(d\lambda^n(y)=dy\) schreibt man auch
+\[
+\int_V f(y)\,q(y)\,dy
+=
+\int_U f(T(x))\,p(x)\,dx.
+\]
 \end{block}
 \end{frame}
 
@@ -914,7 +1194,7 @@ Da \(\mu\) die Dichte \(p\) besitzt, folgt
 \[
 \int_V f(y)\,d(T_\#\mu)(y)
 =
-\int_U f(T(x))\,p(x)\,dx.
+\int_U f(T(x))\,p(x)\,d\lambda^n(x).
 \]
 \end{block}
 
@@ -934,13 +1214,9 @@ Eine lineare Abbildung \(A\) skaliert Volumina mit dem Faktor
 \[
 |\det A|.
 \]
-Daher wird ein kleines Volumenelement \(dx\) unter \(T\) näherungsweise zu
+Daher wird ein kleines Volumenelement \(d\lambda^n(x)\) unter \(T\) näherungsweise zu
 \[
-dy \approx |\det DT(x)|\,dx.
-\]
-Also formal
-\[
-dx \approx \frac{1}{|\det DT(x)|}\,dy.
+d\lambda^n(y)\approx |\det DT(x)|\,d\lambda^n(x).
 \]
 \end{block}
 \end{frame}
@@ -949,10 +1225,10 @@ dx \approx \frac{1}{|\det DT(x)|}\,dy.
 \begin{block}{Einsetzen von \(x=T^{-1}(y)\)}
 Setzt man \(x=T^{-1}(y)\), dann erhält man heuristisch
 \[
-p(x)\,dx
+p(x)\,d\lambda^n(x)
 =
 p(T^{-1}(y))
-\frac{1}{|\det DT(T^{-1}(y))|}\,dy.
+\frac{1}{|\det DT(T^{-1}(y))|}\,d\lambda^n(y).
 \]
 Daher ist die Dichte des Bildmaßes
 \[
@@ -970,14 +1246,19 @@ Ein strenger Beweis benötigt den mehrdimensionalen Transformationssatz aus der 
 \begin{block}{Spezialfall Lebesgue-Maß}
 Wählt man \(p\equiv 1\), also \(\mu=\lambda^n\), dann folgt
 \[
+\int_V f(y)\,d\lambda^n(y)
+=
+\int_U f(T(x))\,|\det DT(x)|\,d\lambda^n(x).
+\]
+\end{block}
+
+\begin{block}{Kurzform}
+Mit \(d\lambda^n(x)=dx\) und \(d\lambda^n(y)=dy\) schreibt man
+\[
 \int_V f(y)\,dy
 =
 \int_U f(T(x))\,|\det DT(x)|\,dx.
 \]
-\end{block}
-
-\begin{block}{Interpretation}
-Dies ist die klassische Substitutionsformel in \(\mathbb R^n\).
 \end{block}
 \end{frame}
 
@@ -1070,193 +1351,23 @@ Für messbares \(f\) gilt
 \end{block}
 \end{frame}
 
-\begin{frame}{Messbare Rechtecke}
-\begin{block}{Definition}
-Für Teilmengen \(A\subseteq E\) und \(B\subseteq F\) hei\ss{}t
-\[
-A\times B:=\{(x,y)\in E\times F : x\in A,\ y\in B\}
-\]
-ein Rechteck im Produktraum \(E\times F\).
-\end{block}
 
+\begin{frame}
+    \frametitle{Zufallsvariablen}
+\framesubtitle{}
 \begin{block}{Beispiel}
-Falls \(E=F=\mathbb R\) und \(A,B\) Intervalle sind, dann ist \(A\times B\subseteq\mathbb R^2\)
-ein gewöhnliches Rechteck.
+Die Funktion $f(x) = \frac{1}{\sqrt{\pi}} e^{- x^2}$ ist eine Dichte auf $ \mathbb{R}$.
+\begin{align*}
+& I := \int_{0}^{\infty} e^{-x^2} \; dx\\
+& I^2 =  \int_{0}^{\infty} e^{-x^2} \; dx \cdot    \int_{0}^{\infty} e^{-y^2} \; dy =    \int_{0}^{\infty} \int_{0}^{\infty} e^{-(x^2+y^2)} \; dx \;dy \\
+&x=r \cos \varphi ,y=r\sin \varphi ,r^2 = x^2 + y^2  \; (\text{ da } \cos^2 + \sin^2 = 1)\\
+ &\text{ \href{https://de.wikipedia.org/wiki/Polarkoordinaten\#Zylinderkoordinaten}{LINK: Polarkoordinatentransformation}} \\
+& = \int_{0}^{\frac{\pi}{2}}  \int_{0}^{\infty}r \cdot e^{-r^2} \; dr \;d\varphi \\
+&= \frac{\pi}{2} \int_{0}^{\infty}r \cdot e^{-r^2} \; dr \\
+&= -\frac{\pi}{4} [e^{-r^2} ]_0^{\infty} = \frac{\pi}{4} \Rightarrow I = \frac{\sqrt{\pi}}{2}
+\end{align*}
 \end{block}
-\end{frame}
-
-\begin{frame}{Produkt-\(\sigma\)-Algebra}
-\begin{block}{Definition}
-Für Messräume \((E,\mathcal E)\) und \((F,\mathcal F)\) ist die Produkt-\(\sigma\)-Algebra
-\[
-\mathcal E\otimes\mathcal F
-=
-\sigma\bigl(\{A\times B : A\in\mathcal E,\; B\in\mathcal F\}\bigr).
-\]
-\end{block}
-
-\begin{block}{Idee}
-Sie ist die natürliche \(\sigma\)-Algebra auf dem Produktraum \(E\times F\).
-\end{block}
-\end{frame}
-
-\begin{frame}{Gemeinsame Verteilung}
-\begin{block}{Definition}
-Sind
-\[
-X\colon \Omega\to E,
-\qquad
-Y\colon \Omega\to F
-\]
-Zufallsvariablen, so ist
-\[
-(X,Y)\colon \Omega\to E\times F,
-\qquad
-\omega\mapsto (X(\omega),Y(\omega)),
-\]
-eine Zufallsvariable auf \((E\times F,\mathcal E\otimes\mathcal F)\).
-\end{block}
-
-\begin{block}{Gemeinsame Verteilung}
-Die induzierte Verteilung von \((X,Y)\) hei\ss{}t gemeinsame Verteilung:
-\[
-\mathbb P_{(X,Y)}(C)=\mathbb P\bigl((X,Y)\in C\bigr),
-\qquad
-C\in\mathcal E\otimes\mathcal F.
-\]
-\end{block}
-\end{frame}
-
-\begin{frame}{Produktmaß}
-\begin{block}{Satz}
-Seien \(\mu\) ein Maß auf \((E,\mathcal E)\) und \(\nu\) ein Maß auf \((F,\mathcal F)\).
-Dann gibt es genau ein Maß
-\[
-\mu\otimes\nu
-\]
-auf \((E\times F,\mathcal E\otimes\mathcal F)\) mit
-\[
-(\mu\otimes\nu)(A\times B)=\mu(A)\nu(B)
-\]
-für alle \(A\in\mathcal E\), \(B\in\mathcal F\).
-\end{block}
-\end{frame}
-
-\begin{frame}{Produktmaß über Schnitte}
-\begin{block}{Schnittfunktion}
-Für eine messbare Menge \(S\subseteq E\times F\) und \(x\in E\) setze
-\[
-S_x:=\{y\in F:(x,y)\in S\}.
-\]
-\end{block}
-
-\begin{block}{Idee}
-Dann kann man das Produktmaß durch
-\[
-(\mu\otimes\nu)(S)
-=
-\int_E \nu(S_x)\,d\mu(x)
-\]
-beschreiben.
-\end{block}
-
-\begin{block}{Interpretation}
-Man misst für jedes \(x\) den vertikalen Schnitt und integriert diese Größen über \(x\).
-\end{block}
-\end{frame}
-
-\begin{frame}{Produktmaß auf Rechtecken}
-\begin{block}{Spezialfall}
-Für \(S=A\times B\) gilt
-\[
-S_x=
-\begin{cases}
-B,& x\in A,\\
-\varnothing,& x\notin A.
-\end{cases}
-\]
-Also
-\[
-\nu(S_x)=
-\begin{cases}
-\nu(B),& x\in A,\\
-0,& x\notin A.
-\end{cases}
-\]
-\end{block}
-
-\begin{block}{Folgerung}
-Daher
-\[
-(\mu\otimes\nu)(A\times B)
-=
-\int_E \nu(S_x)\,d\mu(x)
-=
-\nu(B)\mu(A).
-\]
-\end{block}
-\end{frame}
-
-\begin{frame}{Satz von Fubini}
-\begin{block}{Satz}
-Seien \((E,\mathcal E,\mu)\) und \((F,\mathcal F,\nu)\) Maßräume und
-\[
-f\colon E\times F\to\mathbb R
-\]
-messbar und integrierbar. Dann gilt:
-\[
-\int_{E\times F} f(x,y)\,d(\mu\otimes\nu)(x,y)
-=
-\int_E\left(\int_F f(x,y)\,d\nu(y)\right)d\mu(x).
-\]
-Ebenso gilt
-\[
-\int_{E\times F} f(x,y)\,d(\mu\otimes\nu)(x,y)
-=
-\int_F\left(\int_E f(x,y)\,d\mu(x)\right)d\nu(y).
-\]
-\end{block}
-\end{frame}
-
-\begin{frame}{Beweisidee zu Fubini}
-\begin{block}{Schritt 1: Indikatorfunktionen}
-Für \(f=\mathbf 1_S\) mit messbarem \(S\subseteq E\times F\) gilt
-\[
-\int_{E\times F}\mathbf 1_S\,d(\mu\otimes\nu)
-=
-(\mu\otimes\nu)(S),
-\]
-und nach der Definition des Produktmaßes
-\[
-(\mu\otimes\nu)(S)=\int_E \nu(S_x)\,d\mu(x).
-\]
-Da \(\nu(S_x)=\int_F \mathbf 1_S(x,y)\,d\nu(y)\), folgt die Behauptung.
-\end{block}
-
-\begin{block}{Schritt 2: Einfache Funktionen}
-Mit Linearität folgt der Satz für endliche Summen von Indikatorfunktionen, also für einfache Funktionen.
-\end{block}
-\end{frame}
-
-\begin{frame}{Beweisidee zu Fubini: Grenzübergang}
-\begin{block}{Schritt 3: Nichtnegative messbare Funktionen}
-Man approximiert \(f\ge 0\) von unten durch einfache Funktionen.
-Dann erhält man die Aussage mit dem Satz von der monotonen Konvergenz.
-\end{block}
-
-\begin{block}{Schritt 4: Allgemeine integrierbare Funktionen}
-Für integrierbare \(f\) schreibt man
-\[
-f=f^+-f^-.
-\]
-Die Aussage für \(f^+\) und \(f^-\) ist bereits bekannt.
-Durch Subtraktion folgt der Satz für \(f\).
-\end{block}
-
-\begin{block}{Bemerkung}
-Für nichtnegative Funktionen spricht man oft vom Satz von Tonelli, für integrierbare Funktionen vom Satz von Fubini.
-\end{block}
-\end{frame}
+ \end{frame}
 
 \begin{frame}{Stochastische Unabhängigkeit}
 \begin{block}{Definition}

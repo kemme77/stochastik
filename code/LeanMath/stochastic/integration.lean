@@ -218,7 +218,7 @@ example {Ω : Type*} [MeasurableSpace Ω] (P : ProbabilityMeasure Ω) :
     P.toMeasure univ = 1 := by
   simp
 
-/-! ## 6. Zufallsvariable und Verteilung -/
+/-! ## 6. Zufallsvariable, Verteilung und Bildmaß -/
 
 /-
 Auf den Folien ist eine Zufallsvariable eine messbare Abbildung.
@@ -336,7 +336,7 @@ example {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω)
     ∫⁻ x, ⨆ n, φ n x ∂μ = ⨆ n, ∫⁻ x, φ n x ∂μ := by
   simpa using lintegral_iSup hφm hφmono
 
-/-! ## 9. Produktmaß und Fubini -/
+/-! ## 9. Produktmaß, Lebesgue-Maß und Fubini -/
 
 /-
 Produktmaß: `μ.prod ν`
@@ -354,6 +354,23 @@ example {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
   exact Measure.prod_prod (μ := μ) (ν := ν) A B
 
 /-
+Das Lebesgue-Maß auf `ℝ` heißt in mathlib `volume`.
+-/
+example : Measure ℝ := volume
+
+/-
+Auf dem Produktraum `ℝ × ℝ` ist `volume.prod volume` das zugehörige Produktmaß.
+-/
+example : Measure (ℝ × ℝ) := (volume : Measure ℝ).prod volume
+
+/-
+Für Rechtecke in `ℝ × ℝ` ergibt das Produktmaß das Produkt der Längen.
+-/
+example (A B : Set ℝ) [SFinite (volume : Measure ℝ)] :
+    ((volume : Measure ℝ).prod volume) (A ×ˢ B) = volume A * volume B := by
+  exact Measure.prod_prod (μ := (volume : Measure ℝ)) (ν := volume) A B
+
+/-
 Fubini / Tonelli stehen in mathlib in vielen Varianten bereit.
 Eine sehr typische Formel ist:
 -/
@@ -363,39 +380,23 @@ example {α β : Type*} [MeasurableSpace α] [MeasurableSpace β]
     ∫ z, f z ∂(μ.prod ν) = ∫ x, ∫ y, f (x, y) ∂ν ∂μ := by
   simpa using (MeasureTheory.integral_integral (f := fun x y => f (x, y)) hf).symm
 
-/-! ## 10. Bildmaß und Transformationssatz -/
+/-! ## 10. Gleichverteilung auf einem Intervall -/
 
 /-
-Der Transformationssatz der Folien lautet allgemein:
-
-∫_Y f d(T#μ) = ∫_X f∘T dμ.
-
-In mathlib ist das genau `lintegral_map` bzw. `integral_map`.
+In den Folien wird die Gleichverteilung auf `[a,b]` als Maß mit Dichte bezüglich
+des Lebesgue-Maßes beschrieben. In Lean ist dafür `withDensity volume p` die
+passende Konstruktion.
 -/
-example {X Y : Type*} [MeasurableSpace X] [MeasurableSpace Y]
-    (μ : Measure X) {T : X → Y} (hT : Measurable T) (f : Y → ℝ≥0∞)
-    (hf : Measurable f) :
-    ∫⁻ y, f y ∂(Measure.map T μ) = ∫⁻ x, f (T x) ∂μ := by
-  simpa using lintegral_map hf hT
+example (a b : ℝ) : Measure ℝ :=
+  Measure.withDensity volume
+    (fun x =>
+      (ENNReal.ofReal (b - a))⁻¹ *
+        Set.indicator (Set.Icc a b) (fun _ => (1 : ℝ≥0∞)) x)
 
 /-
-Für integrierbare reellwertige Funktionen gibt es die analoge Formel.
+Für die Vorlesung ist meist die inhaltliche Aussage wichtiger:
+man integriert die Dichte gegen `volume`, also gegen das Lebesgue-Maß auf `ℝ`.
 -/
-example {X Y : Type*} [MeasurableSpace X] [MeasurableSpace Y]
-    (μ : Measure X) {T : X → Y} (hT : Measurable T) (f : Y → ℝ)
-    (hf : Integrable f (Measure.map T μ)) :
-    ∫ y, f y ∂(Measure.map T μ) = ∫ x, f (T x) ∂μ := by
-  simpa using integral_map hT.aemeasurable hf.aestronglyMeasurable
-
-/-
-Spezialfall Zufallsvariable:
-Die Verteilung ist das Bildmaß von `P` unter `X`.
--/
-example {Ω E : Type*} [MeasurableSpace Ω] [MeasurableSpace E]
-    (P : Measure Ω) {X : Ω → E} (hX : Measurable X) (g : E → ℝ≥0∞)
-    (hg : Measurable g) :
-    ∫⁻ x, g x ∂(Measure.map X P) = ∫⁻ ω, g (X ω) ∂P := by
-  simpa using lintegral_map hg hX
 
 /-! ## 11. Dichten -/
 
@@ -431,7 +432,41 @@ example {n : ℕ} (p : (Fin n → ℝ) → ℝ≥0∞) (f : (Fin n → ℝ) → 
 Für reellwertige Integrale existieren entsprechende Sätze, meist unter Integrabilitätsannahmen.
 -/
 
-/-! ## 12. Unabhängigkeit -/
+/-! ## 12. Bildmaß und Transformationssatz -/
+
+/-
+Der Transformationssatz der Folien lautet allgemein:
+
+∫_Y f d(T#μ) = ∫_X f∘T dμ.
+
+In mathlib ist das genau `lintegral_map` bzw. `integral_map`.
+-/
+example {X Y : Type*} [MeasurableSpace X] [MeasurableSpace Y]
+    (μ : Measure X) {T : X → Y} (hT : Measurable T) (f : Y → ℝ≥0∞)
+    (hf : Measurable f) :
+    ∫⁻ y, f y ∂(Measure.map T μ) = ∫⁻ x, f (T x) ∂μ := by
+  simpa using lintegral_map hf hT
+
+/-
+Für integrierbare reellwertige Funktionen gibt es die analoge Formel.
+-/
+example {X Y : Type*} [MeasurableSpace X] [MeasurableSpace Y]
+    (μ : Measure X) {T : X → Y} (hT : Measurable T) (f : Y → ℝ)
+    (hf : Integrable f (Measure.map T μ)) :
+    ∫ y, f y ∂(Measure.map T μ) = ∫ x, f (T x) ∂μ := by
+  simpa using integral_map hT.aemeasurable hf.aestronglyMeasurable
+
+/-
+Spezialfall Zufallsvariable:
+Die Verteilung ist das Bildmaß von `P` unter `X`.
+-/
+example {Ω E : Type*} [MeasurableSpace Ω] [MeasurableSpace E]
+    (P : Measure Ω) {X : Ω → E} (hX : Measurable X) (g : E → ℝ≥0∞)
+    (hg : Measurable g) :
+    ∫⁻ x, g x ∂(Measure.map X P) = ∫⁻ ω, g (X ω) ∂P := by
+  simpa using lintegral_map hg hX
+
+/-! ## 13. Unabhängigkeit -/
 
 /-
 Auf den Folien wird Unabhängigkeit über Rechtecke definiert.
@@ -449,7 +484,7 @@ als gemeinsame Verteilung besitzen. Dieses Resultat ist in mathlib in vorhandene
 Hier zeigen wir zunächst nur die Definitionsebene.
 -/
 
-/-! ## 13. Kleine konkrete Beispiele -/
+/-! ## 14. Kleine konkrete Beispiele -/
 
 /-
 ### Beispiel 1: Erwartungswert einer Konstanten
@@ -561,7 +596,7 @@ example {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω)
     (⨆ n, ∫⁻ x, φ n x ∂μ) = ⨆ n, ∫⁻ x, ψ n x ∂μ := by
   exact monotone_approximation_unique μ f φ ψ hφm hφmono hψm hψmono hφsup hψsup
 
-/-! ## 14. Hinweise für die Vorlesung / zum Weiterlesen
+/-! ## 15. Hinweise für die Vorlesung / zum Weiterlesen
 
 1. **σ-Algebra** in Lean heißt `MeasurableSpace`.
 2. **erzeugte σ-Algebra** heißt `MeasurableSpace.generateFrom`.
@@ -571,12 +606,14 @@ example {Ω : Type*} [MeasurableSpace Ω] (μ : Measure Ω)
 6. **Verteilung** = `Measure.map`.
 7. **nichtnegatives Integral** = `lintegral` / `∫⁻`.
 8. **gewöhnliches Integral** = `integral` / `∫`.
-9. **Dichte** wird abstrakt über `withDensity` oder `rnDeriv` behandelt.
-10. **monotone Approximationen** berechnet man in Lean über `lintegral_iSup`.
-11. **Eindeutigkeit des Integralwerts** folgt daraus, dass jede solche Approximation
+9. **Produktmaß** heißt `μ.prod ν`.
+10. **Lebesgue-Maß auf ℝ** ist in Lean `volume`.
+11. **Dichte** wird abstrakt über `withDensity` oder `rnDeriv` behandelt.
+12. **monotone Approximationen** berechnet man in Lean über `lintegral_iSup`.
+13. **Eindeutigkeit des Integralwerts** folgt daraus, dass jede solche Approximation
     denselben Wert `∫⁻ f dμ` liefert.
-12. **Transformationssatz** ist in mathlib bereits als Standardresultat vorhanden.
-13. **Substitutionssätze** in konkreten 1D-Beispielen zeigt man häufig über `intervalIntegral`.
+14. **Transformationssatz** ist in mathlib bereits als Standardresultat vorhanden.
+15. **Substitutionssätze** in konkreten 1D-Beispielen zeigt man häufig über `intervalIntegral`.
 
 Für eine vertiefte Formalisierung der mehrdimensionalen Transformationsformel müsste man noch
 stärker mit Analysis-Resultaten über Diffeomorphismen, Jacobian und `MeasurePreserving`-artigen
