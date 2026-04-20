@@ -214,6 +214,7 @@ example {Ω : Type*} [MeasurableSpace Ω] (P : ProbabilityMeasure Ω) : Measure 
 /-
 Die Gesamtmasse eines Wahrscheinlichkeitsmaßes ist 1.
 -/
+set_option trace.Meta.Tactic.simp true in
 example {Ω : Type*} [MeasurableSpace Ω] (P : ProbabilityMeasure Ω) :
     P.toMeasure univ = 1 := by
   simp

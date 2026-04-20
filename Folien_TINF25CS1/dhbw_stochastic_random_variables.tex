@@ -669,11 +669,16 @@ Ist \(\Omega\) endlich und \(\mu\) ein diskretes Maß, dann gilt
 \end{block}
 
 \begin{block}{Für Wahrscheinlichkeitsmaße}
-Ist \(\mu=\mathbb P\), dann ist
+Ist \(\mu=\mathbb P\) und $X$ eine reelle Zufallsvariable, dann ist
 \[
-\mathbb E[f]=\int_\Omega f\,d\mathbb P
+\mathbb E[X]=\int_\Omega X\,d\mathbb P
 \]
-der Erwartungswert.
+der Erwartungswert von $X$.
+\end{block}
+\begin{block}{Wahrscheinlichkeit als Erwartungswert}
+\[
+\mathbb E[\mathbf{1}_A]=\int_\Omega \mathbf{1}_A\,d\mathbb P = \mathbb P(A).
+\]
 \end{block}
 \end{frame}
 
