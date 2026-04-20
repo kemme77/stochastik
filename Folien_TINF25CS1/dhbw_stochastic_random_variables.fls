@@ -469,6 +469,16 @@ INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/normaldist.png
+INPUT ./img/normaldist.png
+INPUT ./img/normaldist.png
+INPUT ./img/normaldist.png
+INPUT ./img/normaldist.png
 OUTPUT dhbw_stochastic_random_variables.nav
 OUTPUT dhbw_stochastic_random_variables.toc
 OUTPUT dhbw_stochastic_random_variables.snm
