@@ -316,6 +316,45 @@ Ein Wahrscheinlichkeitsmaß ist der Spezialfall, in dem die Gesamtmasse des ganz
 \end{block}
 \end{frame}
 
+\begin{frame}{Stetigkeit von Maßen}
+\begin{block}{Satz}
+Sei \(\mu\) ein Maß auf \((\Omega,\mathcal A)\) und seien \(A_1\subseteq A_2\subseteq\cdots\) Mengen in \(\mathcal A\) mit
+\[
+A_n\uparrow A:=\bigcup_{n\in\mathbb N} A_n.
+\]
+Dann gilt
+\[
+\mu(A_n)\to\mu(A).
+\]
+\end{block}
+
+\begin{block}{Anschaulich}
+Wächst eine Folge von Mengen, so wächst auch deren Maß gegen das Maß der Vereinigung.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweis: Stetigkeit von Maßen}
+\begin{block}{Idee: Teleskopsumme}
+Definiere \(B_1:=A_1\) und \(B_n:=A_n\setminus A_{n-1}\) für \(n\ge 2\).
+\\[4pt]
+Die \(B_n\) sind paarweise disjunkt und es gilt
+\[
+A_n=B_1\cup\cdots\cup B_n
+\qquad\text{und}\qquad
+A=\bigcup_{n=1}^\infty B_n.
+\]
+\end{block}
+
+\begin{block}{Rechnung}
+Mit der \(\sigma\)-Additivität folgt
+\[
+\mu(A)=\sum_{n=1}^\infty\mu(B_n)
+=\lim_{N\to\infty}\sum_{n=1}^N\mu(B_n)
+=\lim_{N\to\infty}\mu(A_N).
+\]
+\end{block}
+\end{frame}
+
 \begin{frame}{Beispiel: diskretes Wahrscheinlichkeitsmaß}
 \begin{block}{Definition}
 Für eine endliche Menge \(\Omega=\{\omega_1,\ldots,\omega_n\}\) und Wahrscheinlichkeiten
@@ -527,6 +566,225 @@ Die Menge aller solchen Approximationen ist durch \(f\) und \(\mu\) eindeutig be
 \end{block}
 \end{frame}
 
+\begin{frame}{Monotonie des Integrals}
+\begin{block}{Satz}
+Seien \(f,g\colon\Omega\to[0,\infty]\) messbar mit \(f\le g\). Dann gilt
+\[
+\int_\Omega f\,d\mu\le\int_\Omega g\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Beweis}
+Jede einfache Funktion \(\varphi\) mit \(0\le\varphi\le f\) erfüllt auch \(0\le\varphi\le g\). Also ist
+\[
+\left\{\int\varphi\,d\mu : 0\le\varphi\le f\right\}
+\subseteq
+\left\{\int\varphi\,d\mu : 0\le\varphi\le g\right\}.
+\]
+Das Supremum über eine Teilmenge ist \(\le\) dem Supremum über die Obermenge.
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Approximation durch Treppenfunktionen}
+\begin{block}{Satz}
+Sei
+\[
+f\colon \Omega\to[0,\infty]
+\]
+messbar. Dann gibt es eine Folge nichtnegativer einfacher Funktionen
+\[
+\varphi_n\colon\Omega\to[0,\infty)
+\]
+mit
+\[
+0\le \varphi_n\le \varphi_{n+1}\le f
+\qquad\text{und}\qquad
+\varphi_n(\omega)\uparrow f(\omega)
+\]
+für alle \(\omega\in\Omega\).
+\end{block}
+
+\begin{block}{Interpretation}
+Jede nichtnegative messbare Funktion kann von unten durch Treppenfunktionen approximiert werden.
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\includegraphics[scale=0.15]{img/lebesgue_counting.png}
+\includegraphics[scale=0.15]{img/RiemannVsLebesgue.png}
+
+\end{frame}
+
+\begin{frame}{Konstruktion der Approximation}
+\begin{block}{Definition der Treppenfunktionen}
+Für \(n\in\mathbb N\) setze
+\[
+\varphi_n(\omega)
+=
+\sum_{k=0}^{n2^n-1}
+\frac{k}{2^n}\,
+\mathbf 1_{\left\{
+\frac{k}{2^n}\le f(\omega)<\frac{k+1}{2^n}
+\right\}}
++
+n\,\mathbf 1_{\{f(\omega)\ge n\}}.
+\]
+\end{block}
+
+\begin{block}{Idee}
+Man rundet \(f(\omega)\) nach unten auf Stufen der Breite \(2^{-n}\) und schneidet bei Höhe \(n\) ab.
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist \(\varphi_n\le\varphi_{n+1}\)?}
+\begin{block}{Idee}
+Beim Übergang von \(n\) zu \(n+1\) passieren zwei Dinge:
+\begin{enumerate}
+    \item Die Stufenbreite halbiert sich: \(2^{-n}\to 2^{-(n+1)}\).
+    \item Die Abschneidehöhe steigt: \(n\to n+1\).
+\end{enumerate}
+\end{block}
+
+\begin{block}{Fall 1: \(f(\omega)<n\)}
+Dann wird \(f(\omega)\) weder bei Stufe \(n\) noch bei \(n+1\) abgeschnitten.
+\\[4pt]
+\(\varphi_n(\omega)\) rundet \(f(\omega)\) auf ein Vielfaches von \(2^{-n}\) ab.
+\\
+\(\varphi_{n+1}(\omega)\) rundet auf ein Vielfaches von \(2^{-(n+1)}\) ab.
+\\[4pt]
+Jedes Vielfache von \(2^{-n}\) ist auch ein Vielfaches von \(2^{-(n+1)}\), denn \(\tfrac{k}{2^n}=\tfrac{2k}{2^{n+1}}\).
+Das feinere Raster hat aber zusätzliche Zwischenwerte. Also kann die feinere Abrundung nur gleich oder größer sein.
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist \(\varphi_n\le\varphi_{n+1}\)? -- Beispiel}
+\begin{block}{Konkretes Beispiel}
+Sei \(f(\omega)=2{,}7\).
+\begin{itemize}
+    \item \(n=1\): Stufenbreite \(2^{-1}=0{,}5\). Abrundung: \(\varphi_1(\omega)=2{,}5\).
+    \item \(n=2\): Stufenbreite \(2^{-2}=0{,}25\). Abrundung: \(\varphi_2(\omega)=2{,}5\).
+    \item \(n=3\): Stufenbreite \(2^{-3}=0{,}125\). Abrundung: \(\varphi_3(\omega)=2{,}625\).
+\end{itemize}
+\end{block}
+
+\begin{block}{Beobachtung}
+Bei \(n=2\) bleibt der Wert gleich, weil kein neuer Rasterpunkt dazukommt.
+\\
+Bei \(n=3\) rückt ein neuer Rasterpunkt (\(2{,}625\)) näher an \(2{,}7\) heran.
+\\[4pt]
+Allgemein: Die Abrundung kann beim Verfeinern nur steigen oder gleich bleiben -- nie fallen.
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum ist \(\varphi_n\le\varphi_{n+1}\)? (Forts.)}
+\begin{block}{Fall 2: \(n\le f(\omega)<n+1\)}
+Hier wird bei Stufe \(n\) abgeschnitten: \(\varphi_n(\omega)=n\).
+\\
+Bei Stufe \(n+1\) wird \(f(\omega)\) auf Vielfache von \(2^{-(n+1)}\) abgerundet, also \(\varphi_{n+1}(\omega)\ge n\).
+\end{block}
+
+\begin{block}{Fall 3: \(f(\omega)\ge n+1\)}
+Dann \(\varphi_n(\omega)=n\) und \(\varphi_{n+1}(\omega)=n+1\).
+\end{block}
+
+\begin{block}{Fazit}
+In allen Fällen gilt \(\varphi_n(\omega)\le \varphi_{n+1}(\omega)\).
+\end{block}
+\end{frame}
+
+\begin{frame}[shrink=5]{Beweis der Approximation}
+\begin{block}{Messbarkeit und Einfachheit}
+Die Mengen
+\[
+\left\{
+\frac{k}{2^n}\le f<\frac{k+1}{2^n}
+\right\}
+\qquad\text{und}\qquad
+\{f\ge n\}
+\]
+sind messbar, da \(f\) messbar ist.
+
+Außerdem nimmt \(\varphi_n\) nur endlich viele Werte an. Also ist \(\varphi_n\) eine einfache Funktion.
+\end{block}
+
+\begin{block}{Abschätzung}
+Nach Konstruktion gilt für alle \(\omega\in\Omega\):
+\[
+0\le \varphi_n(\omega)\le f(\omega).
+\]
+Außerdem werden die Stufen feiner und die Abschneidehöhe größer, also
+\[
+\varphi_n(\omega)\le \varphi_{n+1}(\omega).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Punktweise Konvergenz}
+\begin{block}{Fall \(f(\omega)<\infty\)}
+Sei \(f(\omega)<\infty\). Für \(n>f(\omega)\) wird nicht mehr abgeschnitten.
+Dann ist \(\varphi_n(\omega)\) die Abrundung von \(f(\omega)\) auf Stufen der Breite \(2^{-n}\).
+
+Daher gilt
+\[
+0\le f(\omega)-\varphi_n(\omega)<2^{-n}.
+\]
+Also folgt
+\[
+\varphi_n(\omega)\to f(\omega).
+\]
+\end{block}
+
+\begin{block}{Fall \(f(\omega)=\infty\)}
+Ist \(f(\omega)=\infty\), dann gilt
+\[
+\varphi_n(\omega)=n,
+\]
+also
+\[
+\varphi_n(\omega)\to\infty=f(\omega).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Reellwertige messbare Funktionen}
+\begin{block}{Folgerung}
+Ist
+\[
+f\colon\Omega\to\mathbb R
+\]
+messbar, dann gibt es einfache Funktionen \(s_n\) mit
+\[
+s_n(\omega)\to f(\omega)
+\]
+für alle \(\omega\in\Omega\).
+\end{block}
+\end{frame}
+
+\begin{frame}{Reellwertige messbare Funktionen (Forts.)}
+\begin{block}{Begründung}
+Zerlege
+\[
+f=f^+-f^-.
+\]
+Für \(f^+\) und \(f^-\) gibt es nichtnegative einfache Funktionen
+\[
+\varphi_n\uparrow f^+,
+\qquad
+\psi_n\uparrow f^-.
+\]
+Dann ist
+\[
+s_n:=\varphi_n-\psi_n
+\]
+einfach und es gilt
+\[
+s_n\to f^+-f^-=f.
+\]
+\end{block}
+\end{frame}
+
 \begin{frame}{Monotone Approximation des Integrals}
 \begin{block}{Satz}
 Sei
@@ -552,7 +810,7 @@ Dann gilt
 \end{block}
 \end{frame}
 
-\begin{frame}{Warum darf man so das Integral berechnen?}
+\begin{frame}[shrink=5]{Warum darf man so das Integral berechnen?}
 \begin{block}{Idee}
 Wächst eine Folge \((\varphi_n)\) punktweise von unten gegen \(f\), dann wachsen auch die Integrale
 \[
@@ -576,6 +834,141 @@ Damit kann man \(\int f\,d\mu\) in der Praxis durch eine geeignete Folge
 \end{block}
 \end{frame}
 
+\begin{frame}{Satz von der monotonen Konvergenz}
+\begin{block}{Satz}
+Seien \(f_n\colon\Omega\to[0,\infty]\) messbar mit
+\[
+f_n\uparrow f.
+\]
+Dann gilt
+\[
+\int_\Omega f\,d\mu
+=
+\lim_{n\to\infty}\int_\Omega f_n\,d\mu.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee: eine Richtung}
+\begin{block}{Monotonie}
+Da \(f_n\le f\), gilt
+\[
+\int_\Omega f_n\,d\mu\le \int_\Omega f\,d\mu.
+\]
+Also
+\[
+\lim_{n\to\infty}\int_\Omega f_n\,d\mu
+\le
+\int_\Omega f\,d\mu.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee: andere Richtung}
+\begin{block}{Approximation von unten}
+Sei \(\varphi\) eine einfache Funktion mit
+\[
+0\le \varphi\le f.
+\]
+Für \(0<c<1\) betrachte
+\[
+A_n:=\{\,\omega: f_n(\omega)\ge c\varphi(\omega)\,\}.
+\]
+Da \(f_n(\omega)\uparrow f(\omega)\) und \(c\varphi(\omega)<\varphi(\omega)\le f(\omega)\), gilt
+\[
+A_n\uparrow\Omega.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisidee: Integralabschätzung}
+\begin{block}{Auf \(A_n\)}
+Auf \(A_n\) gilt
+\[
+f_n\ge c\varphi.
+\]
+Daher
+\[
+\int_\Omega f_n\,d\mu
+\ge
+\int_{A_n} f_n\,d\mu
+\ge
+c\int_{A_n}\varphi\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Grenzübergang}
+Da \(\varphi\) einfach ist und \(A_n\uparrow\Omega\), gilt
+\[
+\int_{A_n}\varphi\,d\mu
+\to
+\int_\Omega \varphi\,d\mu.
+\]
+Also
+\[
+\lim_{n\to\infty}\int_\Omega f_n\,d\mu
+\ge
+c\int_\Omega \varphi\,d\mu.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum reicht hier die Einfachheit von \(\varphi\)?}
+\begin{block}{Problem}
+Im Beweis brauchen wir \(\int_{A_n}\varphi\,d\mu\to\int_\Omega\varphi\,d\mu\) für \(A_n\uparrow\Omega\).
+\\[4pt]
+Dafür dürfen wir nicht den Satz der monotonen Konvergenz verwenden -- den beweisen wir ja gerade!
+\end{block}
+
+\begin{block}{Lösung: endliche Summe}
+Da \(\varphi\) einfach ist, gilt \(\varphi=\sum_{i=1}^m a_i\,\mathbf 1_{B_i}\). Also:
+\[
+\int_{A_n}\varphi\,d\mu
+=\sum_{i=1}^m a_i\,\mu(A_n\cap B_i).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Warum reicht hier die Einfachheit? (Forts.)}
+\begin{block}{Grenzübergang}
+Wegen \(A_n\uparrow\Omega\) gilt \(A_n\cap B_i\uparrow B_i\), und die Stetigkeit des Maßes liefert
+\[
+\mu(A_n\cap B_i)\to\mu(B_i).
+\]
+Da die Summe \emph{endlich} ist, darf man den Grenzwert gliedweise bilden:
+\[
+\sum_{i=1}^m a_i\,\mu(A_n\cap B_i)\to\sum_{i=1}^m a_i\,\mu(B_i)=\int_\Omega\varphi\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Fazit}
+Die Einfachheit von \(\varphi\) vermeidet einen Zirkelschluss: Man braucht nur die Stetigkeit des Maßes und den Grenzwert einer endlichen Summe -- nicht die monotone Konvergenz selbst.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisabschluss}
+\begin{block}{Grenze \(c\uparrow 1\)}
+Da die Ungleichung für alle \(0<c<1\) gilt, folgt
+\[
+\lim_{n\to\infty}\int_\Omega f_n\,d\mu
+\ge
+\int_\Omega \varphi\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Supremum über einfache Funktionen}
+Da dies für jede einfache Funktion \(0\le\varphi\le f\) gilt,
+\[
+\lim_{n\to\infty}\int_\Omega f_n\,d\mu
+\ge
+\sup_{\substack{0\le\varphi\le f\\ \varphi\ \text{einfach}}}
+\int_\Omega \varphi\,d\mu
+=
+\int_\Omega f\,d\mu.
+\]
+Zusammen mit der anderen Ungleichung folgt die Behauptung.
+\end{block}
+\end{frame}
 
 
 \begin{frame}{Eindeutigkeit des Werts bei Approximationen}
@@ -600,12 +993,6 @@ Beide Grenzwerte sind nach dem Satz von der monotonen Konvergenz gleich
 \int_\Omega f\,d\mu.
 \]
 \end{block}
-\end{frame}
-
-\begin{frame}
-\includegraphics[scale=0.15]{img/lebesgue_counting.png}
-\includegraphics[scale=0.15]{img/RiemannVsLebesgue.png}
-
 \end{frame}
 
 \begin{frame}{Reellwertige Funktionen}
@@ -652,6 +1039,21 @@ In mathlib schreibt man dafür \texttt{Integrable f $\mu$}.
 \end{block}
 \end{frame}
 
+\begin{frame}{Integration über eine Menge}
+\begin{block}{Definition}
+Für \(A\in\mathcal A\) und eine messbare Funktion \(f\colon\Omega\to\mathbb R\) setzt man
+\[
+\int_A f\,d\mu
+:=
+\int_\Omega f\cdot\mathbf 1_A\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Man integriert nicht über den ganzen Raum, sondern nur über die Menge \(A\), indem man \(f\) außerhalb von \(A\) durch Null ersetzt.
+\end{block}
+\end{frame}
+
 \begin{frame}{Notation in Lean/mathlib}
 \begin{block}{Nichtnegatives Integral}
 Für Funktionen
@@ -672,7 +1074,7 @@ Für reellwertige Funktionen schreibt man
 \end{block}
 \end{frame}
 
-\begin{frame}{Diskreter Spezialfall}
+\begin{frame}[shrink=2]{Diskreter Spezialfall}
 \begin{block}{Endlicher Fall}
 Ist \(\Omega\) endlich und \(\mu\) ein diskretes Maß, dann gilt
 \[
@@ -785,14 +1187,16 @@ Dann kann man das Produktmaß durch
 \]
 beschreiben.
 \end{block}
+\end{frame}
 
+\begin{frame}{Produktmaß über Schnitte (Forts.)}
 \begin{block}{Interpretation}
 Man misst für jedes \(x\) den vertikalen Schnitt und integriert diese Größen über \(x\).
 \end{block}
 \end{frame}
 
 \begin{frame}
-\includegraphics[scale=0.09]{img/sphere_slicing.jpg}
+\includegraphics[scale=0.07]{img/sphere_slicing.jpg}
 
 \end{frame}
 
@@ -1380,8 +1784,17 @@ Die Funktion $f(x) = \frac{1}{\sqrt{\pi}} e^{- x^2}$ ist eine Dichte auf $ \math
 & I := \int_{0}^{\infty} e^{-x^2} \; dx\\
 & I^2 =  \int_{0}^{\infty} e^{-x^2} \; dx \cdot    \int_{0}^{\infty} e^{-y^2} \; dy =    \int_{0}^{\infty} \int_{0}^{\infty} e^{-(x^2+y^2)} \; dx \;dy \\
 &x=r \cos \varphi ,y=r\sin \varphi ,r^2 = x^2 + y^2  \; (\text{ da } \cos^2 + \sin^2 = 1)\\
- &\text{ \href{https://de.wikipedia.org/wiki/Polarkoordinaten\#Zylinderkoordinaten}{LINK: Polarkoordinatentransformation}} \\
-& = \int_{0}^{\frac{\pi}{2}}  \int_{0}^{\infty}r \cdot e^{-r^2} \; dr \;d\varphi \\
+ &\text{ \href{https://de.wikipedia.org/wiki/Polarkoordinaten\#Zylinderkoordinaten}{LINK: Polarkoordinatentransformation}}
+\end{align*}
+\end{block}
+ \end{frame}
+
+ \begin{frame}
+    \frametitle{Zufallsvariablen}
+\framesubtitle{}
+\begin{block}{Beispiel (Forts.)}
+\begin{align*}
+& I^2 = \int_{0}^{\frac{\pi}{2}}  \int_{0}^{\infty}r \cdot e^{-r^2} \; dr \;d\varphi \\
 &= \frac{\pi}{2} \int_{0}^{\infty}r \cdot e^{-r^2} \; dr \\
 &= -\frac{\pi}{4} [e^{-r^2} ]_0^{\infty} = \frac{\pi}{4} \Rightarrow I = \frac{\sqrt{\pi}}{2}
 \end{align*}
@@ -1392,8 +1805,8 @@ Die Funktion $f(x) = \frac{1}{\sqrt{\pi}} e^{- x^2}$ ist eine Dichte auf $ \math
  \begin{frame}
         \frametitle{Zufallsvariablen}
 \framesubtitle{}
-    \includegraphics[scale=0.4]{img/normal.png}
-        \includegraphics[scale=0.4]{img/normaldist.png}
+    \includegraphics[scale=0.35]{img/normal.png}
+        \includegraphics[scale=0.35]{img/normaldist.png}
 
  \end{frame}
 

@@ -50,6 +50,20 @@ example (P : Prop) : P = True ∨ P = False := by
   · right
     exact propext ⟨fun hp => False.elim (h hp), fun hf => False.elim hf⟩
 
+-- P → ¬¬P ist konstruktiv beweisbar (ohne Classical):
+-- Angenommen P gilt. Zu zeigen: ¬¬P, also (¬P) → False.
+-- Angenommen ¬P gilt. Dann liefert ¬P angewendet auf P einen Widerspruch.
+example (P : Prop) : P → ¬¬P := by
+  intro hp    -- Annahme: hp : P
+  intro hnp   -- Annahme: hnp : ¬P (d.h. P → False)
+  exact hnp hp -- Widerspruch: hnp hp : False
+
+example (P : Prop) : ¬¬P → P := by
+  intro h
+  exact Classical.byContradiction h
+
+
+
 -- A ↔ True ist im Wesentlichen dasselbe wie ein Beweis von A.
 example {A : Prop} : (A ↔ True) ↔ A := by
   constructor

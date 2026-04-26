@@ -56,6 +56,56 @@ Ein messbarer Raum liefert den Begriff `MeasurableSet`.
 -/
 example {Ω : Type*} [MeasurableSpace Ω] (A : Set Ω) : Prop := MeasurableSet A
 
+/-! ### Beispiel: Die Potenzmenge als σ-Algebra (explizite Typeclass-Instanz)
+
+Die Potenzmenge 𝒫(Ω) ist die größte σ-Algebra auf Ω: jede Teilmenge ist messbar.
+Wir implementieren das direkt als `MeasurableSpace`-Instanz, indem wir die drei
+Axiome (∅ messbar, Komplement messbar, abzählbare Vereinigung messbar) von Hand zeigen.
+-/
+
+/-- Die Potenzmenge-σ-Algebra: jede Teilmenge ist messbar. -/
+def potenzmengenSigmaAlgebra (Ω : Type*) : MeasurableSpace Ω where
+  -- Das Prädikat „messbar" ist für jede Menge wahr.
+  -- Egal welche Menge man einsetzt, das Ergebnis ist `True`.
+  MeasurableSet' := fun _ => True
+  -- Axiom 1: ∅ ∈ 𝒫(Ω).
+  -- Zu zeigen: `MeasurableSet' ∅`, also `True`. `True.intro` ist der
+  -- einzige Konstruktor von `True` und damit der kanonische Beweis.
+  measurableSet_empty := True.intro
+  -- Axiom 2: Abschluss unter Komplementbildung.
+  -- Die Signatur ist  `∀ s, MeasurableSet' s → MeasurableSet' sᶜ`.
+  -- Da `MeasurableSet' = fun _ => True`, entfaltet Lean den Typ zu
+  --   `∀ s, True → True`.
+  -- `fun _s _hs => True.intro` ist genau so eine Funktion:
+  --   `_s : Set Ω` (die Menge, wird nicht benutzt),
+  --   `_hs : True` (die Hypothese, wird nicht benutzt),
+  --   `True.intro : True` (der Rückgabewert).
+  measurableSet_compl := fun _s _hs => True.intro
+  -- Axiom 3: Abschluss unter abzählbarer Vereinigung.
+  -- Die Signatur ist  `∀ f, (∀ i, MeasurableSet' (f i)) → MeasurableSet' (⋃ i, f i)`.
+  -- Entfaltet wird daraus `∀ f, (∀ i, True) → True`, also wieder trivial.
+  measurableSet_iUnion := fun _f _hf => True.intro
+
+/-
+Beweis: In dieser σ-Algebra ist tatsächlich jede Menge messbar.
+-/
+example (Ω : Type*) (A : Set Ω) :
+    @MeasurableSet Ω (potenzmengenSigmaAlgebra Ω) A := True.intro
+
+/-
+Äquivalenz zur maximalen σ-Algebra `⊤` aus mathlib:
+`⊤ : MeasurableSpace Ω` ist genau die Potenzmenge.
+-/
+example (Ω : Type*) : potenzmengenSigmaAlgebra Ω = ⊤ := by
+  ext A
+  simp [potenzmengenSigmaAlgebra, MeasurableSpace.measurableSet_top]
+
+/-
+In mathlib ist `⊤` die kanonische Art, die Potenzmenge auszudrücken.
+Jede andere σ-Algebra ist eine Teilordnung davon:
+-/
+example (Ω : Type*) (m : MeasurableSpace Ω) : m ≤ ⊤ := le_top
+
 /-! ## 2. Erzeugte σ-Algebren -/
 
 /-
@@ -98,6 +148,49 @@ example (X : Type*) [TopologicalSpace X] : TopologicalSpace X := inferInstance
 Offene Mengen heißen in mathlib `IsOpen`.
 -/
 example {X : Type*} [TopologicalSpace X] (U : Set X) : Prop := IsOpen U
+
+/-! ### Beispiel: Die Potenzmenge als Topologie (diskrete Topologie, explizite Instanz)
+
+Die diskrete Topologie erklärt jede Teilmenge als offen — analog zur Potenzmenge
+als σ-Algebra. Wir implementieren das direkt als `TopologicalSpace`-Instanz.
+-/
+
+/-- Die diskrete Topologie (Potenzmenge): jede Teilmenge ist offen. -/
+def potenzmengenTopologie (X : Type*) : TopologicalSpace X where
+  -- Das Prädikat „offen" ist für jede Menge wahr.
+  IsOpen := fun _ => True
+  -- Axiom 1: Das Universum `X` ist offen.
+  -- Zu zeigen: `IsOpen univ`, also `True`.
+  isOpen_univ := True.intro
+  -- Axiom 2: Abschluss unter endlichem Durchschnitt.
+  -- Die Signatur ist `∀ s t, IsOpen s → IsOpen t → IsOpen (s ∩ t)`.
+  -- Da `IsOpen = fun _ => True`, entfaltet Lean zu `∀ s t, True → True → True`.
+  isOpen_inter := fun _s _t _hs _ht => True.intro
+  -- Axiom 3: Abschluss unter beliebiger Vereinigung.
+  -- Die Signatur ist `∀ S, (∀ t ∈ S, IsOpen t) → IsOpen (⋃₀ S)`.
+  -- Entfaltet: `∀ S, (∀ t ∈ S, True) → True`.
+  isOpen_sUnion := fun _S _hS => True.intro
+
+/-
+In dieser Topologie ist tatsächlich jede Menge offen.
+-/
+example (X : Type*) (U : Set X) :
+    @IsOpen X (potenzmengenTopologie X) U := True.intro
+
+/-
+Äquivalenz zur diskreten Topologie `⊥` aus mathlib:
+(Achtung: Bei `TopologicalSpace` ist die Ordnung umgekehrt zur σ-Algebra —
+ `⊥` ist die feinste Topologie, also die diskrete / Potenzmenge,
+ `⊤` ist die gröbste, also die indiskrete Topologie.)
+-/
+example (X : Type*) : potenzmengenTopologie X = ⊥ := by
+  ext U
+  simp [potenzmengenTopologie]
+
+/-
+Jede andere Topologie ist gröber als die diskrete:
+-/
+example (X : Type*) (t : TopologicalSpace X) : ⊥ ≤ t := bot_le
 
 /-
 Die borelsche σ-Algebra auf einem topologischen Raum `X` heißt `borel X`.

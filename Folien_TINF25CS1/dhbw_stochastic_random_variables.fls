@@ -460,10 +460,10 @@ INPUT ./img/RiemannVsLebesgue.png
 INPUT ./img/RiemannVsLebesgue.png
 INPUT ./img/RiemannVsLebesgue.png
 INPUT ./img/RiemannVsLebesgue.png
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
-INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
-INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
-INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
