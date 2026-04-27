@@ -1785,7 +1785,7 @@ Mit Linearität folgt der Satz für Treppenfunktionen, danach per Approximation 
 \begin{block}{Beispiel}
 Berechne
 \[
-\int_0^1 2x\cos(x^2)\,dx.
+\int_1^2 2x\cos(x^2)\,dx.
 \]
 Mit
 \[
@@ -1793,37 +1793,42 @@ T(x)=x^2,\qquad T'(x)=2x
 \]
 erhält man
 \[
-\int_0^1 2x\cos(x^2)\,dx
+\int_1^2 2x\cos(x^2)\,dx
 =
-\int_0^1 \cos(y)\,dy
+\int_1^4 \cos(y)\,dy
 =
-\sin(1).
+\sin(4)-\sin(1).
+\]
+Die Grenzen ändern sich also sichtbar durch
+\[
+[1,2]\mapsto [1,4].
 \]
 \end{block}
 \end{frame}
 
 \begin{frame}{Beispiel für Dichtetransformation}
 \begin{block}{Beispiel}
-Sei \(X\sim U([0,1])\), also mit Dichte
+Sei \(X\sim U([1,2])\), also mit Dichte
 \[
-p(x)=\mathbf 1_{[0,1]}(x),
+p(x)=\mathbf 1_{[1,2]}(x),
 \]
 und \(Y=X^2\).
-Dann ist die Dichte von \(Y\) auf \((0,1]\):
+Dann ist die Dichte von \(Y\) auf \([1,4]\):
 \[
 q(y)=p(\sqrt y)\frac{1}{2\sqrt y}
 =
-\frac{1}{2\sqrt y}.
+\frac{1}{2\sqrt y}\,\mathbf 1_{[1,4]}(y).
 \]
 \end{block}
 
 \begin{block}{Kontrolle}
 Für messbares \(f\) gilt
 \[
-\int_0^1 f(y)\,\frac{1}{2\sqrt y}\,dy
+\int_1^4 f(y)\,\frac{1}{2\sqrt y}\,dy
 =
-\int_0^1 f(x^2)\,dx.
+\int_1^2 f(x^2)\,dx.
 \]
+Also wird \([1,2]\) auf \([1,4]\) abgebildet.
 \end{block}
 \end{frame}
 
