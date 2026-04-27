@@ -492,25 +492,25 @@ In mathlib entspricht das dem Begriff der \emph{simple function}.
 \end{block}
 \end{frame}
 
-\begin{frame}{Warum braucht man Messbarkeit?}
-\begin{block}{Idee}
-Zur Integration betrachtet man Mengen, auf denen \(f\) bestimmte Werte oder Wertebereiche annimmt, etwa
-\[
-\{\omega : f(\omega)\ge c\}
-\qquad\text{oder}\qquad
-\{\omega : a\le f(\omega)<b\}.
-\]
-\end{block}
+%\begin{frame}{Warum braucht man Messbarkeit?}
+%\begin{block}{Idee}
+%Zur Integration betrachtet man Mengen, auf denen \(f\) bestimmte Werte oder Wertebereiche annimmt, etwa
+%\[
+%\{\omega : f(\omega)\ge c\}
+%\qquad\text{oder}\qquad
+%\{\omega : a\le f(\omega)<b\}.
+%\]
+%\end{block}
 
-\begin{block}{Problem ohne Messbarkeit}
-Sind diese Mengen nicht messbar, dann ist \(\mu\) auf ihnen nicht definiert.
-Dann kann man weder Stufenfunktionen sinnvoll aufbauen noch ihre Größen messen.
-\end{block}
+%\begin{block}{Problem ohne Messbarkeit}
+%Sind diese Mengen nicht messbar, dann ist \(\mu\) auf ihnen nicht definiert.
+%Dann kann man weder Stufenfunktionen sinnvoll aufbauen noch ihre Größen messen.
+%\end{block}
 
-\begin{block}{Merksatz}
-Messbarkeit ist genau die Voraussetzung dafür, dass die Niveaumengen von \(f\) vom Maß erfasst werden.
-\end{block}
-\end{frame}
+%\begin{block}{Merksatz}
+%Messbarkeit ist genau die Voraussetzung dafür, dass die Niveaumengen von \(f\) vom Maß erfasst werden.
+%\end{block}
+%\end{frame}
 
 \begin{frame}{Wohldefiniertheit für einfache Funktionen}
 \begin{block}{Problem}
@@ -585,6 +585,20 @@ Das Supremum über eine Teilmenge ist \(\le\) dem Supremum über die Obermenge.
 \end{block}
 \end{frame}
 
+\begin{frame}{Integration über eine Menge}
+\begin{block}{Definition}
+Für \(A\in\mathcal A\) und eine messbare Funktion \(f\colon\Omega\to\mathbb R\) setzt man
+\[
+\int_A f\,d\mu
+:=
+\int_\Omega f\cdot\mathbf 1_A\,d\mu.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Man integriert nicht über den ganzen Raum, sondern nur über die Menge \(A\), indem man \(f\) außerhalb von \(A\) durch Null ersetzt.
+\end{block}
+\end{frame}
 
 \begin{frame}{Approximation durch Treppenfunktionen}
 \begin{block}{Satz}
@@ -948,14 +962,24 @@ Die Einfachheit von \(\varphi\) vermeidet einen Zirkelschluss: Man braucht nur d
 
 \begin{frame}{Beweisabschluss}
 \begin{block}{Grenze \(c\uparrow 1\)}
-Da die Ungleichung für alle \(0<c<1\) gilt, folgt
+Für jedes \(0<c<1\) gilt
 \[
 \lim_{n\to\infty}\int_\Omega f_n\,d\mu
 \ge
+c\int_\Omega \varphi\,d\mu.
+\]
+Da die linke Seite nicht von \(c\) abhängt, können wir das Supremum über \(0<c<1\) bilden:
+\[
+\lim_{n\to\infty}\int_\Omega f_n\,d\mu
+\ge
+\sup_{0<c<1} c\int_\Omega \varphi\,d\mu
+=
 \int_\Omega \varphi\,d\mu.
 \]
 \end{block}
+\end{frame}
 
+\begin{frame}{Beweisabschluss (Forts.)}
 \begin{block}{Supremum über einfache Funktionen}
 Da dies für jede einfache Funktion \(0\le\varphi\le f\) gilt,
 \[
@@ -1039,20 +1063,6 @@ In mathlib schreibt man dafür \texttt{Integrable f $\mu$}.
 \end{block}
 \end{frame}
 
-\begin{frame}{Integration über eine Menge}
-\begin{block}{Definition}
-Für \(A\in\mathcal A\) und eine messbare Funktion \(f\colon\Omega\to\mathbb R\) setzt man
-\[
-\int_A f\,d\mu
-:=
-\int_\Omega f\cdot\mathbf 1_A\,d\mu.
-\]
-\end{block}
-
-\begin{block}{Interpretation}
-Man integriert nicht über den ganzen Raum, sondern nur über die Menge \(A\), indem man \(f\) außerhalb von \(A\) durch Null ersetzt.
-\end{block}
-\end{frame}
 
 \begin{frame}{Notation in Lean/mathlib}
 \begin{block}{Nichtnegatives Integral}
@@ -1074,7 +1084,7 @@ Für reellwertige Funktionen schreibt man
 \end{block}
 \end{frame}
 
-\begin{frame}[shrink=2]{Diskreter Spezialfall}
+\begin{frame}{Diskreter Spezialfall}
 \begin{block}{Endlicher Fall}
 Ist \(\Omega\) endlich und \(\mu\) ein diskretes Maß, dann gilt
 \[
@@ -1089,9 +1099,7 @@ Ist \(\mu=\mathbb P\) und $X$ eine reelle Zufallsvariable, dann ist
 \[
 \mathbb E[X]=\int_\Omega X\,d\mathbb P
 \]
-der Erwartungswert von $X$.
-\end{block}
-\begin{block}{Wahrscheinlichkeit als Erwartungswert}
+der Erwartungswert von $X$. Außerdem gilt für jede messbare Menge \(A\):
 \[
 \mathbb E[\mathbf{1}_A]=\int_\Omega \mathbf{1}_A\,d\mathbb P = \mathbb P(A).
 \]
@@ -1360,22 +1368,6 @@ Für nichtnegative Funktionen spricht man oft vom Satz von Tonelli, für integri
 \end{block}
 \end{frame}
 
-\begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
-\begin{block}{Definition}
-Für \([a,b]\subseteq\mathbb R\) mit \(a<b\) ist die Gleichverteilung auf \([a,b]\)
-das Wahrscheinlichkeitsmaß mit Dichte
-\[
-p(x)=\frac1{b-a}\mathbf 1_{[a,b]}(x).
-\]
-\end{block}
-
-\begin{block}{Folgerung}
-Für messbare \(A\subseteq\mathbb R\) gilt
-\[
-\mathbb P(A)=\int_A p(x)\,d\lambda(x).
-\]
-\end{block}
-\end{frame}
 
 \begin{frame}{Dichte eines Maßes}
 \begin{block}{Definition}
@@ -1406,6 +1398,17 @@ d\mu(x)=p(x)\,dx.
 \begin{block}{Bedeutung von \(dx\)}
 Das Symbol \(dx\) steht hier also für Integration bezüglich des Lebesgue-Maßes.
 \end{block}
+\end{frame}
+\begin{frame}{Beispiel: Gleichverteilung auf einem Intervall}
+\begin{block}{Beispiel}
+Für \([a,b]\subseteq\mathbb R\) mit \(a<b\) ist die Gleichverteilung auf \([a,b]\)
+das Wahrscheinlichkeitsmaß mit Dichte
+\[
+p(x)=\frac1{b-a}\mathbf 1_{[a,b]}(x).
+\]
+\end{block}
+
+
 \end{frame}
 
 %\begin{frame}{Integration mit Dichte}
@@ -1448,6 +1451,12 @@ mit \(f\ge 0\) oder \(f\in L^1(T_\#\mu)\):
 \int_Y f(y)\,d(T_\#\mu)(y)
 =
 \int_X f(T(x))\,d\mu(x).
+\]
+\end{block}
+\begin{block}{Erinnerung}
+\[
+(T_\#\mu)(B)=\mu(T^{-1}(B))
+\qquad\text{für alle } B\in\mathcal B.
 \]
 \end{block}
 \end{frame}
@@ -1666,8 +1675,32 @@ Ein strenger Beweis benötigt den mehrdimensionalen Transformationssatz aus der 
 \end{frame}
 
 \begin{frame}{Substitutionssatz in \(\mathbb R^n\)}
+\begin{block}{Herleitung des Jacobi-Faktors}
+Setze \(S:=T^{-1}\colon V\to U\). Auf \(V\) ist \(\mu=\lambda^n\), also in der
+allgemeinen Dichtetransformation \(p\equiv 1\). Daher hat \(S_\#\lambda^n\) auf \(U\)
+die Dichte
+\[
+q(x)=\frac{1}{|\det DS(S^{-1}(x))|}.
+\]
+Da \(S^{-1}=T\) und \(DS=D(T^{-1})\), ist
+\[
+q(x)=\frac{1}{|\det D(T^{-1})(T(x))|}.
+\]
+Wegen
+\[
+\left|\det D(T^{-1})(T(x))\right|=\frac{1}{|\det DT(x)|}
+\]
+folgt
+\[
+q(x)=|\det DT(x)|.
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Substitutionssatz in \(\mathbb R^n\) (Forts.)}
 \begin{block}{Spezialfall Lebesgue-Maß}
-Wählt man \(p\equiv 1\), also \(\mu=\lambda^n\), dann folgt
+Also ist \(S_\#\lambda^n\) das Maß mit Dichte \(|\det DT(x)|\) bezüglich \(\lambda^n\).
+Für messbares \(f\) gilt daher
 \[
 \int_V f(y)\,d\lambda^n(y)
 =
@@ -1892,5 +1925,20 @@ so erhält man auf Rechtecken sofort
 Also sind \(X\) und \(Y\) unabhängig.
 \end{block}
 \end{frame}
+
+
+
+ \begin{frame}
+    \frametitle{Angewandte Mathematik}
+    \framesubtitle{Fubini}
+    \begin{block}{Beispiel}
+Sei $K := B^2_1(0) := \{   (x,y) \in \mathbb{R}^2 \; | \; \sqrt{x^2 + y^2 } \leq 1\}$. Anschaulich ist
+\begin{align*}
+\mu_2(K) &  = \int_{\mathbb{R}^2} 1_K  d \mu =  \int_{-1}^{1} \biggl ( \int_{-\sqrt{1- y^2}}^{\sqrt{1- y^2}} 1 dx \biggr ) dy = \\ 
+& =  2 \int_{-1}^{1}  \sqrt{1 - y^2}   \; dy  \\ 
+ & (substitution \;   y = sin(u)) =   2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}   \cos(u)^2   \; du = 2 \cdot \frac{\pi}{2} = \pi
+\end{align*}
+\end{block}
+ \end{frame}
 
 \end{document}
