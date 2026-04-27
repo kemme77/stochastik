@@ -460,10 +460,10 @@ INPUT ./img/RiemannVsLebesgue.png
 INPUT ./img/RiemannVsLebesgue.png
 INPUT ./img/RiemannVsLebesgue.png
 INPUT ./img/RiemannVsLebesgue.png
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
-INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
-INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
-INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
@@ -479,6 +479,7 @@ INPUT ./img/normaldist.png
 INPUT ./img/normaldist.png
 INPUT ./img/normaldist.png
 INPUT ./img/normaldist.png
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmss9.tfm
 OUTPUT dhbw_stochastic_random_variables.nav
 OUTPUT dhbw_stochastic_random_variables.toc
 OUTPUT dhbw_stochastic_random_variables.snm
@@ -493,6 +494,7 @@ INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb
