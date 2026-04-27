@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1777278807.85333 "/home/johannes/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables.tex" "dhbw_stochastic_random_variables.pdf" "dhbw_stochastic_random_variables" 1777278813.52519 0
+["pdflatex"] 1777281367.33596 "/home/johannes/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables.tex" "dhbw_stochastic_random_variables.pdf" "dhbw_stochastic_random_variables" 1777281383.22398 0
   "/etc/texmf/web2c/texmf.cnf" 1733989132.21817 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/johannes/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables.tex" 1777278803.77032 46256 7bbee4248b535e3d040b82f2314a7537 ""
+  "/home/johannes/code/stochastik/Folien_TINF25CS1/dhbw_stochastic_random_variables.tex" 1777281366.9432 46353 c39d86e9d7ce411b83618643de508f1f ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -253,10 +253,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1767443022.6559 165012 f177baa1c39a3ebd62c3096a43521a0d ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1767443185 7356332 5fe4910e5cfa247a0fd1174dacbabfdb ""
-  "dhbw_stochastic_random_variables.aux" 1777278813.42245 13477 229c15d9def78851bb80b419ea7716fc "pdflatex"
-  "dhbw_stochastic_random_variables.nav" 1777278813.42445 9587 d5bb58db5c71d94c53e541c63647e5f7 "pdflatex"
-  "dhbw_stochastic_random_variables.out" 1777278808.39138 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "dhbw_stochastic_random_variables.tex" 1777278803.77032 46256 7bbee4248b535e3d040b82f2314a7537 ""
+  "dhbw_stochastic_random_variables.aux" 1777281382.79343 13477 229c15d9def78851bb80b419ea7716fc "pdflatex"
+  "dhbw_stochastic_random_variables.nav" 1777281382.80443 9587 d5bb58db5c71d94c53e541c63647e5f7 "pdflatex"
+  "dhbw_stochastic_random_variables.out" 1777281368.68723 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "dhbw_stochastic_random_variables.tex" 1777281366.9432 46353 c39d86e9d7ce411b83618643de508f1f ""
   "img/Craps.png" 1777270561.13274 13839 914501b67b77f2372f92caa6dba1b1c1 ""
   "img/RiemannVsLebesgue.png" 1777270758.40489 24678 4407747dff5d2193b6b74e50521389db ""
   "img/lebesgue_counting.png" 1777270758.40489 22497 9d8382b0db9b8fe47e9aaece2fa8a0cf ""

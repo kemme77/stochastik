@@ -626,9 +626,10 @@ Jede nichtnegative messbare Funktion kann von unten durch Treppenfunktionen appr
 
 
 \begin{frame}
+    \begin{center}
 \includegraphics[scale=0.15]{img/lebesgue_counting.png}
 \includegraphics[scale=0.15]{img/RiemannVsLebesgue.png}
-
+\end{center}
 \end{frame}
 
 \begin{frame}{Konstruktion der Approximation}
@@ -1204,8 +1205,9 @@ Man misst für jedes \(x\) den vertikalen Schnitt und integriert diese Größen 
 \end{frame}
 
 \begin{frame}
+    \begin{center}
 \includegraphics[scale=0.07]{img/sphere_slicing.jpg}
-
+\end{center}
 \end{frame}
 
 \begin{frame}{Produktmaß auf Rechtecken}
@@ -1835,13 +1837,33 @@ Die Funktion $f(x) = \frac{1}{\sqrt{\pi}} e^{- x^2}$ ist eine Dichte auf $ \math
  \end{frame}
  
 
+
+
  \begin{frame}
         \frametitle{Zufallsvariablen}
 \framesubtitle{}
+\begin{center}
+  
     \includegraphics[scale=0.35]{img/normal.png}
         \includegraphics[scale=0.35]{img/normaldist.png}
-
+\end{center}
  \end{frame}
+
+ \begin{frame}
+    \frametitle{Angewandte Mathematik}
+    \framesubtitle{Fubini}
+    \begin{block}{Beispiel}
+Sei $K := B^2_1(0) := \{   (x,y) \in \mathbb{R}^2 \; | \; \sqrt{x^2 + y^2 } \leq 1\}$. Anschaulich ist
+\begin{align*}
+\mu_2(K) &  = \int_{\mathbb{R}^2} 1_K  d \mu =  \int_{-1}^{1} \biggl ( \int_{-\sqrt{1- y^2}}^{\sqrt{1- y^2}} 1 dx \biggr ) dy = \\ 
+& =  2 \int_{-1}^{1}  \sqrt{1 - y^2}   \; dy  \\ 
+ & (substitution \;   y = sin(u)) =   2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}   \cos(u)^2   \; du = 2 \cdot \frac{\pi}{2} = \pi
+\end{align*}
+\end{block}
+ \end{frame}
+
+
+
 
 \begin{frame}{Stochastische Unabhängigkeit}
 \begin{block}{Definition}
@@ -1927,18 +1949,5 @@ Also sind \(X\) und \(Y\) unabhängig.
 \end{frame}
 
 
-
- \begin{frame}
-    \frametitle{Angewandte Mathematik}
-    \framesubtitle{Fubini}
-    \begin{block}{Beispiel}
-Sei $K := B^2_1(0) := \{   (x,y) \in \mathbb{R}^2 \; | \; \sqrt{x^2 + y^2 } \leq 1\}$. Anschaulich ist
-\begin{align*}
-\mu_2(K) &  = \int_{\mathbb{R}^2} 1_K  d \mu =  \int_{-1}^{1} \biggl ( \int_{-\sqrt{1- y^2}}^{\sqrt{1- y^2}} 1 dx \biggr ) dy = \\ 
-& =  2 \int_{-1}^{1}  \sqrt{1 - y^2}   \; dy  \\ 
- & (substitution \;   y = sin(u)) =   2 \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}   \cos(u)^2   \; du = 2 \cdot \frac{\pi}{2} = \pi
-\end{align*}
-\end{block}
- \end{frame}
 
 \end{document}
