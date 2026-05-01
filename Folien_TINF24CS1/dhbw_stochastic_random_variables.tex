@@ -302,59 +302,6 @@ mit:
 \end{block}
 \end{frame}
 
-\begin{frame}{Restringiertes Maß}
-\begin{block}{Definition}
-Sei \(\mu\) ein Maß auf \((\Omega,\mathcal A)\) und \(s\in\mathcal A\).
-Das auf \(s\) restringierte Maß \(\mu\vert_s\) ist definiert durch
-\[
-\mu\vert_s(A):=\mu(A\cap s),
-\qquad A\in\mathcal A.
-\]
-\end{block}
-
-\begin{block}{Lean/Mathlib}
-\texttt{\(\mu\).restrict s} mit der definierenden Eigenschaft:
-\\[4pt]
-\texttt{Measure.restrict\_apply (ht : MeasurableSet t) :}\\
-\texttt{\quad (\(\mu\).restrict s) t = \(\mu\) (t \(\cap\) s)}
-\end{block}
-\end{frame}
-
-\begin{frame}{Restringiertes Maß: Eigenschaften}
-\begin{block}{Maßeigenschaft}
-\(\mu\vert_s\) ist wieder ein Maß auf \((\Omega,\mathcal A)\):
-\begin{itemize}
-    \item \(\mu\vert_s(\varnothing)=\mu(\varnothing\cap s)=0\).
-    \item Für paarweise disjunkte \((A_n)\):
-    \[
-    \mu\vert_s\!\left(\bigcup_n A_n\right)
-    =\mu\!\left(\bigcup_n (A_n\cap s)\right)
-    =\sum_n \mu(A_n\cap s)
-    =\sum_n \mu\vert_s(A_n).
-    \]
-\end{itemize}
-\end{block}
-
-\begin{block}{Monotonie}
-Falls \(s\subseteq t\), dann \(\mu\vert_s(A)\le\mu\vert_t(A)\) für alle \(A\in\mathcal A\).
-\\[4pt]
-\texttt{Measure.restrict\_mono (hs : s \(\subseteq\) t) : \(\mu\).restrict s \(\le\) \(\mu\).restrict t}
-\end{block}
-\end{frame}
-
-\begin{frame}{Wahrscheinlichkeitsmaß}
-\begin{block}{Definition}
-Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit
-\[
-\mathbb P(\Omega)=1.
-\]
-\end{block}
-
-\begin{block}{Interpretation}
-Ein Maß misst allgemein die Größe messbarer Mengen.
-Ein Wahrscheinlichkeitsmaß ist der Spezialfall, in dem die Gesamtmasse des ganzen Raums gleich \(1\) ist.
-\end{block}
-\end{frame}
 
 \begin{frame}{Stetigkeit von Maßen}
 \begin{block}{Satz}
@@ -395,6 +342,60 @@ Mit der \(\sigma\)-Additivität folgt
 \end{block}
 \end{frame}
 
+\begin{frame}{Restringiertes Maß}
+\begin{block}{Definition}
+Sei \(\mu\) ein Maß auf \((\Omega,\mathcal A)\) und \(s\in\mathcal A\).
+Das auf \(s\) restringierte Maß \(\mu\vert_s\) ist definiert durch
+\[
+\mu\vert_s(A):=\mu(A\cap s),
+\qquad A\in\mathcal A.
+\]
+\end{block}
+
+
+\begin{center}
+   \includegraphics[scale=0.1]{img/bedingtewkeit.jpeg} 
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Restringiertes Maß: Eigenschaften}
+\begin{block}{Maßeigenschaft}
+\(\mu\vert_s\) ist wieder ein Maß auf \((\Omega,\mathcal A)\):
+\begin{itemize}
+    \item \(\mu\vert_s(\varnothing)=\mu(\varnothing\cap s)=0\).
+    \item Für paarweise disjunkte \((A_n)\):
+    \[
+    \mu\vert_s\!\left(\bigcup_n A_n\right)
+    =\mu\!\left(\bigcup_n (A_n\cap s)\right)
+    =\sum_n \mu(A_n\cap s)
+    =\sum_n \mu\vert_s(A_n).
+    \]
+\end{itemize}
+\end{block}
+
+\begin{block}{Monotonie}
+Falls \(s\subseteq t\), dann \(\mu\vert_s(A)\le\mu\vert_t(A)\) für alle \(A\in\mathcal A\).
+\\[4pt]
+\texttt{Measure.restrict\_mono (hs : s \(\subseteq\) t) : \(\mu\).restrict s \(\le\) \(\mu\).restrict t}
+\end{block}
+\end{frame}
+
+\begin{frame}{Wahrscheinlichkeitsmaß}
+\begin{block}{Definition}
+Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit
+\[
+\mathbb P(\Omega)=1.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Ein Maß misst allgemein die Größe messbarer Mengen.
+Ein Wahrscheinlichkeitsmaß ist der Spezialfall, in dem die Gesamtmasse des ganzen Raums gleich \(1\) ist.
+\end{block}
+\end{frame}
+
+
 \begin{frame}{Beispiel: diskretes Wahrscheinlichkeitsmaß}
 \begin{block}{Definition}
 Für eine endliche Menge \(\Omega=\{\omega_1,\ldots,\omega_n\}\) und Wahrscheinlichkeiten
@@ -411,6 +412,41 @@ Falls \(p_i=\frac1n\) für alle \(i\), dann gilt
 \]
 \end{block}
 \end{frame}
+
+\begin{frame}{Bedingte Wahrscheinlichkeit}
+\begin{block}{Definition}
+Sei \((\Omega,\mathcal A,\mathbb P)\) ein Wahrscheinlichkeitsraum und \(B\in\mathcal A\) mit \(\mathbb P(B)>0\).
+Die bedingte Wahrscheinlichkeit von \(A\) gegeben \(B\) ist
+\[
+\mathbb P(A\mid B):=\frac{\mathbb P(A\cap B)}{\mathbb P(B)}.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+\(\mathbb P(A\mid B)\) ist die Wahrscheinlichkeit von \(A\), wenn man bereits weiß, dass \(B\) eingetreten ist.
+\end{block}
+\end{frame}
+
+\begin{frame}{Bedingte Wahrscheinlichkeit als Maß}
+\begin{block}{Satz}
+Für festes \(B\in\mathcal A\) mit \(\mathbb P(B)>0\) ist die Abbildung
+\[
+\mathbb P(\cdot\mid B)\colon \mathcal A\to[0,1],
+\quad
+A\mapsto \mathbb P(A\mid B)
+\]
+ein Wahrscheinlichkeitsmaß auf \((\Omega,\mathcal A)\).
+\end{block}
+
+\begin{block}{Zusammenhang mit restringiertem Maß}
+Es gilt
+\[
+\mathbb P(A\mid B)=\frac{\mathbb P\vert_B(A)}{\mathbb P(B)}.
+\]
+Die bedingte Wahrscheinlichkeit ist das normierte restringierte Maß.
+\end{block}
+\end{frame}
+
 
 \begin{frame}{Zufallsvariable}
 \begin{block}{Definition}
