@@ -302,6 +302,46 @@ mit:
 \end{block}
 \end{frame}
 
+\begin{frame}{Restringiertes Maß}
+\begin{block}{Definition}
+Sei \(\mu\) ein Maß auf \((\Omega,\mathcal A)\) und \(s\in\mathcal A\).
+Das auf \(s\) restringierte Maß \(\mu\vert_s\) ist definiert durch
+\[
+\mu\vert_s(A):=\mu(A\cap s),
+\qquad A\in\mathcal A.
+\]
+\end{block}
+
+\begin{block}{Lean/Mathlib}
+\texttt{\(\mu\).restrict s} mit der definierenden Eigenschaft:
+\\[4pt]
+\texttt{Measure.restrict\_apply (ht : MeasurableSet t) :}\\
+\texttt{\quad (\(\mu\).restrict s) t = \(\mu\) (t \(\cap\) s)}
+\end{block}
+\end{frame}
+
+\begin{frame}{Restringiertes Maß: Eigenschaften}
+\begin{block}{Maßeigenschaft}
+\(\mu\vert_s\) ist wieder ein Maß auf \((\Omega,\mathcal A)\):
+\begin{itemize}
+    \item \(\mu\vert_s(\varnothing)=\mu(\varnothing\cap s)=0\).
+    \item Für paarweise disjunkte \((A_n)\):
+    \[
+    \mu\vert_s\!\left(\bigcup_n A_n\right)
+    =\mu\!\left(\bigcup_n (A_n\cap s)\right)
+    =\sum_n \mu(A_n\cap s)
+    =\sum_n \mu\vert_s(A_n).
+    \]
+\end{itemize}
+\end{block}
+
+\begin{block}{Monotonie}
+Falls \(s\subseteq t\), dann \(\mu\vert_s(A)\le\mu\vert_t(A)\) für alle \(A\in\mathcal A\).
+\\[4pt]
+\texttt{Measure.restrict\_mono (hs : s \(\subseteq\) t) : \(\mu\).restrict s \(\le\) \(\mu\).restrict t}
+\end{block}
+\end{frame}
+
 \begin{frame}{Wahrscheinlichkeitsmaß}
 \begin{block}{Definition}
 Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit
@@ -878,6 +918,21 @@ Dann gilt
 =
 \lim_{n\to\infty}\int_\Omega f_n\,d\mu.
 \]
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweisübersicht}
+\begin{block}{Hauptargumente}
+\begin{enumerate}
+\item \textbf{``\(\le\)'':} Aus \(f_n\le f\) folgt sofort \(\lim\int f_n\,d\mu\le\int f\,d\mu\) (Monotonie des Integrals).
+\item \textbf{``\(\ge\)'':} Für jede einfache Funktion \(0\le\varphi\le f\) und \(0<c<1\) definiere \(A_n=\{f_n\ge c\varphi\}\). Dann:
+\begin{itemize}
+\item \(A_n\uparrow\Omega\), da \(f_n\uparrow f > c\varphi\).
+\item Auf \(A_n\): \ \(\int f_n\,d\mu\ge c\int_{A_n}\varphi\,d\mu\).
+\item Da \(\varphi\) einfach: \(\int_{A_n}\varphi\,d\mu\to\int_\Omega\varphi\,d\mu\) (Stetigkeit des Maßes, endliche Summe).
+\end{itemize}
+\item \textbf{Abschluss:} \(c\uparrow 1\) und Supremum über alle \(\varphi\le f\) liefert \(\lim\int f_n\,d\mu\ge\int f\,d\mu\).
+\end{enumerate}
 \end{block}
 \end{frame}
 
