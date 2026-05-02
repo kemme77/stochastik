@@ -2,7 +2,7 @@ PWD /Users/johannesriesterer/Documents/code/stochastik/Folien_TINF24CS1
 INPUT /usr/local/texlive/2025basic/texmf.cnf
 INPUT /usr/local/texlive/2025basic/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025basic/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/johannesriesterer/Documents/code/stochastik/Folien_TINF24CS1/dhbw_stochastic_random_variables.tex
+INPUT dhbw_stochastic_random_variables.tex
 OUTPUT dhbw_stochastic_random_variables.log
 INPUT /usr/local/texlive/2025basic/texmf-dist/tex/latex/beamer/beamer.cls
 INPUT /usr/local/texlive/2025basic/texmf-dist/tex/latex/beamer/beamer.cls
@@ -470,6 +470,7 @@ INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
 INPUT ./img/sphere_slicing.jpg
