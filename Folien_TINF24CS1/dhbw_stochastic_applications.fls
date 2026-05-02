@@ -430,6 +430,14 @@ INPUT ./img/spam.jpg
 INPUT ./img/spam.jpg
 INPUT ./img/spam.jpg
 INPUT ./img/spam.jpg
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/normal.png
+INPUT ./img/sgdz.png
+INPUT ./img/sgdz.png
+INPUT ./img/sgdz.png
+INPUT ./img/sgdz.png
 OUTPUT dhbw_stochastic_applications.nav
 OUTPUT dhbw_stochastic_applications.toc
 OUTPUT dhbw_stochastic_applications.snm
@@ -438,6 +446,7 @@ INPUT ./dhbw_stochastic_applications.out
 INPUT ./dhbw_stochastic_applications.out
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb
@@ -445,4 +454,6 @@ INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
 INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+INPUT /usr/local/texlive/2025basic/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
