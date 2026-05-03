@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1777716491.76218 "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF24CS1/dhbw_stochastic_applications.tex" "dhbw_stochastic_applications.pdf" "dhbw_stochastic_applications" 1777716494.13419 0
-  "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF24CS1/dhbw_stochastic_applications.tex" 1777716489.15051 11586 436b85d726246ece94f934e9edebe9ad ""
+["pdflatex"] 1777789554.47876 "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF24CS1/dhbw_stochastic_applications.tex" "dhbw_stochastic_applications.pdf" "dhbw_stochastic_applications" 1777789556.95446 0
+  "/Users/johannesriesterer/Documents/code/stochastik/Folien_TINF24CS1/dhbw_stochastic_applications.tex" 1777789554.24234 11977 fffc883b38e45a6684e07273efe439c2 ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/local/texlive/2025basic/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -235,13 +235,14 @@
   "/usr/local/texlive/2025basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1769844643 80050 7c2634423af1dc0fd56c1bdfd08446f8 ""
   "/usr/local/texlive/2025basic/texmf-var/web2c/pdftex/pdflatex.fmt" 1766840500 2663827 ae25494166c4aa93e1144e59aa9c8fbf ""
   "/usr/local/texlive/2025basic/texmf.cnf" 1741448314 628 81d1ada0f601fb1ffa62f1323192d946 ""
-  "dhbw_stochastic_applications.aux" 1777716494.05884 3270 31fab9f6ca09829be45875ef526895b4 "pdflatex"
-  "dhbw_stochastic_applications.nav" 1777716494.05975 2225 c1c5afbecb67aec0ba53ac1043f451e4 "pdflatex"
-  "dhbw_stochastic_applications.out" 1777716492.81747 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "dhbw_stochastic_applications.tex" 1777716489.15051 11586 436b85d726246ece94f934e9edebe9ad ""
+  "dhbw_stochastic_applications.aux" 1777789556.86844 3270 31fab9f6ca09829be45875ef526895b4 "pdflatex"
+  "dhbw_stochastic_applications.nav" 1777789556.8694 2225 c1c5afbecb67aec0ba53ac1043f451e4 "pdflatex"
+  "dhbw_stochastic_applications.out" 1777789555.56261 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "dhbw_stochastic_applications.tex" 1777789554.24234 11977 fffc883b38e45a6684e07273efe439c2 ""
   "img/craps.png" 1774687746.428 13839 914501b67b77f2372f92caa6dba1b1c1 ""
   "img/ham.png" 1774687746.46445 1998820 8dec9d06f3543f57c2bee11c76336dc8 ""
   "img/hashtable.png" 1774687746.46465 18238 6c3b4327e26057c06cc6f390171eff8d ""
+  "img/ln_inequality_plot.png" 1777788840.15712 42036 299fe25d5ed8a6a9b5bdfb98c9723e43 ""
   "img/normal.png" 1774687746.48107 29059 028311f49a75d9f0e70396afc3ee34dd ""
   "img/sgdz.png" 1774687746.51462 69976 7b8f5c28cee66f66f6584a2ab6a1e0fb ""
   "img/spam.jpg" 1774687746.5152 37859 04e61679c7e5fdb64353ae93725cf179 ""

@@ -77,16 +77,20 @@ $A^c_{k,n} = Var^n_k(\Omega, o.W.)$,  wobei $\Omega$ die Menge der verfügbaren 
 
  \end{frame}
 
+
 \begin{frame}
     \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
 \framesubtitle{}
+\begin{figure}[htp]
+      \centering
+    \includegraphics[width=0.6\textwidth]{img/ln_inequality_plot.png}
+
+\end{figure}
+
 
 \begin{block}{Beispiel: Hash Kollision (Geburtstags-Paradoxon)}
 Für $n=365$ und $k=23$ ist damit $ P(A_{k,n} ) > \frac{1}{2}$. Die Wahrscheinlichkeit, dass bei einer Gruppe von mehr als $23$ Leuten zwei Leute am gleichen Tag Geburtstag haben, ist also größer als $ \frac{1}{2}$.
 \end{block}
-
-
-
  \end{frame}
 
 
@@ -98,6 +102,13 @@ Für $n=365$ und $k=23$ ist damit $ P(A_{k,n} ) > \frac{1}{2}$. Die Wahrscheinli
 Für eine Zerlegung  $\Omega = \bigcup_{j=1}^{n} B_j, \text{ mit } B_i \cap B_k = \emptyset \text{ für } i \neq k $
 \begin{align*}
 & P(A ) = \sum_{j=1}^{n}  P(A \; | \;  B_j) \cdot P(B_j)
+\end{align*}
+\end{block}
+
+\begin{block}{Beweis}
+Da $A = A \cap \Omega = A \cap \bigcup_{j=1}^{n} B_j = \bigcup_{j=1}^{n} (A \cap B_j)$ eine disjunkte Zerlegung ist, folgt:
+\begin{align*}
+P(A) &= \sum_{j=1}^{n} P(A \cap B_j) = \sum_{j=1}^{n} P(A \; | \; B_j) \cdot P(B_j)
 \end{align*}
 \end{block}
 
