@@ -152,9 +152,14 @@ example {X : Type*} [TopologicalSpace X] (U : Set X) : Prop := IsOpen U
 
 /-- Die diskrete Topologie: jede Teilmenge ist offen. -/
 def potenzmengenTopologie (X : Type*) : TopologicalSpace X where
+  -- Jede Menge wird per Definition als offen erklärt.
   IsOpen := fun _ => True
+  -- Insbesondere ist der ganze Raum offen.
   isOpen_univ := True.intro
+  -- Der Schnitt zweier offener Mengen ist wieder offen, hier trivial,
+  -- weil ohnehin jede Menge offen ist.
   isOpen_inter := fun _s _t _hs _ht => True.intro
+  -- Ebenso ist jede beliebige Vereinigung offen.
   isOpen_sUnion := fun _S _hS => True.intro
 
 example (X : Type*) (U : Set X) :
@@ -164,6 +169,60 @@ example (X : Type*) (U : Set X) :
 example (X : Type*) : potenzmengenTopologie X = ⊥ := by
   ext U
   simp [potenzmengenTopologie]
+
+/-!
+### Beispiel: Die Klumpentopologie
+
+Die Klumpentopologie ist die grobste Topologie: Offen sind nur `∅` und `univ`.
+-/
+
+/-- Die Klumpentopologie: nur `∅` und `univ` sind offen. -/
+def klumpenTopologie (X : Type*) : TopologicalSpace X where
+  -- Eine Menge `U` heißt genau dann offen, wenn sie entweder leer ist
+  -- oder der ganze Raum `univ`; mehr offene Mengen gibt es hier nicht.
+  IsOpen := fun U => U = ∅ ∨ U = univ
+  isOpen_univ := Or.inr rfl
+  isOpen_inter := by
+    -- Beim Schnitt der einzigen offenen Mengen bleiben wieder nur `∅` oder `univ` übrig.
+    intro s t hs ht
+    -- `hs` und `ht` liefern jeweils die zwei Fälle `= ∅` oder `= univ`;
+    -- nach dieser Vier-Fälle-Unterscheidung löst `simp` alle Schnitte sofort auf.
+    rcases hs with rfl | rfl <;> rcases ht with rfl | rfl <;> simp
+  isOpen_sUnion := by
+    -- Für eine beliebige Vereinigung gibt es genau zwei Fälle:
+    -- Entweder `univ` ist schon dabei, dann ist die Vereinigung `univ`,
+    -- oder alle Mengen aus der Familie sind leer, dann ist die Vereinigung `∅`.
+    intro S hS
+    by_cases h_univ : univ ∈ S
+    · right
+      ext x
+      constructor
+      -- Jede Vereinigung liegt als Menge ohnehin in `univ`.
+      · intro _hx
+        simp
+      -- Weil `univ ∈ S`, liegt jedes `x` auch in der Vereinigungsmenge.
+      · intro _hx
+        exact ⟨univ, h_univ, by simp⟩
+    · left
+      ext x
+      constructor
+      · intro hx
+        rcases hx with ⟨U, hU, hxU⟩
+        rcases hS U hU with hUempty | hUuniv
+        -- Ist `U = ∅`, dann kann `x ∈ U` nicht passieren.
+        · simp [hUempty] at hxU
+        -- Ist `U = univ`, widerspricht das der Annahme `h_univ`.
+        · exact (h_univ (hUuniv ▸ hU)).elim
+      -- Aus `x ∈ ∅` folgt sofort alles.
+      · intro hx
+        simp at hx
+
+example (X : Type*) : @IsOpen X (klumpenTopologie X) (∅ : Set X) := Or.inl rfl
+
+example (X : Type*) : @IsOpen X (klumpenTopologie X) (univ : Set X) := Or.inr rfl
+
+example (X : Type*) (U : Set X) (hU : @IsOpen X (klumpenTopologie X) U) :
+    U = ∅ ∨ U = univ := hU
 
 end TopologischerRaum
 
@@ -185,6 +244,103 @@ example (X : Type*) [TopologicalSpace X] : MeasurableSpace X := borel X
 -- Definitionell ist sie die von offenen Mengen erzeugte σ-Algebra:
 example (X : Type*) [TopologicalSpace X] :
     borel X = MeasurableSpace.generateFrom {U : Set X | IsOpen U} := rfl
+
+/-!
+### Detaillierte Erklärung: `borel X`
+
+**Schritt 1: Was ist `generateFrom`?**
+`MeasurableSpace.generateFrom G` erzeugt die kleinste σ-Algebra, die alle Mengen
+in `G` enthält. Induktiv enthält sie:
+- jede Menge aus `G` (Erzeuger)
+- das Komplement jeder enthaltenen Menge
+- abzählbare Vereinigungen enthaltener Mengen
+- die leere Menge
+
+**Schritt 2: Was ist `borel X`?**
+`borel X` ist definiert als `generateFrom {U : Set X | IsOpen U}`.
+Das heißt: Nimm alle offenen Mengen der Topologie als Erzeuger,
+und bilde daraus die kleinste σ-Algebra.
+
+**Schritt 3: Warum ist das nützlich?**
+Die Borel-σ-Algebra enthält alle „geometrisch natürlichen" Mengen:
+- offene Mengen (direkt als Erzeuger)
+- abgeschlossene Mengen (als Komplemente offener Mengen)
+- Intervalle wie (a,b), [a,b], (a,b], (-∞, a] auf ℝ
+- abzählbare Durchschnitte/Vereinigungen davon (Gδ, Fσ, ...)
+-/
+
+-- ══════════════════════════════════════════════════════════════════
+-- Schritt-für-Schritt: Die Bausteine von `borel X`
+-- ══════════════════════════════════════════════════════════════════
+
+-- (a) Das Erzeugersystem: die Menge aller offenen Mengen
+example (X : Type*) [TopologicalSpace X] :
+    {U : Set X | IsOpen U} = {U | IsOpen U} := rfl
+
+-- (b) `generateFrom` angewendet auf dieses Erzeugersystem liefert eine σ-Algebra:
+example (X : Type*) [TopologicalSpace X] :
+    MeasurableSpace X :=
+  MeasurableSpace.generateFrom {U : Set X | IsOpen U}
+
+-- (c) Jede offene Menge ist in der erzeugten σ-Algebra messbar:
+example (X : Type*) [TopologicalSpace X] (U : Set X) (hU : IsOpen U) :
+    @MeasurableSet X (borel X) U := by
+  -- U ist ein Erzeuger, also direkt messbar:
+  exact MeasurableSpace.measurableSet_generateFrom hU
+
+-- (d) Jede abgeschlossene Menge ist borel-messbar (als Komplement einer offenen):
+example (X : Type*) [TopologicalSpace X] (F : Set X) (hF : IsClosed F) :
+    @MeasurableSet X (borel X) F := by
+  -- F ist abgeschlossen ⟺ Fᶜ ist offen ⟹ Fᶜ ist messbar ⟹ F ist messbar
+  have hFc : @MeasurableSet X (borel X) Fᶜ :=
+    MeasurableSpace.measurableSet_generateFrom hF.isOpen_compl
+  rwa [MeasurableSet.compl_iff] at hFc
+
+-- (e) Abzählbare Vereinigungen messbarer Mengen sind messbar:
+example (X : Type*) [TopologicalSpace X] (A : ℕ → Set X)
+    (hA : ∀ n, @MeasurableSet X (borel X) (A n)) :
+    @MeasurableSet X (borel X) (⋃ n, A n) := by
+  exact MeasurableSet.iUnion hA
+
+-- (f) Abzählbare Durchschnitte messbarer Mengen sind messbar:
+example (X : Type*) [TopologicalSpace X] (A : ℕ → Set X)
+    (hA : ∀ n, @MeasurableSet X (borel X) (A n)) :
+    @MeasurableSet X (borel X) (⋂ n, A n) := by
+  exact MeasurableSet.iInter hA
+
+-- ══════════════════════════════════════════════════════════════════
+-- Konkrete Beispiele auf ℝ
+-- ══════════════════════════════════════════════════════════════════
+
+-- Offenes Intervall (a,b) ist offen, also borel-messbar:
+example (a b : ℝ) : @MeasurableSet ℝ (borel ℝ) (Ioo a b) := by
+  exact MeasurableSpace.measurableSet_generateFrom (mem_setOf.mpr isOpen_Ioo)
+
+-- Offener Halbraum (a, +∞) ist offen, also borel-messbar:
+example (a : ℝ) : @MeasurableSet ℝ (borel ℝ) (Ioi a) := by
+  exact MeasurableSpace.measurableSet_generateFrom (mem_setOf.mpr isOpen_Ioi)
+
+-- Abgeschlossenes Intervall [a,b] ist abgeschlossen, also borel-messbar:
+example (a b : ℝ) : @MeasurableSet ℝ (borel ℝ) (Icc a b) :=
+  IsClosed.measurableSet isClosed_Icc
+
+-- Einzelpunkt {x} ist abgeschlossen, also borel-messbar:
+example (x : ℝ) : @MeasurableSet ℝ (borel ℝ) {x} :=
+  IsClosed.measurableSet isClosed_singleton
+
+-- Halboffenes Intervall (a,b] = (a,b) ∪ {b}, Vereinigung messbarer Mengen:
+example (a b : ℝ) : @MeasurableSet ℝ (borel ℝ) (Ioc a b) :=
+  measurableSet_Ioc
+
+-- ══════════════════════════════════════════════════════════════════
+-- Minimalität: `borel X` ist die KLEINSTE σ-Algebra über den offenen Mengen
+-- ══════════════════════════════════════════════════════════════════
+
+-- Wenn eine σ-Algebra m jede offene Menge enthält, dann ist borel X ≤ m:
+example (X : Type*) [TopologicalSpace X] (m : MeasurableSpace X)
+    (hm : ∀ U : Set X, IsOpen U → @MeasurableSet X m U) :
+    borel X ≤ m := by
+  exact MeasurableSpace.generateFrom_le hm
 
 -- Spezialfall ℝ:
 example : MeasurableSpace ℝ := borel ℝ
