@@ -966,9 +966,14 @@ Dann gilt
 \begin{itemize}
 \item \(A_n\uparrow\Omega\), da \(f_n\uparrow f > c\varphi\).
 \item Auf \(A_n\): \ \(\int f_n\,d\mu\ge c\int_{A_n}\varphi\,d\mu\).
-\item Da \(\varphi\) einfach: \(\int_{A_n}\varphi\,d\mu\to\int_\Omega\varphi\,d\mu\) (Stetigkeit des Maßes, endliche Summe).
+\item Für \(\varphi=\sum_{i=1}^m a_i\,\mathbf 1_{B_i}\) gilt
+\(\int_{A_n}\varphi\,d\mu=\sum_{i=1}^m a_i\mu(A_n\cap B_i)\to\int_\Omega\varphi\,d\mu\),
+da \(A_n\cap B_i\uparrow B_i\) und die Summe endlich ist.
 \end{itemize}
-\item \textbf{Abschluss:} \(c\uparrow 1\) und Supremum über alle \(\varphi\le f\) liefert \(\lim\int f_n\,d\mu\ge\int f\,d\mu\).
+\item \textbf{Abschluss:} Also \(\lim\int f_n\,d\mu\ge c\int\varphi\,d\mu\). Mit \(c\uparrow 1\) folgt
+\(\lim\int f_n\,d\mu\ge\int\varphi\,d\mu\); mit
+\(\int f\,d\mu=\sup\{\int\varphi\,d\mu: 0\le\varphi\le f,\ \varphi\ \text{einfach}\}\)
+folgt \(\lim\int f_n\,d\mu\ge\int f\,d\mu\).
 \end{enumerate}
 \end{block}
 \end{frame}
