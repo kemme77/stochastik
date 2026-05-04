@@ -302,19 +302,6 @@ mit:
 \end{block}
 \end{frame}
 
-\begin{frame}{Wahrscheinlichkeitsmaß}
-\begin{block}{Definition}
-Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit
-\[
-\mathbb P(\Omega)=1.
-\]
-\end{block}
-
-\begin{block}{Interpretation}
-Ein Maß misst allgemein die Größe messbarer Mengen.
-Ein Wahrscheinlichkeitsmaß ist der Spezialfall, in dem die Gesamtmasse des ganzen Raums gleich \(1\) ist.
-\end{block}
-\end{frame}
 
 \begin{frame}{Stetigkeit von Maßen}
 \begin{block}{Satz}
@@ -355,6 +342,61 @@ Mit der \(\sigma\)-Additivität folgt
 \end{block}
 \end{frame}
 
+\begin{frame}{Restringiertes Maß}
+\begin{block}{Definition}
+Sei \(\mu\) ein Maß auf \((\Omega,\mathcal A)\) und \(s\in\mathcal A\).
+Das auf \(s\) restringierte Maß \(\mu\vert_s\) ist definiert durch
+\[
+\mu\vert_s(A):=\mu(A\cap s),
+\qquad A\in\mathcal A.
+\]
+\end{block}
+
+
+\begin{center}
+   \includegraphics[scale=0.07]{img/bedingtewkeit.jpeg} 
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Restringiertes Maß: Eigenschaften}
+\begin{block}{Maßeigenschaft}
+\(\mu\vert_s\) ist wieder ein Maß auf \((\Omega,\mathcal A)\):
+\begin{itemize}
+    \item \(\mu\vert_s(\varnothing)=\mu(\varnothing\cap s)=0\).
+    \item Für paarweise disjunkte \((A_n)\):
+    \begin{align*}
+    \mu\vert_s\!\left(\bigcup_n A_n\right)
+    &=\mu\!\left(\bigcup_n (A_n\cap s)\right)\\
+    &=\sum_n \mu(A_n\cap s)
+    =\sum_n \mu\vert_s(A_n).
+    \end{align*}
+\end{itemize}
+\end{block}
+
+\begin{block}{Monotonie}
+Falls \(s\subseteq t\), dann \(\mu\vert_s(A)\le\mu\vert_t(A)\) für alle \(A\in\mathcal A\).
+\\[4pt]
+{\small\texttt{Measure.restrict\_mono (hs : s \(\subseteq\) t) :}}\\
+{\small\texttt{\quad \(\mu\).restrict s \(\le\) \(\mu\).restrict t}}
+\end{block}
+\end{frame}
+
+\begin{frame}{Wahrscheinlichkeitsmaß}
+\begin{block}{Definition}
+Ein Wahrscheinlichkeitsmaß ist ein Maß \(\mathbb P\) auf \((\Omega,\mathcal A)\) mit
+\[
+\mathbb P(\Omega)=1.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+Ein Maß misst allgemein die Größe messbarer Mengen.
+Ein Wahrscheinlichkeitsmaß ist der Spezialfall, in dem die Gesamtmasse des ganzen Raums gleich \(1\) ist.
+\end{block}
+\end{frame}
+
+
 \begin{frame}{Beispiel: diskretes Wahrscheinlichkeitsmaß}
 \begin{block}{Definition}
 Für eine endliche Menge \(\Omega=\{\omega_1,\ldots,\omega_n\}\) und Wahrscheinlichkeiten
@@ -371,6 +413,41 @@ Falls \(p_i=\frac1n\) für alle \(i\), dann gilt
 \]
 \end{block}
 \end{frame}
+
+\begin{frame}{Bedingte Wahrscheinlichkeit}
+\begin{block}{Definition}
+Sei \((\Omega,\mathcal A,\mathbb P)\) ein Wahrscheinlichkeitsraum und \(B\in\mathcal A\) mit \(\mathbb P(B)>0\).
+Die bedingte Wahrscheinlichkeit von \(A\) gegeben \(B\) ist
+\[
+\mathbb P(A\mid B):=\frac{\mathbb P(A\cap B)}{\mathbb P(B)}.
+\]
+\end{block}
+
+\begin{block}{Interpretation}
+\(\mathbb P(A\mid B)\) ist die Wahrscheinlichkeit von \(A\), wenn man bereits weiß, dass \(B\) eingetreten ist.
+\end{block}
+\end{frame}
+
+\begin{frame}{Bedingte Wahrscheinlichkeit als Maß}
+\begin{block}{Satz}
+Für festes \(B\in\mathcal A\) mit \(\mathbb P(B)>0\) ist die Abbildung
+\[
+\mathbb P(\cdot\mid B)\colon \mathcal A\to[0,1],
+\quad
+A\mapsto \mathbb P(A\mid B)
+\]
+ein Wahrscheinlichkeitsmaß auf \((\Omega,\mathcal A)\).
+\end{block}
+
+\begin{block}{Zusammenhang mit restringiertem Maß}
+Es gilt
+\[
+\mathbb P(A\mid B)=\frac{\mathbb P\vert_B(A)}{\mathbb P(B)}.
+\]
+Die bedingte Wahrscheinlichkeit ist das normierte restringierte Maß.
+\end{block}
+\end{frame}
+
 
 \begin{frame}{Zufallsvariable}
 \begin{block}{Definition}
@@ -881,6 +958,26 @@ Dann gilt
 \end{block}
 \end{frame}
 
+\begin{frame}{Beweisübersicht}
+\begin{block}{Hauptargumente}
+\begin{enumerate}
+\item \textbf{``\(\le\)'':} Aus \(f_n\le f\) folgt sofort \(\lim\int f_n\,d\mu\le\int f\,d\mu\) (Monotonie des Integrals).
+\item \textbf{``\(\ge\)'':} Für jede einfache Funktion \(0\le\varphi\le f\) und \(0<c<1\) definiere \(A_n=\{f_n\ge c\varphi\}\). Dann:
+\begin{itemize}
+\item \(A_n\uparrow\Omega\), da \(f_n\uparrow f > c\varphi\).
+\item Auf \(A_n\): \ \(\int f_n\,d\mu\ge c\int_{A_n}\varphi\,d\mu\).
+\item Für \(\varphi=\sum_{i=1}^m a_i\,\mathbf 1_{B_i}\) gilt
+\(\int_{A_n}\varphi\,d\mu=\sum_{i=1}^m a_i\mu(A_n\cap B_i)\to\int_\Omega\varphi\,d\mu\),
+da \(A_n\cap B_i\uparrow B_i\) und die Summe endlich ist.
+\end{itemize}
+\item \textbf{Abschluss:} Also \(\lim\int f_n\,d\mu\ge c\int\varphi\,d\mu\). Mit \(c\uparrow 1\) folgt
+\(\lim\int f_n\,d\mu\ge\int\varphi\,d\mu\); mit
+\(\int f\,d\mu=\sup\{\int\varphi\,d\mu: 0\le\varphi\le f,\ \varphi\ \text{einfach}\}\)
+folgt \(\lim\int f_n\,d\mu\ge\int f\,d\mu\).
+\end{enumerate}
+\end{block}
+\end{frame}
+
 \begin{frame}{Beweisidee: eine Richtung}
 \begin{block}{Monotonie}
 Da \(f_n\le f\), gilt
@@ -1120,6 +1217,23 @@ Ist \(\mu=\mathbb P\) und $X$ eine reelle Zufallsvariable, dann ist
 der Erwartungswert von $X$. Außerdem gilt für jede messbare Menge \(A\):
 \[
 \mathbb E[\mathbf{1}_A]=\int_\Omega \mathbf{1}_A\,d\mathbb P = \mathbb P(A).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Erwartungswert im diskreten Fall}
+\begin{block}{Formel}
+Ist \(X\colon\Omega\to\mathbb R\) eine Zufallsvariable auf einem diskreten Wahrscheinlichkeitsraum
+\((\Omega,\mathcal A,\mathbb P)\) mit abzählbarem \(\Omega\), so gilt
+\[
+\mathbb E[X]=\sum_{\omega\in\Omega} X(\omega)\,\mathbb P(\{\omega\}).
+\]
+\end{block}
+
+\begin{block}{Bildraum-Formel}
+Hat \(X\) die Werte \(x_1,x_2,\ldots\) mit \(\mathbb P(X=x_i)=p_i\), so gilt
+\[
+\mathbb E[X]=\sum_{i} x_i\,p_i = \sum_{i} x_i\,\mathbb P(X=x_i).
 \]
 \end{block}
 \end{frame}
@@ -1916,6 +2030,96 @@ Y\colon \Omega\to F
 hei\ss{}en stochastisch unabhängig, wenn für alle \(A\in\mathcal E\), \(B\in\mathcal F\) gilt:
 \[
 \mathbb P(X\in A,\;Y\in B)=\mathbb P(X\in A)\,\mathbb P(Y\in B).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Unabhängigkeit von Ereignissen}
+\begin{block}{Definition}
+Zwei Ereignisse \(A,B\in\mathcal A\) hei\ss{}en stochastisch unabhängig, wenn
+\[
+\mathbb P(A\cap B)=\mathbb P(A)\cdot\mathbb P(B).
+\]
+\end{block}
+
+\begin{block}{Zusammenhang mit bedingter Wahrscheinlichkeit}
+Ist \(\mathbb P(B)>0\), so gilt:
+\[
+A \text{ und } B \text{ unabhängig}
+\quad\Longleftrightarrow\quad
+\mathbb P(A\mid B)=\mathbb P(A).
+\]
+Das Wissen, dass \(B\) eingetreten ist, ändert die Wahrscheinlichkeit von \(A\) nicht.
+\end{block}
+\end{frame}
+
+\begin{frame}{Unabhängigkeit von Ereignissen: Beweis}
+\begin{block}{``\(\Rightarrow\)''}
+Sei \(A\cap B\) unabhängig, d.\,h.\ \(\mathbb P(A\cap B)=\mathbb P(A)\mathbb P(B)\).
+Dann:
+\[
+\mathbb P(A\mid B)=\frac{\mathbb P(A\cap B)}{\mathbb P(B)}=\frac{\mathbb P(A)\mathbb P(B)}{\mathbb P(B)}=\mathbb P(A).
+\]
+\end{block}
+
+\begin{block}{``\(\Leftarrow\)''}
+Sei \(\mathbb P(A\mid B)=\mathbb P(A)\). Dann:
+\[
+\mathbb P(A\cap B)=\mathbb P(A\mid B)\cdot\mathbb P(B)=\mathbb P(A)\cdot\mathbb P(B).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Klassische Definition als Spezialfall}
+\begin{block}{Indikatorfunktion}
+Für \(A\in\mathcal A\) gilt
+\[
+\mathbf{1}_A^{-1}(\{1\})=A,
+\qquad
+\mathbf{1}_A^{-1}(\{0\})=A^c.
+\]
+\end{block}
+
+\begin{block}{Herleitung}
+Setze \(X=\mathbf{1}_A\), \(Y=\mathbf{1}_B\). Die abstrakte Unabhängigkeit verlangt
+\[
+\mathbb P(X\in C,\;Y\in D)=\mathbb P(X\in C)\,\mathbb P(Y\in D).
+\]
+Die linke Seite ist die gemeinsame Verteilung auf dem Rechteck:
+\[
+\mathbb P(X\in C,\;Y\in D)
+=\mathbb P_{(X,Y)}(C\times D)
+=\mathbb P\bigl((X,Y)^{-1}(C\times D)\bigr).
+\]
+\end{block}
+\end{frame}
+
+\begin{frame}{Klassische Definition als Spezialfall (Forts.)}
+\begin{block}{Urbild des Rechtecks}
+Per Definition des Urbilds:
+\[
+(X,Y)^{-1}(C\times D)=\{\omega\in\Omega : (X(\omega),Y(\omega))\in C\times D\}.
+\]
+Nun ist \((X(\omega),Y(\omega))\in C\times D\) genau dann, wenn
+\[
+X(\omega)\in C \quad\text{und}\quad Y(\omega)\in D,
+\]
+also
+\begin{align*}
+(X,Y)^{-1}(C\times D)
+&=\{\omega: X(\omega)\in C\}\cap\{\omega: Y(\omega)\in D\}\\
+&=X^{-1}(C)\cap Y^{-1}(D).
+\end{align*}
+\end{block}
+\end{frame}
+
+\begin{block}{Einsetzen: \(C=\{1\}\), \(D=\{1\}\)}
+\[
+X^{-1}(\{1\})\cap Y^{-1}(\{1\})=A\cap B,
+\]
+und damit
+\[
+\mathbb P(A\cap B)=\mathbb P(A)\cdot\mathbb P(B).
 \]
 \end{block}
 \end{frame}
