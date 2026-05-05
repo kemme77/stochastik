@@ -13,7 +13,7 @@
 
 import Mathlib
 
-open MeasureTheory ProbabilityTheory BigOperators
+open MeasureTheory ProbabilityTheory BigOperators Function
 open Finset Set MeasureTheory
 open scoped ENNReal Topology BigOperators MeasureTheory
 
@@ -50,20 +50,20 @@ def variationenMitWdh (n k : ℕ) : ℕ := n ^ k
 def probKeineKollision (n k : ℕ) : ℚ :=
   ∏ i ∈ Finset.range k, (1 - (i : ℚ) / n)
 
-/-- Beispiel: Für n=365, k=23 berechnen wir P(keine Kollision). -/
-#eval probKeineKollision 365 23
+-- Beispiel: Für n=365, k=23 berechnen wir P(keine Kollision).
 -- Ergebnis < 0.5, also P(Kollision) > 0.5
+#eval probKeineKollision 365 23
 
 /-- Die Ungleichung ln(1-x) ≤ -x für 0 ≤ x < 1 ist der Schlüssel zur Abschätzung.
-    In Mathlib: `Real.log_le_sub_one_of_le` bzw. `Real.add_one_le_exp`. -/
-example (x : ℝ) (hx : 0 ≤ x) (hx1 : x < 1) : Real.log (1 - x) ≤ -x := by
+    In Mathlib: `Real.add_one_le_exp`. -/
+lemma log_one_sub_le_neg (x : ℝ) (hx : 0 ≤ x) (hx1 : x < 1) :
+    Real.log (1 - x) ≤ -x := by
   have h1 : (0 : ℝ) < 1 - x := by linarith
   have h2 : 1 - x ≤ Real.exp (-x) := by
-    rw [show (1 : ℝ) - x = 1 + (-x) from by ring]
-    exact Real.add_one_le_exp (-x)
+    have h := Real.add_one_le_exp (-x)
+    linarith
   calc Real.log (1 - x)
-      ≤ Real.log (Real.exp (-x)) := by
-          apply Real.log_le_log h1 h2
+      ≤ Real.log (Real.exp (-x)) := Real.log_le_log h1 h2
     _ = -x := Real.log_exp (-x)
 
 
@@ -91,26 +91,18 @@ Dies folgt direkt aus der σ-Additivität des Maßes.
 theorem totale_wahrscheinlichkeit {n : ℕ}
     (B : Fin n → Set Ω)
     (hB_meas : ∀ j, MeasurableSet (B j))
-    (hB_disj : Pairwise (Disjoint on B))
+    (hB_disj : ∀ i j, i ≠ j → Disjoint (B i) (B j))
     (hB_cover : ⋃ j, B j = Set.univ)
     (A : Set Ω) (hA : MeasurableSet A) :
     μ A = ∑ j, μ (A ∩ B j) := by
-  have hAeq : A = ⋃ j, (A ∩ B j) := by
-    ext x; simp [hB_cover, mem_iUnion]
-    constructor
-    · intro hx
-      have : x ∈ ⋃ j, B j := hB_cover ▸ Set.mem_univ x
-      rw [Set.mem_iUnion] at this
-      obtain ⟨j, hj⟩ := this
-      exact ⟨j, hx, hj⟩
-    · rintro ⟨j, hx, -⟩
-      exact hx
-  rw [hAeq]
-  apply measure_iUnion
-  · intro i j hij
-    exact Disjoint.mono (Set.inter_subset_right) (Set.inter_subset_right) (hB_disj hij)
-  · intro j
-    exact hA.inter (hB_meas j)
+  have hAeq : A = ⋃ j ∈ Finset.univ, (A ∩ B j) := by
+    simp only [Finset.mem_univ, iUnion_true]
+    rw [← Set.inter_iUnion, hB_cover, Set.inter_univ]
+  have hPD : PairwiseDisjoint (↑(Finset.univ : Finset (Fin n))) (fun j => A ∩ B j) := by
+    intro i _ j _ hij
+    exact Disjoint.mono Set.inter_subset_right Set.inter_subset_right (hB_disj i j hij)
+  conv_lhs => rw [hAeq]
+  rw [measure_biUnion_finset hPD (fun j _ => hA.inter (hB_meas j))]
 
 /-! ================================================================
 ## 3. Satz von Bayes
@@ -123,33 +115,47 @@ Beweis:
   P(A | B) = P(A ∩ B) / P(B)
            = P(A ∩ B) · P(A) / (P(A) · P(B))
            = P(B | A) · P(A) / P(B)
+
+In Mathlib ist die bedingte Wahrscheinlichkeit über das restringierte Maß definiert:
+  `ProbabilityTheory.cond μ s = (μ s)⁻¹ • μ.restrict s`
+
+Die Notation `μ[t|s]` steht für P(t | s):
+  `μ[t|s] = (μ s)⁻¹ * μ (s ∩ t)`
 -/
 
-/-- Bedingte Wahrscheinlichkeit: P(A | B) = μ(A ∩ B) / μ(B) -/
-def condProb (A B : Set Ω) : ENNReal :=
-  μ (A ∩ B) / μ B
+/-- Erinnerung: `ProbabilityTheory.cond` ist definiert als
+    `cond μ s = (μ s)⁻¹ • μ.restrict s`
 
-notation:50 "P[" A " | " B "]" => condProb _ A B
+Die Auswertung auf einer Menge t ergibt:
+    `μ[t|s] = (μ s)⁻¹ * μ (s ∩ t)`
 
-/-- Satz von Bayes: P(A|B) = P(B|A) · P(A) / P(B) -/
-theorem bayes
-    (A B : Set Ω)
-    (hA : MeasurableSet A) (hB : MeasurableSet B)
-    (hB_pos : μ B ≠ 0) (hA_pos : μ A ≠ 0)
-    (hA_fin : μ A ≠ ⊤) (hB_fin : μ B ≠ ⊤) :
-    condProb μ A B = condProb μ B A * μ A / μ B := by
-  unfold condProb
-  rw [Set.inter_comm B A]
-  ring_nf
-  rw [ENNReal.div_div]
+Das ist äquivalent zu `μ(t ∩ s) / μ(s)`, der Schul-Formel der bedingten Wahrscheinlichkeit.
+-/
+example (s t : Set Ω) (hs : MeasurableSet s) :
+    μ[t|s] = (μ s)⁻¹ * μ (s ∩ t) :=
+  cond_apply hs μ t
 
-/-- Hilfssatz: P(A ∩ B) = P(A | B) · P(B) -/
-theorem condProb_mul_measure
-    (A B : Set Ω)
-    (hB_pos : μ B ≠ 0) (hB_fin : μ B ≠ ⊤) :
-    condProb μ A B * μ B = μ (A ∩ B) := by
-  unfold condProb
-  rw [ENNReal.div_mul_cancel hB_pos hB_fin]
+/-- Satz von Bayes (Mathlib-Version):
+    μ[t|s] = (μ s)⁻¹ * μ[s|t] * μ t
+
+    Umgeschrieben:  P(A|B) = P(B|A) · P(A) / P(B)
+-/
+example (s t : Set Ω) (hs : MeasurableSet s) (ht : MeasurableSet t)
+    [IsFiniteMeasure μ] :
+    μ[t|s] = (μ s)⁻¹ * μ[s|t] * μ t :=
+  cond_eq_inv_mul_cond_mul hs ht μ
+
+/-- Hilfssatz (Mathlib): μ[t|s] * μ s = μ (s ∩ t)
+    (Multiplikationssatz der bedingten Wahrscheinlichkeit) -/
+example (s t : Set Ω) (hs : MeasurableSet s) [IsFiniteMeasure μ] :
+    μ[t|s] * μ s = μ (s ∩ t) :=
+  cond_mul_eq_inter hs t μ
+
+/-- Totale Wahrscheinlichkeit (Mathlib-Version für Komplement-Zerlegung):
+    μ[t|s] * μ s + μ[t|sᶜ] * μ sᶜ = μ t -/
+example (s t : Set Ω) (hs : MeasurableSet s) [IsFiniteMeasure μ] :
+    μ[t|s] * μ s + μ[t|sᶜ] * μ sᶜ = μ t :=
+  cond_add_cond_compl_eq hs μ
 
 
 /-! ================================================================
@@ -166,23 +172,26 @@ Gleichbedeutend damit ist P(A|B) = P(A) und P(B|A) = P(B).
 def StochUnabhaengig (A B : Set Ω) : Prop :=
   μ (A ∩ B) = μ A * μ B
 
-/-- Wenn A und B unabhängig sind, gilt P(A|B) = P(A). -/
-theorem unabh_implies_condProb_eq
-    (A B : Set Ω)
+/-- Wenn A und B unabhängig sind, gilt μ[A|B] = μ A
+    (bedingte Wahrscheinlichkeit = unbedingte Wahrscheinlichkeit). -/
+theorem unabh_implies_cond_eq
+    (A B : Set Ω) (hB : MeasurableSet B)
     (hB_pos : μ B ≠ 0) (hB_fin : μ B ≠ ⊤)
     (h : StochUnabhaengig μ A B) :
-    condProb μ A B = μ A := by
-  unfold condProb
+    μ[A|B] = μ A := by
+  rw [cond_apply hB, Set.inter_comm]
   unfold StochUnabhaengig at h
   rw [h]
-  rw [ENNReal.mul_div_cancel_right _ hB_pos hB_fin]
+  rw [show (μ B)⁻¹ * (μ A * μ B) = μ A * ((μ B)⁻¹ * μ B) from by ring]
+  rw [ENNReal.inv_mul_cancel hB_pos hB_fin, mul_one]
 
 /-- Die Mathlib-Definition von Unabhängigkeit (`IndepSets`) stimmt
     mit unserer elementaren Definition überein. -/
 example (A B : Set Ω) (hA : MeasurableSet A) (hB : MeasurableSet B)
     (h : IndepSets {A} {B} μ) :
     μ (A ∩ B) = μ A * μ B := by
-  exact h (mem_singleton A) (mem_singleton B)
+  rw [IndepSets_iff] at h
+  exact h A B rfl rfl
 
 
 /-! ================================================================
@@ -212,27 +221,22 @@ inductive MailKlasse where
 
 open MailKlasse
 
-/-- Bedingte Wortwahrscheinlichkeiten: P(Wort_i | Klasse) -/
+/-- Bedingte Wortwahrscheinlichkeiten: P(Wort_i | Klasse) als rationale Zahlen. -/
 structure SpamFilterParams (n : ℕ) where
   /-- P(A_i | Spam) für jedes Wort i -/
   pWortGivenSpam : Fin n → ℚ
   /-- P(A_i | Ham) für jedes Wort i -/
   pWortGivenHam  : Fin n → ℚ
-  /-- Alle Wahrscheinlichkeiten liegen in (0,1) -/
-  hSpam_pos : ∀ i, 0 < pWortGivenSpam i
-  hSpam_lt  : ∀ i, pWortGivenSpam i < 1
-  hHam_pos  : ∀ i, 0 < pWortGivenHam i
-  hHam_lt   : ∀ i, pWortGivenHam i < 1
 
 /-- Naive Bayes Spam-Wahrscheinlichkeit:
     P(S | A₁ ∩...∩ Aₙ) = pS / (pH + pS)
-    wobei pS = ∏ P(Aᵢ|S) und pH = ∏ P(Aᵢ|H) -/
+    wobei pS = ∏ P(Aᵢ|S) und pH = ∏ P(Aᵢ|H)
+    über die vorhandenen Wörter. -/
 def naiveBayesSpamProb {n : ℕ} (params : SpamFilterParams n)
     (woerterVorhanden : Fin n → Bool) : ℚ :=
-  let pS := ∏ i ∈ Finset.univ.filter (fun i => woerterVorhanden i),
-              params.pWortGivenSpam i
-  let pH := ∏ i ∈ Finset.univ.filter (fun i => woerterVorhanden i),
-              params.pWortGivenHam i
+  let indices := Finset.univ.filter (fun i => woerterVorhanden i)
+  let pS := ∏ i ∈ indices, params.pWortGivenSpam i
+  let pH := ∏ i ∈ indices, params.pWortGivenHam i
   pS / (pH + pS)
 
 /-- Bemerkung: P(H | ...) = 1 - P(S | ...) -/
@@ -241,22 +245,31 @@ def naiveBayesHamProb {n : ℕ} (params : SpamFilterParams n)
   1 - naiveBayesSpamProb params woerterVorhanden
 
 /-- Beispiel: 3 Wörter ("reich", "casino", "Vergrösserung")
-    mit fiktiven Wahrscheinlichkeiten. -/
+    mit fiktiven Wahrscheinlichkeiten.
+    P(reich|Spam)=4/5, P(casino|Spam)=7/10, P(vergr|Spam)=3/5
+    P(reich|Ham)=1/10, P(casino|Ham)=1/20, P(vergr|Ham)=1/100 -/
 def beispielParams : SpamFilterParams 3 where
-  pWortGivenSpam := ![0.8, 0.7, 0.6]
-  pWortGivenHam  := ![0.1, 0.05, 0.01]
-  hSpam_pos := by decide
-  hSpam_lt  := by decide
-  hHam_pos  := by decide
-  hHam_lt   := by decide
+  pWortGivenSpam := ![4/5, 7/10, 3/5]
+  pWortGivenHam  := ![1/10, 1/20, 1/100]
 
-/-- Alle drei Wörter kommen vor → hohe Spam-Wahrscheinlichkeit -/
+-- Alle drei Wörter kommen vor → hohe Spam-Wahrscheinlichkeit
 #eval naiveBayesSpamProb beispielParams (fun _ => true)
--- Erwartetes Ergebnis: nahe 1
 
-/-- Kein Wort kommt vor → Produkt ist leer (= 1), also P(S) = 0.5 -/
+-- Kein Wort kommt vor → leeres Produkt (= 1), also P(S) = 1/2
 #eval naiveBayesSpamProb beispielParams (fun _ => false)
--- Erwartetes Ergebnis: 1/2
+
+-- Nur "reich" kommt vor
+#eval naiveBayesSpamProb beispielParams (![true, false, false])
+
+/-- Die Spam-Formel ist korrekt im Sinne: P(S|W) + P(H|W) = 1,
+    vorausgesetzt der Nenner ist nicht 0. -/
+theorem spam_ham_sum_one {n : ℕ} (params : SpamFilterParams n)
+    (w : Fin n → Bool)
+    (hNenner : (∏ i ∈ Finset.univ.filter (fun i => w i), params.pWortGivenHam i) +
+               (∏ i ∈ Finset.univ.filter (fun i => w i), params.pWortGivenSpam i) ≠ 0) :
+    naiveBayesSpamProb params w + naiveBayesHamProb params w = 1 := by
+  unfold naiveBayesHamProb
+  ring
 
 /-! ================================================================
 ## Zusammenfassung der Formeln (Folien-Referenz)

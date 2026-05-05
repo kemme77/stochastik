@@ -37,7 +37,7 @@
 
 
 
-\begin{frame}
+\begin{frame}[shrink=5]
     \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
 \framesubtitle{}
 
@@ -59,7 +59,7 @@ $A^c_{k,n} = Var^n_k(\Omega, o.W.)$,  wobei $\Omega$ die Menge der verfügbaren 
  \end{frame}
 
 
-\begin{frame}
+\begin{frame}[shrink=5]
     \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
 \framesubtitle{}
 
@@ -134,6 +134,131 @@ Für $A,B \in \mathcal{A}$ mit  $P(B) > 0$ gilt
 \end{block}
 
 
+
+ \end{frame}
+
+
+\begin{frame}
+    \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
+\framesubtitle{}
+
+\begin{block}{Bayes'sche Inferenz (Bayesian Inference)}
+Die Formel von Bayes beschreibt, wie wir eine Hypothese $H$ nach Beobachtung von Daten $D$ aktualisieren:
+\begin{align*}
+P(H \mid D) = \frac{P(D \mid H) \cdot P(H)}{P(D)}
+\end{align*}
+Dabei heißen
+\begin{align*}
+&P(H) &&\text{Prior}, \\
+&P(D \mid H) &&\text{Likelihood}, \\
+&P(H \mid D) &&\text{Posterior}.
+\end{align*}
+\end{block}
+
+ \end{frame}
+
+
+\begin{frame}[shrink=5]
+    \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
+\framesubtitle{}
+
+\begin{block}{Interpretation der Bayes'schen Inferenz}
+Wir starten mit einer anfänglichen Einschätzung $P(H)$ über eine Hypothese und passen diese durch neue Daten $D$ an.
+Ist $P(D \mid H)$ groß, dann sprechen die Daten für die Hypothese; ist $P(D \mid H)$ klein, dann spricht das gegen sie.
+\end{block}
+
+\begin{block}{Prior, Likelihood, Posterior}
+\begin{align*}
+&\text{Prior } P(H): &&\text{unsere Einschätzung vor den Daten}, \\
+&\text{Likelihood } P(D \mid H): &&\text{wie gut erklärt } H \text{ die Daten } D, \\
+&\text{Posterior } P(H \mid D): &&\text{unsere Einschätzung nach den Daten}.
+\end{align*}
+Wichtig: Die Likelihood ist nicht $P(H \mid D)$, sondern $P(D \mid H)$. Sie bewertet also die Daten unter der Annahme, dass die Hypothese gilt.
+\end{block}
+
+\begin{block}{Typischer Ablauf}
+\begin{enumerate}
+\item Formuliere mögliche Hypothesen $H_1,\ldots,H_k$.
+\item Lege Prior-Wahrscheinlichkeiten $P(H_i)$ fest.
+\item Modelliere die Datenwahrscheinlichkeit $P(D \mid H_i)$.
+\item Berechne daraus die Posterior-Wahrscheinlichkeiten $P(H_i \mid D)$.
+\item Entscheide z.B. mit der wahrscheinlichsten Hypothese (MAP-Regel).
+\end{enumerate}
+\end{block}
+
+ \end{frame}
+
+
+\begin{frame}[shrink=5]
+    \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
+\framesubtitle{}
+
+\begin{block}{Beispiel: medizinischer Test}
+Sei $H=$ ``Person ist krank'' und $D=$ ``Test ist positiv''.
+Angenommen:
+\begin{align*}
+&P(H)=0.01, \\
+&P(D \mid H)=0.99, \\
+&P(D \mid H^c)=0.05.
+\end{align*}
+Dann ist der Prior klein: Nur $1\%$ der Personen sind krank. Die Likelihood $P(D \mid H)=0.99$ sagt: Wenn jemand krank ist, ist der Test fast immer positiv.
+\end{block}
+
+\begin{block}{Posterior berechnen}
+Mit Bayes folgt
+\begin{align*}
+P(H \mid D)
+&= \frac{P(D \mid H)P(H)}{P(D \mid H)P(H) + P(D \mid H^c)P(H^c)} \\
+&= \frac{0.99 \cdot 0.01}{0.99 \cdot 0.01 + 0.05 \cdot 0.99}
+\approx 0.167.
+\end{align*}
+Obwohl der Test gut ist, liegt die Wahrscheinlichkeit nach einem positiven Test also nur bei etwa $16.7\%$.
+\end{block}
+
+ \end{frame}
+
+
+\begin{frame}[shrink=5]
+    \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
+\framesubtitle{}
+
+\begin{block}{Bayes bei kontinuierlichen Verteilungen}
+Ist der unbekannte Parameter $\Theta$ selbst stetig verteilt, dann arbeiten wir mit Dichten statt mit einzelnen Wahrscheinlichkeiten.
+Für Prior-Dichte $p(\theta)$ und Likelihood-Dichte $f(x \mid \theta)$ gilt nach Beobachtung $X=x$:
+\begin{align*}
+p(\theta \mid x)
+= \frac{f(x \mid \theta)\, p(\theta)}{\int_{-\infty}^{\infty} f(x \mid u)\, p(u)\, du}.
+\end{align*}
+Bei stetigen Verteilungen ist nämlich $P(X=x)=0$; relevant ist daher die Dichte an der beobachteten Stelle $x$.
+\end{block}
+
+ \end{frame}
+
+
+\begin{frame}[shrink=5]
+    \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
+\framesubtitle{}
+
+\begin{block}{Beispiel: Raumtemperatur und Thermometer}
+Sei $\Theta$ die wahre Raumtemperatur in Grad Celsius. Vor der Messung glauben wir, dass die Temperatur meistens in der Nähe von $20^\circ$C liegt:
+\begin{align*}
+\Theta \sim \mathcal N(20,2^2).
+\end{align*}
+Das Thermometer misst nicht perfekt, sondern mit einem Fehler von etwa $1^\circ$C. Also modellieren wir
+\begin{align*}
+X \mid \Theta=\theta \sim \mathcal N(\theta,1^2).
+\end{align*}
+Wenn das Thermometer nun $X=24$ misst, dann ergibt sich als Posterior wieder eine Normalverteilung:
+\begin{align*}
+\Theta \mid X=24 \sim \mathcal N(23.2,0.8).
+\end{align*}
+\end{block}
+
+\begin{block}{Interpretation}
+Der Prior sagt: Vor der Messung erwarten wir ungefähr $20^\circ$C.
+Die Likelihood sagt: Ein Messwert von $24^\circ$C ist besonders plausibel, wenn die wahre Temperatur in der Nähe von $24^\circ$C liegt.
+Der Posterior kombiniert beides: Nach der Messung halten wir Werte um $23.2^\circ$C für am plausibelsten.
+\end{block}
 
  \end{frame}
 
@@ -219,6 +344,34 @@ Bemerkung: $P(E=H |  A_1 \cap \cdots \cap A_n) = 1- P(E=S |  A_1 \cap \cdots \ca
 \end{block}
 
 
+
+ \end{frame}
+
+
+\begin{frame}[shrink=5]
+    \frametitle{Diskrete Wahrscheinlichkeitsverteilung}
+\framesubtitle{}
+
+\begin{block}{Spamfilter als Bayes'sche Inferenz}
+Der naive Bayes-Filter ist ein klassisches Beispiel für Bayes'sche Inferenz:
+\begin{align*}
+&\text{Hypothesen: } H=\text{Ham},\ S=\text{Spam}, \\
+&\text{Daten: } D = A_1 \cap \cdots \cap A_n.
+\end{align*}
+Aus Prior und Likelihoods berechnen wir die Posterior-Wahrscheinlichkeiten
+\begin{align*}
+P(S \mid D), \qquad P(H \mid D).
+\end{align*}
+\end{block}
+
+\begin{block}{Einordnung}
+\begin{itemize}
+\item Prior: $P(S), P(H)$ beschreibt, wie wahrscheinlich Spam oder Ham vor den Wörtern ist.
+\item Likelihood: $P(D \mid S), P(D \mid H)$ misst, wie gut die beobachteten Wörter zu Spam oder Ham passen.
+\item Posterior: $P(S \mid D), P(H \mid D)$ kombiniert beides nach der Bayes-Formel.
+\item Entscheidung: Klassifiziere als Spam, falls $P(S \mid D) > P(H \mid D)$.
+\end{itemize}
+\end{block}
 
  \end{frame}
 
